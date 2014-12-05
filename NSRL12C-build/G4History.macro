@@ -44,10 +44,5 @@
 /vis/viewer/set/autoRefresh true
 /vis/viewer/refresh
 /vis/verbose warnings
-/geometry/test/run
-/gun/energy 2 Gev
-/gun/energy 2 GeV
 /run/beamOn 1
 /vis/scene/notifyHandlers scene-0
-/run/beamOn 1
-/run/beamOn 1

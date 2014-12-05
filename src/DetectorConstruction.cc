@@ -602,24 +602,25 @@ if(FilePtr!=0){
 
   glass_nist->SetMaterialPropertiesTable(MPTsilica);
 
-  G4double RindexBox[nEntries];
-  G4double AbsLenBox[nEntries];
-  G4double ReflBox[nEntries];
-  G4double TransmitEffBox[nEntries];
+  //Set the white teflon's optical properties.
+  G4double Rindex_T1[nEntries];
+  G4double AbsLen_T1[nEntries];
+  G4double Refl_T1[nEntries];
+  G4double TransmitEff_T1[nEntries];
   for(int i = 0; i<nEntries; i++){
-    RindexBox[i] = 1.6;
-    AbsLenBox[i] = 1*nm;
-    ReflBox[nEntries] = 0.05;//0.5% reflectance
-    TransmitEffBox[nEntries] = 0.5;
+    Rindex_T1[i] = 1.36;
+    AbsLen_T1[i] = 4*cm;
+    Refl_T1[i] = 0.9;//0.5% reflectance
+    //    TransmitEff_T1[i] = 0.5;
   }
 
-  G4MaterialPropertiesTable* MPTbox = new G4MaterialPropertiesTable();
-  MPTbox->AddProperty("REFLECTIVITY", PhotonEnergy, ReflBox, nEntries);
-  //MPTbox->AddProperty("EFFICIENCY", PhotonEnergy, TransmitEffBox, nEntries);
-  //MPTbox->AddProperty("RINDEX", PhotonEnergy, RindexBox, nEntries);
-  //MPTbox->AddProperty("ABSLENGTH", PhotonEnergy, AbsLenBox, nEntries);
+  G4MaterialPropertiesTable* MPT_T1 = new G4MaterialPropertiesTable();
+  MPT_T1->AddProperty("REFLECTIVITY", PhotonEnergy, Refl_T1, nEntries);
+  //MPT_T1->AddProperty("EFFICIENCY", PhotonEnergy, TransmitEff_T1, nEntries);
+  MPT_T1->AddProperty("RINDEX", PhotonEnergy, Rindex_T1, nEntries);
+  MPT_T1->AddProperty("ABSLENGTH", PhotonEnergy, AbsLen_T1, nEntries);
 
-  Polystyrene_nist->SetMaterialPropertiesTable(MPTbox);
+  PFTE_white_nist->SetMaterialPropertiesTable(MPT_T1);
 
   //Implement QE data grab here.
   thedata.clear();
@@ -952,7 +953,7 @@ if(FilePtr!=0){
     new G4SubtractionSolid("T2Tub", Tub, T2_win, 0,
 			   G4ThreeVector(0, 0, T2UVTdisp));
   G4LogicalVolume* T2_log = 
-    new G4LogicalVolume(T2Tub, PFTE_white_nist, "T2_log", 0,0,0);
+    new G4LogicalVolume(T2Tub, PFTE_black_nist, "T2_log", 0,0,0);
   G4VPhysicalVolume* T2_phys =
     new G4PVPlacement(0, G4ThreeVector(0,0,0), T2_log,
 		      "T2_phys", AlT2_log, false, 0, false);
@@ -1090,34 +1091,67 @@ if(FilePtr!=0){
 
 
   //////////Do optical surfaces...////////////
-  //G4OpticalSurface* OptSurf_WaterBox =
-  //new G4OpticalSurface("Optical surface, Water-Box", glisur, polished, 
-  //			 dielectric_metal);//I don't want G4 calculating
-  //refractions or reflections at this boundary, so treat box as 'metal'.
-  //G4LogicalBorderSurface* WaterToBox =
-  //new G4LogicalBorderSurface("WaterToBox", liquid_phys, theBox_phys,
-  //			       OptSurf_WaterBox);
+  G4OpticalSurface* OptSurf_T1 =
+    new G4OpticalSurface("Optical surface, Liquid-White PFTE");//,unified,
+  //groundfrontpainted,//Only lambertian reflection + abs. 
+  //			 dielectric_dielectric);
+  //Unified model  
+  OptSurf_T1->SetModel(unified);
+  OptSurf_T1->SetType(dielectric_dielectric);
+  OptSurf_T1->SetFinish(ground);
+  //Using a LUT
+  //OptSurf_T1->SetType(dielectric_LUT);
+  //OptSurf_T1->SetModel(LUT);
+  //OptSurf_T1->SetFinish(polishedteflonair);
+  //Glisur model
+  //OptSurf_T1->SetModel(glisur);
+  //OptSurf_T1->SetType(dielectric_metal);
+  //OptSurf_T1->SetFinish(ground);
+  G4LogicalBorderSurface* WaterToT1 =
+    new G4LogicalBorderSurface("WaterToT1", T1_liq_phys, T1_phys,
+  			       OptSurf_T1);
  
 
-  //G4OpticalSurface* OptSurf_WaterAcrylic =
-  //new G4OpticalSurface("Optical surface, Water-Acrylic");
-  //OptSurf_WaterAcrylic->SetModel(unified);
-  //OptSurf_WaterAcrylic->SetType(dielectric_dielectric);
-  //OptSurf_WaterAcrylic->SetFinish(ground);
-  //OptSurf_WaterAcrylic->SetPolish(0.1);
-  //OptSurf_WaterAcrylic->SetSigmaAlpha(1.);  
+  G4OpticalSurface* OptSurf_T1_outer =
+    new G4OpticalSurface("Optical surface, White PFTE-Air");
+  //Unified model  
+  OptSurf_T1_outer->SetModel(unified);
+  OptSurf_T1_outer->SetType(dielectric_metal);
+  OptSurf_T1_outer->SetFinish(ground);
+  G4LogicalBorderSurface* WaterToT1_outer =
+    new G4LogicalBorderSurface("WaterToT1_outer", T1_phys, physical_world,
+  			       OptSurf_T1_outer);
 
-  //G4LogicalBorderSurface* WaterToAcrylicUp =
-  //new G4LogicalBorderSurface("WaterToAcrylicUp", liquid_phys, windowUp_phys,
-  //			       OptSurf_WaterAcrylic);
+  G4OpticalSurface* OptSurf_T2 =
+    new G4OpticalSurface("Optical surface, Liquid-Black PFTE");
+  //Unified model  
+  OptSurf_T2->SetModel(unified);
+  OptSurf_T2->SetType(dielectric_metal);
+  OptSurf_T2->SetFinish(ground);
+  G4LogicalBorderSurface* WaterToT2 =
+    new G4LogicalBorderSurface("WaterToT2", T2_liq_phys, T2_phys,
+  			       OptSurf_T2);
+
+
+  G4OpticalSurface* OptSurf_WaterAcrylic =
+    new G4OpticalSurface("Optical surface, Water-Acrylic");
+  OptSurf_WaterAcrylic->SetModel(unified);
+  OptSurf_WaterAcrylic->SetType(dielectric_dielectric);
+  OptSurf_WaterAcrylic->SetFinish(polished);
+  OptSurf_WaterAcrylic->SetPolish(0.1);
+  OptSurf_WaterAcrylic->SetSigmaAlpha(1.);  
+
+  G4LogicalBorderSurface* WaterToAcrylicT1 =
+    new G4LogicalBorderSurface("WaterToAcrylicT1", T1_liq_phys, T1_win_phys,
+  			       OptSurf_WaterAcrylic);
   
-  //G4LogicalBorderSurface* WaterToAcrylicDown =
-  //new G4LogicalBorderSurface("WaterToAcrylicDown", liquid_phys, 
-  //			       windowDown_phys, OptSurf_WaterAcrylic);
+  G4LogicalBorderSurface* WaterToAcrylicT2 =
+    new G4LogicalBorderSurface("WaterToAcrylicT2", T2_liq_phys, T2_win_phys,
+			       OptSurf_WaterAcrylic);
   
   
-//G4OpticalSurface* OptSurf_AcrylicAir =
-//new G4OpticalSurface("Optical surface, Acrylic-Air");
+  //G4OpticalSurface* OptSurf_AcrylicAir =
+  //new G4OpticalSurface("Optical surface, Acrylic-Air");
 //OptSurf_AcrylicAir->SetModel(glisur);
 //OptSurf_AcrylicAir->SetType(dielectric_dielectric);
 //OptSurf_AcrylicAir->SetFinish(ground);

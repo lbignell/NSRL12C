@@ -25,3 +25,20 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
   beam hit the centre of the tubs.
 - I should git this code to both keep track of changes and make it accessible 
   between my various machines...
+
+14-12-5
+- Status to date:
+  - Completed the geometry section of DetectorConstruction.
+  - Put code into a Git repository and pushed to GitHub.
+
+- Testing teflon tub optical properties. The optical photons need to traverse
+  the white teflon if Cerenkov light is to be produced in it. So the way that I
+  set up the optical interface must change.
+  --> In my previous code I just had a uniform reflectance from the box that was
+      implemented in SensitiveDetector.
+  --> I can still do this for the black teflon box.
+  --> However for the white one I must use the Geant4 optical surface models.
+      What seems to work is having a ground dielectric-dielectric interface on
+      the liquid/teflon barrier, and a ground dielectric-metal interface on the
+      teflon/air barrier. I can then adjust the reflectance by modifying the
+      attenuation length in the PFTE.

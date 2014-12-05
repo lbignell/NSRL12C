@@ -1,0 +1,2 @@
+/home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles/NSRL12C.dir
+/home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles/NSRL12C_.dir

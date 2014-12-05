@@ -1,0 +1,32 @@
+#include "PGAMessenger.hh"
+#include "PrimaryGeneratorAction.hh"
+#include "G4UIdirectory.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
+
+PGAMessenger::PGAMessenger(PrimaryGeneratorAction* thePGA):PGA(thePGA){
+  //Set up directories
+  Dir = new G4UIdirectory("/CustomPGACommands");
+  Dir->SetGuidance("UI commands to modify the beam");
+
+  YDisplacementCmd = 
+    new G4UIcmdWithADoubleAndUnit("/CustomPGACommands/setYDisplacement", this);
+  YDisplacementCmd->SetGuidance("Set beam displacement along Y-axis");
+  YDisplacementCmd->SetParameterName("Size", false);
+  //YDisplacementCmd->SetRange("Size>=0");
+  YDisplacementCmd->SetUnitCategory("Length");
+  YDisplacementCmd->AvailableforStates(G4State_PreInit, G4State_Idle,
+				       G4State_GeomClosed, G4State_EventProc);
+
+}
+
+PGAMessenger::~PGAMessenger(){
+  delete YDisplacementCmd;
+  delete Dir;
+}
+
+void PGAMessenger::SetNewValue(G4UIcommand* command, G4String newValue){
+  {
+    if(command == YDisplacementCmd){
+      PGA->SetYDisplacement(YDisplacementCmd->GetNewDoubleValue(newValue));
+    }
+  }

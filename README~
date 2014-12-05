@@ -1,0 +1,20 @@
+14/11/9
+- Copied contents from NSRL13C.
+- The intent of this simulation is to replicate the experiment carried out in
+  2012 with the reflective and unreflective tubs.
+
+Things to change:
+
+Geometry: Hodoscopes, detectors, detector wall properties of reflective tub.
+  	  I can use technical drawings but I may still need to rely on David.
+Physics: Should not change.
+Sensitive Detectors: I'll need to make 2 LS volumes sensitive, and assign the
+	  	     PMTup and PMT down SDs to the new PMTs.
+Run Action: Probably needs changing to reflect new SDs, etc.
+Primary Generator: Need to reproduce the beam, and have a user-settable variable
+		   that modifies the height of the beam entry point.
+
+- Created PGAMessenger class to handle adjusting the height of the mean beam
+  position. Tested working.
+- I'm on the plane at the moment, so I'll need to wait until I have internet to
+  get the technical drawings and can implement the geometry changes.

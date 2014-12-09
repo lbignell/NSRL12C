@@ -379,8 +379,7 @@ CMakeFiles/NSRL12C.dir/NSRL12C.cc.o
 CMakeFiles/NSRL12C.dir/src/DetectorConstruction.cc.o
  ../include/DetectorConstruction.hh
  ../include/DetectorMessenger.hh
- ../include/PMTwinDown.hh
- ../include/PMTwinUp.hh
+ ../include/PMTwin.hh
  ../include/SDHodo.hh
  ../include/SensitiveDetector.hh
  /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4CollectionNameVector.hh
@@ -1903,9 +1902,9 @@ CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.o
  /home/lbignell/Geant4/geant4.10.00.p03/source/intercoms/include/G4UItokenNum.hh
  /home/lbignell/Geant4/geant4.10.00.p03/source/run/include/G4VUserPrimaryGeneratorAction.hh
  /home/lbignell/NSRL12C/src/PGAMessenger.cc
-CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o
+CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o
  ../include/DetectorConstruction.hh
- ../include/PMTwinDown.hh
+ ../include/PMTwin.hh
  ../include/RunAction.hh
  /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4CollectionNameVector.hh
  /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4SensitiveVolumeList.hh
@@ -2168,273 +2167,7 @@ CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o
  /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4UserTrackingAction.hh
  /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4VSteppingVerbose.hh
  /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4VTrajectory.hh
- /home/lbignell/NSRL12C/src/PMTwinDown.cc
-CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o
- ../include/DetectorConstruction.hh
- ../include/PMTwinUp.hh
- ../include/RunAction.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4CollectionNameVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4SensitiveVolumeList.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4VReadOutGeometry.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4VSDFilter.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4VSensitiveDetector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/digits/include/G4DCofThisEvent.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/digits/include/G4VDigiCollection.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/hits/include/G4HCofThisEvent.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/hits/include/G4VHit.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/hits/include/G4VHitsCollection.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4ClassificationOfNewTrack.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4Event.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4EventManager.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4PrimaryTransformer.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4SmartTrackStack.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4StackManager.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4StackedTrack.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4TrackStack.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4TrajectoryContainer.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4UserStackingAction.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/G4VUserEventInformation.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/evmandefs.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/evtdefs.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/event/include/trajectoryControl.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/DualRand.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/JamesRandom.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/MTwistEngine.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandBinomial.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandBinomial.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandBit.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandBit.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandBreitWigner.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandBreitWigner.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandChiSquare.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandChiSquare.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandExpZiggurat.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandExponential.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandExponential.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandFlat.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandFlat.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandGamma.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandGamma.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandGauss.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandGauss.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandGaussQ.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandGaussQ.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandGaussZiggurat.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandGeneral.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandGeneral.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandLandau.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandLandau.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandPoisson.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandPoisson.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandPoissonQ.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandPoissonQ.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandStudentT.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandStudentT.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/Random.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/Random.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandomEngine.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RandomEngine.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/Randomize.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RanecuEngine.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/Ranlux64Engine.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RanluxEngine.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Random/RanshiEngine.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Units/PhysicalConstants.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Utility/defs.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Utility/memory.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Utility/noncopyable.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Utility/type_traits.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/AxisAngle.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/AxisAngle.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/LorentzVector.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/LorentzVector.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/Rotation.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/Rotation.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/RotationInterfaces.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/RotationInterfaces.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/RotationX.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/RotationX.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/RotationY.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/RotationY.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/RotationZ.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/RotationZ.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/ThreeVector.h
- /home/lbignell/Geant4/geant4.10.00.p03/source/externals/clhep/include/CLHEP/Vector/ThreeVector.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4AffineTransform.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4AffineTransform.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4BlockingList.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4BlockingList.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4GeomSplitter.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4LogicalVolume.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4LogicalVolume.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4Region.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4Region.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4SmartVoxelHeader.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4SmartVoxelHeader.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4SmartVoxelNode.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4SmartVoxelNode.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4SmartVoxelProxy.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4SmartVoxelProxy.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4TouchableHandle.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4VPVParameterisation.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4VPhysicalVolume.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4VPhysicalVolume.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4VSolid.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4VSolid.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4VTouchable.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4VTouchable.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/G4VVolumeMaterialScanner.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/management/include/geomwdefs.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4AuxiliaryNavServices.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4AuxiliaryNavServices.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4NavigationLogger.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4Navigator.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4Navigator.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4NormalNavigation.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4NormalNavigation.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4ParameterisedNavigation.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4ParameterisedNavigation.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4RegularNavigation.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4ReplicaNavigation.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4ReplicaNavigation.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4VoxelNavigation.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/navigation/include/G4VoxelNavigation.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4EnhancedVecAllocator.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4GRSSolid.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4GRSSolid.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4GRSVolume.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4GRSVolume.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4NavigationHistory.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4NavigationHistory.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4NavigationLevel.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4NavigationLevel.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4NavigationLevelRep.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4NavigationLevelRep.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4TouchableHistory.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4TouchableHistory.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/geometry/volumes/include/G4TouchableHistoryHandle.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPGeometry/include/G4LorentzVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPGeometry/include/geomdefs.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTHepRandom.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTHepRandom.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandBit.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandBit.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandExponential.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandExponential.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandFlat.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandFlat.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandGamma.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandGamma.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandGauss.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandGauss.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandGaussQ.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandGaussQ.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandGeneral.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/G4MTRandGeneral.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/HEPRandom/include/Randomize.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4Allocator.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4AllocatorPool.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4ApplicationState.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4AutoLock.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4DataVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4DataVector.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4ExceptionSeverity.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4FastVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4Log.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4OrderedTable.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4PhysicsModelCatalog.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4PhysicsOrderedFreeVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4PhysicsOrderedFreeVector.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4PhysicsTable.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4PhysicsTable.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4PhysicsVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4PhysicsVector.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4PhysicsVectorType.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4ReferenceCountedHandle.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4RotationMatrix.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4String.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4String.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4SystemOfUnits.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4Threading.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4ThreeVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4Types.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4UnitsTable.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4UnitsTable.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/G4ios.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/globals.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/templates.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/tls.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/global/management/include/windefs.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/intercoms/include/G4UIcommand.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/intercoms/include/G4UIdirectory.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/intercoms/include/G4UImessenger.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/intercoms/include/G4UIparameter.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/intercoms/include/G4UItokenNum.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4Element.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4ElementTable.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4ElementVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4IonisParamElm.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4IonisParamMat.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4Isotope.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4IsotopeVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4Material.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4MaterialPropertiesTable.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4MaterialPropertiesTable.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4MaterialPropertyVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4MaterialTable.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/materials/include/G4SandiaTable.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4DynamicParticle.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4DynamicParticle.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4ElectronOccupancy.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4PDefSplitter.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4ParticleDefinition.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4ParticleDefinition.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4ParticleMomentum.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4ParticleTable.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4ParticleTable.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4ParticleTableIterator.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4PrimaryParticle.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/G4PrimaryVertex.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/particles/management/include/pwdefs.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/processes/management/include/G4ProcessManager.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/processes/management/include/G4ProcessManager.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/processes/management/include/G4ProcessType.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/processes/management/include/G4ProcessVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/processes/management/include/G4ProcessVector.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/processes/management/include/G4VProcess.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/run/include/G4Run.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/run/include/G4RunManager.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/run/include/G4RunManagerKernel.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/run/include/G4UserRunAction.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/run/include/G4VUserDetectorConstruction.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4ForceCondition.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4GPILSelection.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4ParticleChange.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4ParticleChange.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4Step.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4Step.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4StepPoint.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4StepPoint.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4StepStatus.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4SteppingControl.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4Track.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4Track.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4TrackFastVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4TrackStatus.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4TrackVector.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4VParticleChange.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4VParticleChange.icc
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/G4VUserTrackInformation.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/track/include/trkdefs.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4SteppingManager.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4TrackingManager.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4TrackingMessenger.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4UserSteppingAction.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4UserTrackingAction.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4VSteppingVerbose.hh
- /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4VTrajectory.hh
- /home/lbignell/NSRL12C/src/PMTwinUp.cc
+ /home/lbignell/NSRL12C/src/PMTwin.cc
 CMakeFiles/NSRL12C.dir/src/PhysicsList.cc.o
  ../include/LocalINCLIonIonInelasticPhysic.hh
  ../include/LocalIonIonInelasticPhysic.hh
@@ -3716,8 +3449,7 @@ CMakeFiles/NSRL12C.dir/src/SDHodo.cc.o
  /home/lbignell/NSRL12C/src/SDHodo.cc
 CMakeFiles/NSRL12C.dir/src/SensitiveDetector.cc.o
  ../include/DetectorConstruction.hh
- ../include/PMTwinDown.hh
- ../include/PMTwinUp.hh
+ ../include/PMTwin.hh
  ../include/RunAction.hh
  ../include/SDHodo.hh
  ../include/SensitiveDetector.hh

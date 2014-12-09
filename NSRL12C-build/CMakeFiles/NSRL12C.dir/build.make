@@ -95,9 +95,32 @@ CMakeFiles/NSRL12C.dir/src/LocalIonIonInelasticPhysic.cc.o.provides: CMakeFiles/
 
 CMakeFiles/NSRL12C.dir/src/LocalIonIonInelasticPhysic.cc.o.provides.build: CMakeFiles/NSRL12C.dir/src/LocalIonIonInelasticPhysic.cc.o
 
+CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o: CMakeFiles/NSRL12C.dir/flags.make
+CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o: ../src/PMTwin.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o -c /home/lbignell/NSRL12C/src/PMTwin.cc
+
+CMakeFiles/NSRL12C.dir/src/PMTwin.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NSRL12C.dir/src/PMTwin.cc.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/lbignell/NSRL12C/src/PMTwin.cc > CMakeFiles/NSRL12C.dir/src/PMTwin.cc.i
+
+CMakeFiles/NSRL12C.dir/src/PMTwin.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NSRL12C.dir/src/PMTwin.cc.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/lbignell/NSRL12C/src/PMTwin.cc -o CMakeFiles/NSRL12C.dir/src/PMTwin.cc.s
+
+CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o.requires:
+.PHONY : CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o.requires
+
+CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o.provides: CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o.requires
+	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o.provides.build
+.PHONY : CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o.provides
+
+CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o.provides.build: CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o
+
 CMakeFiles/NSRL12C.dir/src/SDHodo.cc.o: CMakeFiles/NSRL12C.dir/flags.make
 CMakeFiles/NSRL12C.dir/src/SDHodo.cc.o: ../src/SDHodo.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/NSRL12C.dir/src/SDHodo.cc.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/NSRL12C.dir/src/SDHodo.cc.o -c /home/lbignell/NSRL12C/src/SDHodo.cc
 
@@ -120,7 +143,7 @@ CMakeFiles/NSRL12C.dir/src/SDHodo.cc.o.provides.build: CMakeFiles/NSRL12C.dir/sr
 
 CMakeFiles/NSRL12C.dir/src/RunAction.cc.o: CMakeFiles/NSRL12C.dir/flags.make
 CMakeFiles/NSRL12C.dir/src/RunAction.cc.o: ../src/RunAction.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/NSRL12C.dir/src/RunAction.cc.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/NSRL12C.dir/src/RunAction.cc.o -c /home/lbignell/NSRL12C/src/RunAction.cc
 
@@ -143,7 +166,7 @@ CMakeFiles/NSRL12C.dir/src/RunAction.cc.o.provides.build: CMakeFiles/NSRL12C.dir
 
 CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o: CMakeFiles/NSRL12C.dir/flags.make
 CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o: ../src/DetectorMessenger.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o -c /home/lbignell/NSRL12C/src/DetectorMessenger.cc
 
@@ -163,29 +186,6 @@ CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o.provides: CMakeFiles/NSRL12C.d
 .PHONY : CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o.provides
 
 CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o.provides.build: CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o
-
-CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o: CMakeFiles/NSRL12C.dir/flags.make
-CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o: ../src/PMTwinUp.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_6)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o -c /home/lbignell/NSRL12C/src/PMTwinUp.cc
-
-CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/lbignell/NSRL12C/src/PMTwinUp.cc > CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.i
-
-CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/lbignell/NSRL12C/src/PMTwinUp.cc -o CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.s
-
-CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o.requires:
-.PHONY : CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o.requires
-
-CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o.provides: CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o.requires
-	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o.provides.build
-.PHONY : CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o.provides
-
-CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o.provides.build: CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o
 
 CMakeFiles/NSRL12C.dir/src/PhysicsListMessenger.cc.o: CMakeFiles/NSRL12C.dir/flags.make
 CMakeFiles/NSRL12C.dir/src/PhysicsListMessenger.cc.o: ../src/PhysicsListMessenger.cc
@@ -325,32 +325,9 @@ CMakeFiles/NSRL12C.dir/src/PhysicsList.cc.o.provides: CMakeFiles/NSRL12C.dir/src
 
 CMakeFiles/NSRL12C.dir/src/PhysicsList.cc.o.provides.build: CMakeFiles/NSRL12C.dir/src/PhysicsList.cc.o
 
-CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o: CMakeFiles/NSRL12C.dir/flags.make
-CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o: ../src/PMTwinDown.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_13)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o -c /home/lbignell/NSRL12C/src/PMTwinDown.cc
-
-CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/lbignell/NSRL12C/src/PMTwinDown.cc > CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.i
-
-CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/lbignell/NSRL12C/src/PMTwinDown.cc -o CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.s
-
-CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o.requires:
-.PHONY : CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o.requires
-
-CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o.provides: CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o.requires
-	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o.provides.build
-.PHONY : CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o.provides
-
-CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o.provides.build: CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o
-
 CMakeFiles/NSRL12C.dir/src/MyCerenkov.cc.o: CMakeFiles/NSRL12C.dir/flags.make
 CMakeFiles/NSRL12C.dir/src/MyCerenkov.cc.o: ../src/MyCerenkov.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/NSRL12C.dir/src/MyCerenkov.cc.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/NSRL12C.dir/src/MyCerenkov.cc.o -c /home/lbignell/NSRL12C/src/MyCerenkov.cc
 
@@ -373,7 +350,7 @@ CMakeFiles/NSRL12C.dir/src/MyCerenkov.cc.o.provides.build: CMakeFiles/NSRL12C.di
 
 CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.o: CMakeFiles/NSRL12C.dir/flags.make
 CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.o: ../src/PGAMessenger.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.o -c /home/lbignell/NSRL12C/src/PGAMessenger.cc
 
@@ -396,7 +373,7 @@ CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.o.provides.build: CMakeFiles/NSRL12C.
 
 CMakeFiles/NSRL12C.dir/src/DetectorConstruction.cc.o: CMakeFiles/NSRL12C.dir/flags.make
 CMakeFiles/NSRL12C.dir/src/DetectorConstruction.cc.o: ../src/DetectorConstruction.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/lbignell/NSRL12C/NSRL12C-build/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/NSRL12C.dir/src/DetectorConstruction.cc.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/NSRL12C.dir/src/DetectorConstruction.cc.o -c /home/lbignell/NSRL12C/src/DetectorConstruction.cc
 
@@ -421,17 +398,16 @@ CMakeFiles/NSRL12C.dir/src/DetectorConstruction.cc.o.provides.build: CMakeFiles/
 NSRL12C_OBJECTS = \
 "CMakeFiles/NSRL12C.dir/NSRL12C.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/LocalIonIonInelasticPhysic.cc.o" \
+"CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/SDHodo.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/RunAction.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o" \
-"CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/PhysicsListMessenger.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/PrimaryGeneratorAction.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/LocalINCLIonIonInelasticPhysic.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/SensitiveDetector.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/MyOpWLS.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/PhysicsList.cc.o" \
-"CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/MyCerenkov.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.o" \
 "CMakeFiles/NSRL12C.dir/src/DetectorConstruction.cc.o"
@@ -441,17 +417,16 @@ NSRL12C_EXTERNAL_OBJECTS =
 
 NSRL12C: CMakeFiles/NSRL12C.dir/NSRL12C.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/LocalIonIonInelasticPhysic.cc.o
+NSRL12C: CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/SDHodo.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/RunAction.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o
-NSRL12C: CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/PhysicsListMessenger.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/PrimaryGeneratorAction.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/LocalINCLIonIonInelasticPhysic.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/SensitiveDetector.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/MyOpWLS.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/PhysicsList.cc.o
-NSRL12C: CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/MyCerenkov.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.o
 NSRL12C: CMakeFiles/NSRL12C.dir/src/DetectorConstruction.cc.o
@@ -529,17 +504,16 @@ CMakeFiles/NSRL12C.dir/build: NSRL12C
 
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/NSRL12C.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/LocalIonIonInelasticPhysic.cc.o.requires
+CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/SDHodo.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/RunAction.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/DetectorMessenger.cc.o.requires
-CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/PhysicsListMessenger.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/PrimaryGeneratorAction.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/LocalINCLIonIonInelasticPhysic.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/SensitiveDetector.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/MyOpWLS.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/PhysicsList.cc.o.requires
-CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/MyCerenkov.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.o.requires
 CMakeFiles/NSRL12C.dir/requires: CMakeFiles/NSRL12C.dir/src/DetectorConstruction.cc.o.requires

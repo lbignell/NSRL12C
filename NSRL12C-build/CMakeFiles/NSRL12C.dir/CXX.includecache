@@ -12,13 +12,7 @@ G4VUserDetectorConstruction.hh
 globals.hh
 ../include/globals.hh
 
-../include/PMTwinDown.hh
-G4VSensitiveDetector.hh
-../include/G4VSensitiveDetector.hh
-G4Run.hh
-../include/G4Run.hh
-
-../include/PMTwinUp.hh
+../include/PMTwin.hh
 G4VSensitiveDetector.hh
 ../include/G4VSensitiveDetector.hh
 G4Run.hh
@@ -36,43 +30,9 @@ TH1D.h
 fstream
 -
 
-../include/SDHodo.hh
-G4VSensitiveDetector.hh
-../include/G4VSensitiveDetector.hh
-G4Run.hh
-../include/G4Run.hh
-
-../include/SensitiveDetector.hh
-G4VSensitiveDetector.hh
-../include/G4VSensitiveDetector.hh
-G4Run.hh
-../include/G4Run.hh
-
 /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4CollectionNameVector.hh
 globals.hh
 /home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/globals.hh
-vector
--
-
-/home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4HCtable.hh
-globals.hh
-/home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/globals.hh
-vector
--
-
-/home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4SDManager.hh
-globals.hh
-/home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/globals.hh
-G4SDStructure.hh
-/home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4SDStructure.hh
-G4HCtable.hh
-/home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4HCtable.hh
-
-/home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4SDStructure.hh
-globals.hh
-/home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/globals.hh
-G4VSensitiveDetector.hh
-/home/lbignell/Geant4/geant4.10.00.p03/source/digits_hits/detector/include/G4VSensitiveDetector.hh
 vector
 -
 
@@ -2050,9 +2010,9 @@ map
 G4ThreeVector.hh
 /home/lbignell/Geant4/geant4.10.00.p03/source/tracking/include/G4ThreeVector.hh
 
-/home/lbignell/NSRL12C/src/SensitiveDetector.cc
-SensitiveDetector.hh
-/home/lbignell/NSRL12C/src/SensitiveDetector.hh
+/home/lbignell/NSRL12C/src/PMTwin.cc
+PMTwin.hh
+/home/lbignell/NSRL12C/src/PMTwin.hh
 G4Step.hh
 /home/lbignell/NSRL12C/src/G4Step.hh
 G4HCofThisEvent.hh
@@ -2073,12 +2033,10 @@ iterator
 -
 G4TrackVector.hh
 /home/lbignell/NSRL12C/src/G4TrackVector.hh
-G4SDManager.hh
-/home/lbignell/NSRL12C/src/G4SDManager.hh
-SDHodo.hh
-/home/lbignell/NSRL12C/src/SDHodo.hh
-PMTwinUp.hh
-/home/lbignell/NSRL12C/src/PMTwinUp.hh
-PMTwinDown.hh
-/home/lbignell/NSRL12C/src/PMTwinDown.hh
+G4TrackStatus.hh
+/home/lbignell/NSRL12C/src/G4TrackStatus.hh
+Randomize.hh
+/home/lbignell/NSRL12C/src/Randomize.hh
+DetectorConstruction.hh
+/home/lbignell/NSRL12C/src/DetectorConstruction.hh
 

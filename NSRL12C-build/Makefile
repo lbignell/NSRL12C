@@ -357,53 +357,29 @@ src/PGAMessenger.cc.s:
 	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PGAMessenger.cc.s
 .PHONY : src/PGAMessenger.cc.s
 
-src/PMTwinDown.o: src/PMTwinDown.cc.o
-.PHONY : src/PMTwinDown.o
+src/PMTwin.o: src/PMTwin.cc.o
+.PHONY : src/PMTwin.o
 
 # target to build an object file
-src/PMTwinDown.cc.o:
-	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.o
-.PHONY : src/PMTwinDown.cc.o
+src/PMTwin.cc.o:
+	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwin.cc.o
+.PHONY : src/PMTwin.cc.o
 
-src/PMTwinDown.i: src/PMTwinDown.cc.i
-.PHONY : src/PMTwinDown.i
-
-# target to preprocess a source file
-src/PMTwinDown.cc.i:
-	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.i
-.PHONY : src/PMTwinDown.cc.i
-
-src/PMTwinDown.s: src/PMTwinDown.cc.s
-.PHONY : src/PMTwinDown.s
-
-# target to generate assembly for a file
-src/PMTwinDown.cc.s:
-	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwinDown.cc.s
-.PHONY : src/PMTwinDown.cc.s
-
-src/PMTwinUp.o: src/PMTwinUp.cc.o
-.PHONY : src/PMTwinUp.o
-
-# target to build an object file
-src/PMTwinUp.cc.o:
-	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.o
-.PHONY : src/PMTwinUp.cc.o
-
-src/PMTwinUp.i: src/PMTwinUp.cc.i
-.PHONY : src/PMTwinUp.i
+src/PMTwin.i: src/PMTwin.cc.i
+.PHONY : src/PMTwin.i
 
 # target to preprocess a source file
-src/PMTwinUp.cc.i:
-	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.i
-.PHONY : src/PMTwinUp.cc.i
+src/PMTwin.cc.i:
+	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwin.cc.i
+.PHONY : src/PMTwin.cc.i
 
-src/PMTwinUp.s: src/PMTwinUp.cc.s
-.PHONY : src/PMTwinUp.s
+src/PMTwin.s: src/PMTwin.cc.s
+.PHONY : src/PMTwin.s
 
 # target to generate assembly for a file
-src/PMTwinUp.cc.s:
-	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwinUp.cc.s
-.PHONY : src/PMTwinUp.cc.s
+src/PMTwin.cc.s:
+	$(MAKE) -f CMakeFiles/NSRL12C.dir/build.make CMakeFiles/NSRL12C.dir/src/PMTwin.cc.s
+.PHONY : src/PMTwin.cc.s
 
 src/PhysicsList.o: src/PhysicsList.cc.o
 .PHONY : src/PhysicsList.o
@@ -587,12 +563,9 @@ help:
 	@echo "... src/PGAMessenger.o"
 	@echo "... src/PGAMessenger.i"
 	@echo "... src/PGAMessenger.s"
-	@echo "... src/PMTwinDown.o"
-	@echo "... src/PMTwinDown.i"
-	@echo "... src/PMTwinDown.s"
-	@echo "... src/PMTwinUp.o"
-	@echo "... src/PMTwinUp.i"
-	@echo "... src/PMTwinUp.s"
+	@echo "... src/PMTwin.o"
+	@echo "... src/PMTwin.i"
+	@echo "... src/PMTwin.s"
 	@echo "... src/PhysicsList.o"
 	@echo "... src/PhysicsList.i"
 	@echo "... src/PhysicsList.s"

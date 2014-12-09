@@ -44,3 +44,23 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
       attenuation length in the PFTE.
       --> I've implemented this.
 
+14-12-9
+- To do:
+  - Modify my RunAction to collect the following info:*DONE*
+    - Incident primary kinetic energy for T1/T2.
+    - Edep in T1/T2/H1/H2/H3.
+    - Vertex X-Y of primary (implement in T1).
+    - Whether the primary particle entered T1/T2/H1/H2/H3.
+    - Total # opt photons in T1/T2.
+    - Opt photon energy on production; T1/T2.
+    - Opt photon creator process; T1/T2.
+    - Opt photon energy at PMT (+ measured); winT1/winT2.
+    - Num Opt photons at PMT (+ measured); winT1/winT2.
+  - Propagate these changes through the program. *DONE*
+  - Recalculate the photon position on the PC surface for the PMTwin class. I
+    should also enable setting the T1 and T2 PMT effective areas as different
+    values.*DONE*
+  - Modify the PGA to reflect the beam profile used in NSRL12C.
+    -> I can't find any relevant docs. I'll ask David when he's back from 
+       holidays. I'll proceed for now assuming the parameters are the same as
+       for NSRL13A.

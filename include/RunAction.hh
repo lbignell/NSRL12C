@@ -35,45 +35,37 @@ private:
 //an ofstream to access the output file
   ofstream outfile;
   TFile* RootOP;
-  TH1D *EdepNoQuench; TH1D* EdepRear;
-
-  TH1D *EdepQuenchPerEvt;
-  TH1D *EdepQuenchPerInt;
+  
   TTree* EdepTree;
 
-  G4int IntType;
-  G4double KinEnIn;
-  G4double totalEdep;
-  G4double TrackLenPrior;
-  G4double TrackLenInVol;
-  G4double VertX;
-  G4double VertY;
-  G4double VertR;
-  G4double HFrontEn;
-  G4double HRearEn;
-  G4bool FrontHazPrimary;
-  G4bool RearHazPrimary;
-  G4int NumOptPhots;
-  vector< vector< G4double > > PhotEnVec;
-  vector< vector< double > > PhotParentIDVec;
-  vector< string > PhotProcVec;
-  vector< vector< double > > PhotWinEn;
-  vector< vector< double > > WinUpDistance;
-  vector< vector< double > > WinDownDistance;
-  vector< vector< double > > PMTUpEn;
-  vector< vector< double > > PMTUpParID;
-  vector< vector< double > > PMTDownEn;
-  vector< vector< double > > PMTDownParID;
-  vector< vector< double > > PMTUpMeasEn;
-  vector< vector< double > > PMTUpMeasParID;
-  vector< vector< double > > PMTDownMeasEn;
-  vector< vector< double > > PMTDownMeasParID;
-  G4double PMTUpNumPhotons;
-  G4double PMTDownNumPhotons;
-  G4double PMTUpMeasPhotons;
-  G4double PMTDownMeasPhotons;
-  //G4double PMTUpPCPhotons;
-  //G4double PMTDownPCPhotons;
+  double KE_T1;
+  double KE_T2;
+  double Edep_H1;
+  double Edep_H2;
+  double Edep_H3;
+  double Edep_T1;
+  double Edep_T2;
+  double VertX;
+  double VertY;
+  bool HazPrimary_H1;
+  bool HazPrimary_H2;
+  bool HazPrimary_H3;
+  bool HazPrimary_T1;
+  bool HazPrimary_T2;
+  unsigned long long int NumOP_T1;
+  unsigned long long int NumOP_T2;
+  vector< vector< double > > OPEn_T1;
+  vector< vector< double > > OPEn_T2;
+  vector< string > OPProc_T1;
+  vector< string > OPProc_T2;
+  vector< vector< double > > OPEn_PMTT1;
+  vector< vector< double > > OPEn_PMTT2;
+  vector< vector< double > > OPEnMeas_PMTT1;
+  vector< vector< double > > OPEnMeas_PMTT2;
+  unsigned long long int NumOP_PMTT1;
+  unsigned long long int NumOP_PMTT2;
+  unsigned long long int MeasNumOP_PMTT1;
+  unsigned long long int MeasNumOP_PMTT2;
 
 //local pointer for detector construction class
     DetectorConstruction* myDC;
@@ -84,52 +76,25 @@ public:
   void BeginOfRunAction(const G4Run*);
   void EndOfRunAction(const G4Run*);
 
-  void TallyEdepNoQuench(const G4double);
-  //void TallyEdepQuenchPerEvt(const G4double);
-  //void TallyEdepQuenchPerInt(const G4double);
-  void TallyEdepRear(const G4double);
-  //Argument list: Interaction type, Kinetic Energy in, Total Edep, Track length
-  //prior to entering liquid, track length in liquid, vertex X, vertex Y, vertR,
-  //Hfront Energy, Hrear Energy, Hfront Primary?, Hrear Primary?,
-  //Tot # of opt photons, Opt Phot Init En Vector,
-  //Opt Phot ParentID, Opt Phot Proc Vector,
-  //Opt Phot En at Window,
-  //COMMENTED OUT Distance from inferred primary track at upstream window,
-  //COMMENTED OUT Distance from inferred primary track at downstream window,
-  //Opt Phot En at upstream PMT,
-  //ParentIDs at upstream PMT,
-  //Opt Phot En at downstream PMT,
-  //ParentIDs at downstream PMT,
-  //# of photons received at upstream PMT,
-  //# of photons received at downstream PMT,
+  //Argument list:
+  //Kinetic Energy (T1/T2), Edep (H1/H2/H3/T1/T2), vertex X, vertex Y,
+  //Primary? (H1/H2/H3/T1/T2), Tot # of opt photons (T1/T2),
+  //OP energy on production (T1/T2),
+  //OP creator process (T1/T2), OP energy at PMT (T1/T2),
+  //measured OP energy at PMT (T1/T2),
+  //# OPs incident on PMT (T1/T2), # OPs measured by PMT (T1/T2).
   //Note: 'Measured' below means hitting Photocathode and after QE has been
   //accounted for.
-  //Measured Opt Phot En at upstream PMT,
-  //Measured ParentIDs at upstream PMT,
-  //Measured Opt Phot En at downstream PMT,
-  //Measured ParentIDs at downstream PMT,
-  //Measued # Photons at upstream PMT,
-  //Measured # photons at downstream PMT.
-  void TallyEvtData(G4int, G4double, G4double, G4double, G4double,
-		    G4double, G4double, G4double,
-		    G4double, G4double, G4bool, G4bool,
-		    G4int, vector< vector< G4double > >&,
-		    vector< vector< double > >&, vector< string >&,
-		    vector< vector< double > >&,
-		    //vector< vector< double > >&,
-		    //vector< vector< double > >&,
-		    vector< vector< double > >&,
-		    vector< vector< double > >&,
-		    vector< vector< double > >&,
-		    vector< vector< double > >&,
-		    G4double,
-		    G4double,
-		    vector< vector< double > >&,
-		    vector< vector< double > >&,
-		    vector< vector< double > >&,
-		    vector< vector< double > >&,
-		    G4double,
-		    G4double);
+  //All vectors of vectors have idx[0] = Ckov, idx[1] = WLS, idx[2] = Scint.
+  void TallyEvtData(double, double, double, double, double, double, double,
+		    double, double, bool, bool, bool, bool, bool,
+		    unsigned long long int, unsigned long long int,
+		    vector< vector< double > >&, vector< vector< double > >&,
+		    vector< string >&, vector< string >&,
+		    vector< vector< double > >&, vector< vector< double > >&,
+		    vector< vector< double > >&, vector< vector< double > >&,
+		    unsigned long long int, unsigned long long int,
+		    unsigned long long int, unsigned long long int);
 
 };
 

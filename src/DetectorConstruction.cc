@@ -1,5 +1,3 @@
-//This will be a simple goemetry just to check and see if I can get it working
-
 #include "DetectorConstruction.hh"
 //include header files for all classes used in the methods
 #include "globals.hh"
@@ -25,8 +23,7 @@
 //for sensitive detector definition
 #include "SensitiveDetector.hh"
 #include "SDHodo.hh"
-#include "PMTwinUp.hh"
-#include "PMTwinDown.hh"
+#include "PMTwin.hh"
 #include "G4SDManager.hh"
 
 #include "G4NistManager.hh"
@@ -1003,6 +1000,15 @@ if(FilePtr!=0){
   VA_PMT_T2->SetForceSolid(true);
   PMT_T2_log->SetVisAttributes(VA_PMT_T2);
 
+  //Make the PMTs sensitive
+  PMTwin* SDPMTT1 = new PMTwin("PMT_T1_log");
+  SDman->AddNewDetector(SDPMTT1);
+  PMT_T1_log->SetSensitiveDetector(SDPMTT1);
+
+  PMTwin* SDPMTT2 = new PMTwin("PMT_T2_log");
+  SDman->AddNewDetector(SDPMTT2);
+  PMT_T2_log->SetSensitiveDetector(SDPMTT2);
+
 
   G4VPhysicalVolume* PMT_T1_phys =
     new G4PVPlacement(RotMat, G4ThreeVector(0, PMTT1Disp, 0), PMT_T1_log,
@@ -1013,89 +1019,8 @@ if(FilePtr!=0){
 		      PMT_T2_log,"PMT_T2_phys", logical_world, false, 0, false);
 
 
-  //Make the PMTs sensitive
 
   /////////////////////////////////////////////////////////////////////////////
-
-  //Create the scintillating volume box.
-  //To make this I need to make a box equal in dimensions to the outer walls of
-  //ABS plastic box, then make another box equal in dimensions to the inner
-  //walls of the ABS plastic box. Then I need to subtract some circular holes
-  //from the wall of this solid, where the UV acrylic goes.
-  //from the technical drawings, the thickness of the ABS is different in
-  //different locations, making my life more difficult...
-  //Outer dimensions:
-  G4double widthOuter = 88.9*mm;
-  G4double heightOuter = 139.48*mm;// = 126.78+12.70 mm
-  G4double depthOuter = 136.36*mm;// = 130 mm (measured) + 2*3.18 mm
-  //Inner dimensions:
-  G4double widthInner =63.5*mm;// = 88.9 - 2*12.7 mm (both walls same thickness)
-  G4double heightInner = 117.25*mm;// = 139.48 - 12.7 - 7.94 - 1.59 mm
-  //(bottom is 12.7 mm, top is 9.53 mm thick, offset by +3.17 mm along y).
-  G4double heightInnerOffset = 3.17*mm;
-  G4double depthInner = 130*mm;//(measured, both walls same thickness).
-  G4double PMTHoleDiam = 57.15*mm;
-  //PMT centre is offset from BOTTOM of vessel by +43.98 mm. This corresponds to
-  //being offset from the centre of the vessel by -25.76 mm.
-  G4double PMTHoleOffset = -25.76*mm;
-
-
-  //create SensitiveDetector object
-  //Upstream PMT
-  //  PMTwinUp* SDPMTup = new PMTwinUp("PMTwinUp_log");
-  //pass new sensitive detector to manager
-  //SDman->AddNewDetector(SDPMTup);
-  //PMTglass_log_1->SetSensitiveDetector(SDPMTup);
-
-  //Downstream PMT
-  //PMTwinDown* SDPMTdown = new PMTwinDown("PMTwinDown_log");
-  //pass new sensitive detector to manager
-  //SDman->AddNewDetector(SDPMTdown);
-  //PMTglass_log_2->SetSensitiveDetector(SDPMTdown);
-
-  //PMT glass has same y-axis offset as acrylic window.
-  //Z offset = +/- (depthOuter/2 + OuterWinThick + PMTglassThick/2)
-  //G4double PMTglassOffset = (depthOuter/2) + OuterWinThick + (PMTglassThick/2);
-
-  //G4VPhysicalVolume* PMTglassUp_phys =
-  //new G4PVPlacement(0, G4ThreeVector(0, (theBoxOffset + PMTHoleOffset),
-  //				       -(PMTglassOffset+PMTGap)),
-  //		      PMTglass_log_1, "PMTglassUp_phys",
-  //		      logical_world, false, 0);
-
-  //G4VPhysicalVolume* PMTglassDown_phys = 
-  //new G4PVPlacement(0, G4ThreeVector(0, (theBoxOffset + PMTHoleOffset),
-  //				       (PMTglassOffset+PMTGap)), PMTglass_log_2,
-  //		      "PMTglassDown_phys", logical_world, false, 0);
-  
-
-  //Now to add the WbLS/water to the mix...
-  //The dimensions of the liquid are identical to those of the inner box volume.
-  //Water case
-  //G4LogicalVolume* liquid_log = new G4LogicalVolume(InnerBox, water_nist,
-  ///						    "liquid_log", 0,0,0);
-  //WbLS case
-  //G4LogicalVolume* liquid_log = new G4LogicalVolume(InnerBox, WbLS,
-  //						    "liquid_log", 0,0,0);
-
-  //Need to register liquid as sensitive detector...
-  //SensitiveDetector* SDLiquid = new SensitiveDetector("liquid_log");
-  //get pointer to the sensitive detector manager: this class is used by
-  //pass to manager
-  //SDman->AddNewDetector(SDLiquid);
-
-  //now we pass the sensitive detector pointer to the logical volume of our 
-  //scoring volume
-  //liquid_log->SetSensitiveDetector(SDLiquid);
-
-
-  //The liquid placement vector will be the same as the subtraction solid used
-  //to create the space for it in the first place.
-  //G4VPhysicalVolume* liquid_phys =
-  //new G4PVPlacement(0, G4ThreeVector(0, theBoxOffset + heightInnerOffset, 0),
-  //		      liquid_log, "liquid_phys", logical_world, false, 0);
-
-
   //////////Do optical surfaces...////////////
   G4OpticalSurface* OptSurf_T1 =
     new G4OpticalSurface("Optical surface, Liquid-White PFTE");//,unified,

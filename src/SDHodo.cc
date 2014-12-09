@@ -29,6 +29,8 @@ G4bool SDHodo::HadPrimary(){return HazPrimary;}
 
 G4bool SDHodo::ProcessHits(G4Step* theStep, G4TouchableHistory*){
 
+  //Set the addresses of the branches.
+
   if(theStep->GetTrack()->GetTrackID()==1){
     HazPrimary = true;
   }

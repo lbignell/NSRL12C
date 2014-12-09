@@ -42,3 +42,5 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
       the liquid/teflon barrier, and a ground dielectric-metal interface on the
       teflon/air barrier. I can then adjust the reflectance by modifying the
       attenuation length in the PFTE.
+      --> I've implemented this.
+

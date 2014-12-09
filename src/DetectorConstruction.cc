@@ -908,6 +908,9 @@ if(FilePtr!=0){
 		      T1_log, false, 0, false);
 
   //Create SD for T1 liquid
+  SensitiveDetector* SDT1 = new SensitiveDetector("T1_log");
+  SDman->AddNewDetector(SDT1);
+  T1_liq_log->SetSensitiveDetector(SDT1);
 
   //Create the UVT acrylic window.
   G4Tubs* T1_win = new G4Tubs("T1_win", 0, UVTdiam/2, T1UVTheight/2, 0,360*deg);
@@ -968,6 +971,9 @@ if(FilePtr!=0){
 		      T2_log, false, 0, false);
 
   //Create SD for T2 liquid
+  SensitiveDetector* SDT2 = new SensitiveDetector("T2_log");
+  SDman->AddNewDetector(SDT2);
+  T2_liq_log->SetSensitiveDetector(SDT2);
 
   //Create PMTs. 
   //According to Hamamatsu, diam = 52 mm.

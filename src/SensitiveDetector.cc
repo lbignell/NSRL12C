@@ -254,30 +254,6 @@ G4bool SensitiveDetector::ProcessHits(G4Step* theStep, G4TouchableHistory*){
       ProcVec.push_back(theStep->GetPostStepPoint()->GetProcessDefinedStep()
 			->GetProcessName());
 
-
-
-      //////////////////////////////////////////////////////////////////////////
-      //The code below is no longer in use; the QY is now implmented in the
-      //MyOpWLS class.
-
-      //if(theStep->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName()
-      // == "OpWLS"){
-	//Apply QY to WLS photons.
-	//Rather than fixed QY, implement QY as function of exciting photon En.
-	//if(SampleQY(theStep->GetTrack()->GetVertexKineticEnergy())){
-	  //do nothing?
-
-	//Or, turn off process
-	//if(false){
-
-	//}
-	//else{
-	//theStep->GetTrack()->SetTrackStatus(fKillTrackAndSecondaries);
-	//return true;
-	//}
-      //}
-      //////////////////////////////////////////////////////////////////////////
-
     }
     //Also need to cover the case where the post step point lands in the
     //UVT Acrylic
@@ -379,8 +355,10 @@ G4bool SensitiveDetector::ProcessHits(G4Step* theStep, G4TouchableHistory*){
 
 
     }
-    else if(theStep->GetPostStepPoint()->GetMaterial()->GetName()
-	    == "G4_POLYSTYRENE"){
+    //else if(theStep->GetPostStepPoint()->GetMaterial()->GetName()
+    //	    == "G4_POLYSTYRENE"){
+    else if(theStep->GetPostStepPoint()->GetPhysicalVolume()->GetName()
+	    =="T2_phys"){
       //Implement the reflection probability.
       G4double ReflProb = 0.0;// = 0.065;
       if(G4UniformRand()<ReflProb){
@@ -392,6 +370,12 @@ G4bool SensitiveDetector::ProcessHits(G4Step* theStep, G4TouchableHistory*){
       }
 
     }
+    //    else if(theStep->GetPostStepPoint()->GetMaterial()->GetName()
+    //	    !="G4_WATER"){
+    //cout << "PV at boundary = "
+    //	   << theStep->GetPostStepPoint()->GetPhysicalVolume()->GetName()
+    //	   << endl;
+    //}
   }
   
   return true;  
@@ -426,23 +410,23 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent*){
       G4double EnH3 = pH3->GetEdep();
       G4bool HPH3 = pH3->HadPrimary();
 
-      PMTwinUp* PMTup = (PMTwinUp*)SDman->FindSensitiveDetector("PMTwinUp_log");
-      vector< vector< double > > PMTEnUp = PMTup->GetEnSpec();
-      vector< vector< double > > ParIDUp = PMTup->GetParentIDs();
-      vector< vector< double > > MeasPMTEnUp = PMTup->GetMeasEnSpec();
-      vector< vector< double > > MeasParIDUp = PMTup->GetMeasParentIDs();
-      G4double PhotonsUp = PMTup->GetTotalPhotons();
-      G4double MeasPhotonsUp = PMTup->GetMeasPhotons();
+      //PMTwinUp* PMTup = (PMTwinUp*)SDman->FindSensitiveDetector("PMTwinUp_log");
+      //vector< vector< double > > PMTEnUp = PMTup->GetEnSpec();
+      //vector< vector< double > > ParIDUp = PMTup->GetParentIDs();
+      //vector< vector< double > > MeasPMTEnUp = PMTup->GetMeasEnSpec();
+      //vector< vector< double > > MeasParIDUp = PMTup->GetMeasParentIDs();
+      //G4double PhotonsUp = PMTup->GetTotalPhotons();
+      //G4double MeasPhotonsUp = PMTup->GetMeasPhotons();
       //G4double PhotsOnPCUp = PMTup->GetPhotsOnPhotoCathode();
 
-      PMTwinDown* PMTdown = 
-	(PMTwinDown*)SDman->FindSensitiveDetector("PMTwinDown_log");
-      vector< vector< double > > PMTEnDown = PMTdown->GetEnSpec();
-      vector< vector< double > > ParIDDown = PMTdown->GetParentIDs();
-      vector< vector< double > > MeasPMTEnDown = PMTdown->GetMeasEnSpec();
-      vector< vector< double > > MeasParIDDown = PMTdown->GetMeasParentIDs();
-      G4double PhotonsDown = PMTdown->GetTotalPhotons();
-      G4double MeasPhotonsDown = PMTdown->GetMeasPhotons();
+      //PMTwinDown* PMTdown = 
+      //(PMTwinDown*)SDman->FindSensitiveDetector("PMTwinDown_log");
+      //vector< vector< double > > PMTEnDown = PMTdown->GetEnSpec();
+      //vector< vector< double > > ParIDDown = PMTdown->GetParentIDs();
+      //vector< vector< double > > MeasPMTEnDown = PMTdown->GetMeasEnSpec();
+      //vector< vector< double > > MeasParIDDown = PMTdown->GetMeasParentIDs();
+      //G4double PhotonsDown = PMTdown->GetTotalPhotons();
+      //G4double MeasPhotonsDown = PMTdown->GetMeasPhotons();
       //G4double PhotsOnPCDown = PMTdown->GetPhotsOnPhotoCathode();
 
   //Maybe I should define my tree in initialisation and make it
@@ -450,17 +434,17 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent*){
 
 
       //G4cout << "Num Opt Photons (SD) = " << TotOptPhotons << G4endl;
-      myRunAction->TallyEvtData(EvtType, KinEnIn, EdepThisEventUnquenched,
-				TrackLenPrior, TrackLenInVol,
-				VertexX, VertexY, VertexR,
-				EnH1, EnH2, HPH1, HPH2,//Need to add H3!!!
-				TotOptPhotons, InitEnVec, ParentIDVec,
-				ProcVec, WinEnVec, //distVecUp, distVecDown,
-				PMTEnUp, ParIDUp, PMTEnDown, ParIDDown,
-				PhotonsUp, PhotonsDown,
-				MeasPMTEnUp, MeasParIDUp,
-				MeasPMTEnDown, MeasParIDDown,
-				MeasPhotonsUp, MeasPhotonsDown);
+      //myRunAction->TallyEvtData(EvtType, KinEnIn, EdepThisEventUnquenched,
+      //			TrackLenPrior, TrackLenInVol,
+      //			VertexX, VertexY, VertexR,
+      //			EnH1, EnH2, HPH1, HPH2,//Need to add H3!!!
+				  //			TotOptPhotons, InitEnVec, ParentIDVec,//
+      //		ProcVec, WinEnVec, //distVecUp, distVecDown,
+			  //			PMTEnUp, ParIDUp, PMTEnDown, ParIDDown,//
+      //			PhotonsUp, PhotonsDown,
+      //			MeasPMTEnUp, MeasParIDUp,
+      //			MeasPMTEnDown, MeasParIDDown,
+      //			MeasPhotonsUp, MeasPhotonsDown);
 
     }
   }

@@ -242,6 +242,14 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent*){
       vector< vector< double > > MeasPMTEnT2 = PMTT2->GetMeasEnSpec();
       G4double PhotonsT2 = PMTT2->GetTotalPhotons();
       G4double MeasPhotonsT2 = PMTT2->GetMeasPhotons();
+
+      cout << "T1 generated = " << TotOptPhotons << endl
+	   << "T1 at PMTwin = " << PhotonsT1 << endl
+	   << "T1 measured  = " << MeasPhotonsT1 << endl
+	   << "T2 generated = " << pT2->GetNumOP() << endl
+	   << "T2 at PMTwin = " << PhotonsT2 << endl
+	   << "T2 measured  = " << MeasPhotonsT2 << endl
+	   << "###########################" << endl;
       
       //See RunAction.hh for a list of arguments
       myRunAction->

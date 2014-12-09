@@ -112,7 +112,8 @@ G4bool PMTwin::ProcessHits(G4Step* theStep, G4TouchableHistory*){
     G4double PhotZ = AbsPhotZ-CentreZ;
     G4double PhotR = sqrt(PhotX*PhotX+PhotZ*PhotZ);
 
-    if(PhotR>(51*mm/2))
+    //I'll give it 1mm of leeway to avoid spurious warnings.
+    if(PhotR>(52*mm/2))
       {cout << "PMTwin::PhotR is too big! PhotR = " << PhotR << endl;}
     
     //Add a semi-arbitrary inefficiency factor to the PMT response, to

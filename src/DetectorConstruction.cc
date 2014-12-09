@@ -604,10 +604,12 @@ if(FilePtr!=0){
   G4double AbsLen_T1[nEntries];
   G4double Refl_T1[nEntries];
   G4double TransmitEff_T1[nEntries];
+  G4double Rayleigh[nEntries];
   for(int i = 0; i<nEntries; i++){
     Rindex_T1[i] = 1.36;
-    AbsLen_T1[i] = 4*cm;
-    Refl_T1[i] = 0.9;//0.5% reflectance
+    AbsLen_T1[i] = 30*cm;
+    Refl_T1[i] = 1;
+    Rayleigh[i] = 1*cm;
     //    TransmitEff_T1[i] = 0.5;
   }
 
@@ -616,6 +618,7 @@ if(FilePtr!=0){
   //MPT_T1->AddProperty("EFFICIENCY", PhotonEnergy, TransmitEff_T1, nEntries);
   MPT_T1->AddProperty("RINDEX", PhotonEnergy, Rindex_T1, nEntries);
   MPT_T1->AddProperty("ABSLENGTH", PhotonEnergy, AbsLen_T1, nEntries);
+  MPT_T1->AddProperty("RAYLEIGH", PhotonEnergy, Rayleigh, nEntries);
 
   PFTE_white_nist->SetMaterialPropertiesTable(MPT_T1);
 
@@ -679,37 +682,6 @@ if(FilePtr!=0){
 
   //Now get the WbLS absorption
   thedata.clear();
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs.csv", "r");
-  //Extrap to benzene abs data, then approximate benzene trend.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs_ExtrapExtrapDown.csv", "r");
-  //Extrap to scaled benzene data, then follow water abs.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs_ExtrapFollowWater.csv", "r");
-  //Extrap short wavelength absorption, then assume constant for shorter.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs_ExtrapFlat.csv", "r");
-  //Extrap to unscaled benzene data, then remain constant.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs_ExtrapFlatScaleOnlyDilution.csv", "r");
-  //Assume 4x concentration of abs data, benzene @ short w/L then flat
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLS4xAbs_BenzeneShortWLFlat.csv", "r");
-  //Assume 8x concentration of abs data, benzene @ short w/L then flat
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLS8xAbs_BenzeneShortWLFlat.csv", "r");
-  //Assume 100x concentration of abs data, benzene @ short w/L then flat
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLS100xAbs_BenzeneShortWLFlat.csv", "r");
-  //Assume 1000x concentration of abs data, benzene @ short w/L then flat
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLS1000xAbs_BenzeneShortWLFlat.csv", "r");
-  //Assume 10000x concentration of abs data, benzene @ short w/L then flat
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLS10000xAbs_BenzeneShortWLFlat.csv", "r");
-  //Normalise to DAYA BAY water, extrap to Benzene@short w/L then flat.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbsDBwater_ExtrapFlatBenzene.csv", "r");
-  //Normalise to 10x DAYA BAY water, extrap to Benzene@short w/L then flat.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs10xDBwater_ExtrapFlatBenzene.csv", "r");
-  //Normalise to 100x DAYA BAY water, extrap to Benzene@short w/L then flat.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs100xDBwater_ExtrapFlatBenzene.csv", "r");
-  //Normalise to 500x DAYA BAY water, extrap to Benzene@short w/L then flat.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs500xDBwater_ExtrapFlatBenzene.csv", "r");
-  //Normalise to 500x DAYA BAY water, extrap to Benzene@short w/L then flat.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs700xDBwater_ExtrapFlatBenzene.csv", "r");
-  //Normalise to 1000x DAYA BAY water, extrap to Benzene@short w/L then flat.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSExtraAbs1000xDBwater_ExtrapFlatBenzene.csv", "r");
   //2011 WbLS, normalise to DB water.
   //FilePtr = fopen("/home/lbignell/ScintData/2011WbLS_DBwater.csv", "r");
   //Corrected 2011 WbLS for fluorescence

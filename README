@@ -64,3 +64,4 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
     -> I can't find any relevant docs. I'll ask David when he's back from 
        holidays. I'll proceed for now assuming the parameters are the same as
        for NSRL13A.
+  - Add Rayleigh scattering length to teflon.

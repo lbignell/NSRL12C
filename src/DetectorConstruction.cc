@@ -607,9 +607,9 @@ if(FilePtr!=0){
   G4double Rayleigh[nEntries];
   for(int i = 0; i<nEntries; i++){
     Rindex_T1[i] = 1.36;
-    AbsLen_T1[i] = 30*cm;
+    AbsLen_T1[i] = 100*cm;
     Refl_T1[i] = 1;
-    Rayleigh[i] = 1*cm;
+    //Rayleigh[i] = 0.01*cm;
     //    TransmitEff_T1[i] = 0.5;
   }
 
@@ -618,7 +618,7 @@ if(FilePtr!=0){
   //MPT_T1->AddProperty("EFFICIENCY", PhotonEnergy, TransmitEff_T1, nEntries);
   MPT_T1->AddProperty("RINDEX", PhotonEnergy, Rindex_T1, nEntries);
   MPT_T1->AddProperty("ABSLENGTH", PhotonEnergy, AbsLen_T1, nEntries);
-  MPT_T1->AddProperty("RAYLEIGH", PhotonEnergy, Rayleigh, nEntries);
+  //MPT_T1->AddProperty("RAYLEIGH", PhotonEnergy, Rayleigh, nEntries);
 
   PFTE_white_nist->SetMaterialPropertiesTable(MPT_T1);
 

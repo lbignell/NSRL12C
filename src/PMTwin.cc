@@ -54,8 +54,8 @@ vector< vector< double > >& PMTwin::GetMeasEnSpec()
 {return PMTFirePhotEnIn_nm;}
 vector< vector< double > >& PMTwin::GetMeasParentIDs()
 {return PMTFireParentID;}
-G4double PMTwin::GetTotalPhotons(){return TotPhotons;}
-G4double PMTwin::GetMeasPhotons(){return MeasPhotons;}
+unsigned long long int PMTwin::GetTotalPhotons(){return TotPhotons;}
+unsigned long long int PMTwin::GetMeasPhotons(){return MeasPhotons;}
 G4double PMTwin::GetPhotsOnPhotoCathode(){return PCphotons;}
 
 

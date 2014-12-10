@@ -81,7 +81,14 @@ G4bool SensitiveDetector::ProcessHits(G4Step* theStep, G4TouchableHistory*){
      ){
     //Set the TrackID to avoid repeatedly counting particles.
     TrackID = theStep->GetTrack()->GetTrackID();
-    KinEnIn += theStep->GetPreStepPoint()->GetKineticEnergy();
+    //There are some issues with the way KinEnIn is tallied (sometimes a
+    //particle's kinetic energy is counted twice; leading to incident KE greater
+    //than the primary particle's energy.
+    //I can avoid many of these events by just avoiding counting the primary
+    //particle more than once; as below...
+    if(!((theStep->GetTrack()->GetTrackID()==1)&&(hazPrimary))){
+      KinEnIn += theStep->GetPreStepPoint()->GetKineticEnergy();
+    }
     if(theStep->GetTrack()->GetTrackID()==1){hazPrimary = true;}
 
     //This only captures the vertex of the first particle entering; which in
@@ -234,22 +241,22 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent*){
       PMTwin* PMTT1 = (PMTwin*)SDman->FindSensitiveDetector("PMT_T1_log");
       vector< vector< double > > PMTEnT1 = PMTT1->GetEnSpec();
       vector< vector< double > > MeasPMTEnT1 = PMTT1->GetMeasEnSpec();
-      G4double PhotonsT1 = PMTT1->GetTotalPhotons();
-      G4double MeasPhotonsT1 = PMTT1->GetMeasPhotons();
+      unsigned long long int PhotonsT1 = PMTT1->GetTotalPhotons();
+      unsigned long long int MeasPhotonsT1 = PMTT1->GetMeasPhotons();
       
       PMTwin* PMTT2 = (PMTwin*)SDman->FindSensitiveDetector("PMT_T2_log");
       vector< vector< double > > PMTEnT2 = PMTT2->GetEnSpec();
       vector< vector< double > > MeasPMTEnT2 = PMTT2->GetMeasEnSpec();
-      G4double PhotonsT2 = PMTT2->GetTotalPhotons();
-      G4double MeasPhotonsT2 = PMTT2->GetMeasPhotons();
+      unsigned long long int PhotonsT2 = PMTT2->GetTotalPhotons();
+      unsigned long long int MeasPhotonsT2 = PMTT2->GetMeasPhotons();
 
-      cout << "T1 generated = " << TotOptPhotons << endl
-	   << "T1 at PMTwin = " << PhotonsT1 << endl
-	   << "T1 measured  = " << MeasPhotonsT1 << endl
-	   << "T2 generated = " << pT2->GetNumOP() << endl
-	   << "T2 at PMTwin = " << PhotonsT2 << endl
-	   << "T2 measured  = " << MeasPhotonsT2 << endl
-	   << "###########################" << endl;
+      //cout << "T1 generated = " << TotOptPhotons << endl
+      //   << "T1 at PMTwin = " << PhotonsT1 << endl
+      //   << "T1 measured  = " << MeasPhotonsT1 << endl
+      //   << "T2 generated = " << pT2->GetNumOP() << endl
+      //   << "T2 at PMTwin = " << PhotonsT2 << endl
+      //   << "T2 measured  = " << MeasPhotonsT2 << endl
+      //   << "###########################" << endl;
       
       //See RunAction.hh for a list of arguments
       myRunAction->

@@ -29,8 +29,8 @@ public:
   vector< vector< double > >& GetParentIDs();
   vector< vector< double > >& GetMeasEnSpec();
   vector< vector< double > >& GetMeasParentIDs();
-  G4double GetTotalPhotons();
-  G4double GetMeasPhotons();
+  unsigned long long int GetTotalPhotons();
+  unsigned long long int GetMeasPhotons();
   G4double GetPhotsOnPhotoCathode();
 
   G4bool PMTHazFired(G4double);//Argument is Opt photon wavelength in MeV.
@@ -48,8 +48,8 @@ private:
   vector< vector< double > > PMTFirePhotEnIn_nm;
   vector< vector< double > > PMTFireParentID;
 
-  G4double TotPhotons;
-  G4double MeasPhotons;
+  unsigned long long int TotPhotons;
+  unsigned long long int MeasPhotons;
   G4double PCphotons;
   G4int TrackID;
   string TubName;

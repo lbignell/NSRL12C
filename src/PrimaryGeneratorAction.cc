@@ -35,7 +35,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(){
   gun = new G4ParticleGun(1);
   gun->SetParticleDefinition(G4Proton::ProtonDefinition());
   G4double EnergySigma = 0.3*MeV;
-  G4double BeamEn = 0.210*GeV;
+  G4double BeamEn = 0.475*GeV;
   G4double EnSpread = 
     EnergySigma*sqrt(-2*log(G4UniformRand()))*cos(2*M_PI*G4UniformRand());
   gun->SetParticleEnergy(BeamEn+EnSpread);
@@ -69,7 +69,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent){
   
   //Need to randomise the beam energy.
   G4double EnergySigma = 0.3*MeV;
-  G4double BeamEn = 0.210*GeV;
+  G4double BeamEn = 0.475*GeV;
   G4double EnSpread = 
     EnergySigma*sqrt(-2*log(G4UniformRand()))*cos(2*M_PI*G4UniformRand());
   gun->SetParticleEnergy(BeamEn+EnSpread);

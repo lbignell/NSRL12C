@@ -409,7 +409,12 @@ void PhysicsList::ConstructOp()
   // Use Birks Correction in the Scintillation process
 
   //load the Ex/Em data into memory:
-  fWLSProcess->SetExEmData("/home/lbignell/ScintData/ExEmMatrix.root");
+  //Get the path to the data files.
+  char* DataPath = getenv("DATAFILES");
+  char name[512];
+  strcpy(name, DataPath);
+  strcat(name, "/ExEmMatrix.root");
+  fWLSProcess->SetExEmData(name);
 
   G4EmSaturation* emSaturation = G4LossTableManager::Instance()->EmSaturation();
   fScintillationProcess->AddSaturation(emSaturation);

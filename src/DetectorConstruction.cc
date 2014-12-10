@@ -19,6 +19,8 @@
 #include "G4Isotope.hh"
 #include "G4SystemOfUnits.hh"
 #include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 //for sensitive detector definition
 #include "SensitiveDetector.hh"
@@ -258,6 +260,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   AlAlloy->AddElement(elZn, 0.05*perCent);
   AlAlloy->AddElement(elTi, 0.05*perCent);
 
+  /////////////////////////////////////////////////////////////////////////////
+  //Get the path to the data files.
+  char* DataPath = getenv("DATAFILES");
+  /////////////////////////////////////////////////////////////////////////////
 
 
   //Getting data to fill the acrylic MPT.
@@ -266,7 +272,11 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   //Test out the capability of the function to read out the data from the opt
   //property files.
   //cout << "Reading data from optical property file" << G4endl;
-  FILE* FilePtr = fopen("/home/lbignell/ScintData/acrylic_abslength.vec", "r");
+  char name1[512];
+  strcpy(name1, DataPath);
+  strcat(name1, "/acrylic_abslength.vec");
+  //FILE* FilePtr = fopen("$DATAFILES/acrylic_abslength.vec", "r");
+  FILE* FilePtr = fopen(name1, "r");
   //FILE* FilePtr = fopen("r7723.vec", "r");
   cout << "File open! Pointer = " << FilePtr << G4endl;
   //vector < vector < double > >& thedata;
@@ -306,7 +316,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   thedata.clear();
 
   //Read out the acryling refractive index data
-  FilePtr = fopen("/home/lbignell/ScintData/acrylic_rindex.vec", "r");
+  char name2[512];
+  strcpy(name2, DataPath);
+  strcat(name2, "/acrylic_rindex.vec");
+  FilePtr = fopen(name2, "r");
   if(FilePtr!=0){
     GetOptInfo(FilePtr, 1);
   }
@@ -348,9 +361,13 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   G4MaterialPropertiesTable* MPTWbLS = new G4MaterialPropertiesTable();
 
   thedata.clear();
-  //FilePtr = fopen("/home/lbignell/ScintData/water_abslength.vec", "r");
-  //FilePtr = fopen("/home/lbignell/ScintData/WaterAbsSeg_FULL.csv", "r");
-  FilePtr = fopen("/home/lbignell/ScintData/WaterAbsSeg_PARTIAL2.csv", "r");
+  //FilePtr = fopen("$DATAFILES/water_abslength.vec", "r");
+  //FilePtr = fopen("$DATAFILES/WaterAbsSeg_FULL.csv", "r");
+  char name3[512];
+  strcpy(name3, DataPath);
+  strcat(name3, "/WaterAbsSeg_PARTIAL2.csv");
+  FilePtr = fopen(name3, "r");
+  //FilePtr = fopen("$DATAFILES/WaterAbsSeg_PARTIAL2.csv", "r");
 
   if(FilePtr!=0){
     GetOptInfo(FilePtr, 1*mm);
@@ -385,11 +402,15 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   MPTWbLS->AddProperty("ABSLENGTH", En3, AbsLen3, size3);
 
   thedata.clear();
-  //FilePtr = fopen("/home/lbignell/ScintData/water_rindex.vec", "r");
-  //FilePtr = fopen("/home/lbignell/ScintData/water_rindex_edit.vec", "r");
-  //FilePtr = fopen("/home/lbignell/ScintData/WaterRindexSeg_FULL.csv", "r");
-  FilePtr = fopen("/home/lbignell/ScintData/WaterRindexSeg_PARTIAL2.csv", "r");
-  //FilePtr = fopen("/home/lbignell/ScintData/WaterRindexSeg_Sub10pc.csv", "r");
+  //FilePtr = fopen("$DATAFILES/water_rindex.vec", "r");
+  //FilePtr = fopen("$DATAFILES/water_rindex_edit.vec", "r");
+  //FilePtr = fopen("$DATAFILES/WaterRindexSeg_FULL.csv", "r");
+  char name4[512];
+  strcpy(name4, DataPath);
+  strcat(name4, "/WaterRindexSeg_PARTIAL2.csv");
+  FilePtr = fopen(name4, "r");
+  //FilePtr = fopen("$DATAFILES/WaterRindexSeg_PARTIAL2.csv", "r");
+  //FilePtr = fopen("$DATAFILES/WaterRindexSeg_Sub10pc.csv", "r");
 
 if(FilePtr!=0){
 
@@ -436,9 +457,13 @@ if(FilePtr!=0){
   //This is the WLS photon energy spectrum.
   //It has not been normalised.
   thedata.clear();
-  FilePtr = fopen("/home/lbignell/ScintData/WbLSem.csv", "r");
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSemExtrap.csv", "r");
-  //FilePtr = fopen("/home/lbignell/ScintData/scintillator_fastcomponent.vec", "r");
+  char name5[512];
+  strcpy(name5, DataPath);
+  strcat(name5, "/WbLSem.csv");
+  FilePtr = fopen(name5, "r");
+  //FilePtr = fopen("$DATAFILES/WbLSem.csv", "r");
+  //FilePtr = fopen("$DATAFILES/WbLSemExtrap.csv", "r");
+  //FilePtr = fopen("$DATAFILES/scintillator_fastcomponent.vec", "r");
   if(FilePtr!=0){
     GetOptInfo(FilePtr, 1);
   }
@@ -469,9 +494,13 @@ if(FilePtr!=0){
   //This is the Scint photon energy spectrum.
   //It has not been normalised.
   thedata.clear();
-  FilePtr = fopen("/home/lbignell/ScintData/WbLSFluorSpecNew.csv", "r");//New data taken on the fluor spec.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSem.csv", "r");
-  //FilePtr = fopen("/home/lbignell/ScintData/scintillator_fastcomponent.vec", "r");
+  char name6[512];
+  strcpy(name6, DataPath);
+  strcat(name6, "/WbLSFluorSpecNew.csv");
+  FilePtr = fopen(name6, "r");
+  //FilePtr = fopen("$DATAFILES/WbLSFluorSpecNew.csv", "r");//New data taken on the fluor spec.
+  //FilePtr = fopen("$DATAFILES/WbLSem.csv", "r");
+  //FilePtr = fopen("$DATAFILES/scintillator_fastcomponent.vec", "r");
   if(FilePtr!=0){
     GetOptInfo(FilePtr, 1);
   }
@@ -624,7 +653,11 @@ if(FilePtr!=0){
 
   //Implement QE data grab here.
   thedata.clear();
-  FilePtr = fopen("/home/lbignell/ScintData/r7723.vec", "r");
+  char name7[512];
+  strcpy(name7, DataPath);
+  strcat(name7, "/r7723.vec");
+  FilePtr = fopen(name7, "r");
+  //FilePtr = fopen("$DATAFILES/r7723.vec", "r");
   if(FilePtr!=0){
     GetOptInfo(FilePtr, 1);
   }
@@ -642,11 +675,15 @@ if(FilePtr!=0){
 
   //Implement QY data grab here
   thedata.clear();
-  //FilePtr = fopen("/home/lbignell/ScintData/QYDayaBay.csv", "r");
-  //FilePtr = fopen("/home/lbignell/ScintData/QYDayaBayZeroBelow200nm.csv", "r");
-  //FilePtr = fopen("/home/lbignell/ScintData/QYDayaBayZeroBelow211nm.csv", "r");
+  //FilePtr = fopen("$DATAFILES/QYDayaBay.csv", "r");
+  //FilePtr = fopen("$DATAFILES/QYDayaBayZeroBelow200nm.csv", "r");
+  //FilePtr = fopen("$DATAFILES/QYDayaBayZeroBelow211nm.csv", "r");
   //Double the QY for optimal agreement with expt.
-  FilePtr = fopen("/home/lbignell/ScintData/QYDayaBayZeroBelow211nm_Double.csv", "r");
+  char name8[512];
+  strcpy(name8, DataPath);
+  strcat(name8, "/QYDayaBayZeroBelow211nm_Double.csv");
+  FilePtr = fopen(name8, "r");
+  //FilePtr = fopen("$DATAFILES/QYDayaBayZeroBelow211nm_Double.csv", "r");
   if(FilePtr!=0){
     GetOptInfo(FilePtr, 1);
   }
@@ -683,16 +720,20 @@ if(FilePtr!=0){
   //Now get the WbLS absorption
   thedata.clear();
   //2011 WbLS, normalise to DB water.
-  //FilePtr = fopen("/home/lbignell/ScintData/2011WbLS_DBwater.csv", "r");
+  //FilePtr = fopen("$DATAFILES/2011WbLS_DBwater.csv", "r");
   //Corrected 2011 WbLS for fluorescence
-  //FilePtr = fopen("/home/lbignell/ScintData/DBScintAbsorption2011_corrected.csv", "r");
+  //FilePtr = fopen("$DATAFILES/DBScintAbsorption2011_corrected.csv", "r");
   //Corrected 2011 WbLS for fluorescence, with correct units and DB water
-  //FilePtr = fopen("/home/lbignell/ScintData/1pcScintAbsorption2011_corrected_2_140826.csv", "r");
+  //FilePtr = fopen("$DATAFILES/1pcScintAbsorption2011_corrected_2_140826.csv", "r");
   //New measurements of the 2011 WbLS in the 1 cm Cell.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSAbs_NewMeas_140908.csv", "r");
+  //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_140908.csv", "r");
   //New measurements in 1 cm cell, corrected for fluorescence.
-  //FilePtr = fopen("/home/lbignell/ScintData/WbLSAbs_NewMeas_Corrected_140908.csv", "r");
-  FilePtr = fopen("/home/lbignell/ScintData/WbLSAbs_NewMeas_AllDilutions_140910.csv", "r");
+  //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_Corrected_140908.csv", "r");
+  char name9[512];
+  strcpy(name9, DataPath);
+  strcat(name9, "/WbLSAbs_NewMeas_AllDilutions_140910.csv");
+  FilePtr = fopen(name9, "r");
+  //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_AllDilutions_140910.csv", "r");
 
 
 

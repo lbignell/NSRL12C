@@ -116,3 +116,6 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
   -> 475 MeV data are both consistent with ~ single PE.
   -> 2GeV: 3.5 PE (5.1 RMS) measured, 2.2 PE (3.3 RMS) simulated. Not much to go
      on but it appears that the black teflon may need some reflectance...
+
+- To make the code more portable; I've made a requirement that the location of
+  the data files be set using the $DATAFILES environment variable.

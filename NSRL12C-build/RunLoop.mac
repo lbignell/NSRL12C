@@ -1,0 +1,6 @@
+/tracking/verbose 0
+/CustomPGACommands/setYDisplacement {Height} cm
+/CustomCommands/det/setBeamHeight {Height} cm
+/CustomCommands/det/update
+/run/beamOn 1000
+/control/shell mv Edep.root Edep_{Energy}MeV_{Height}cm.root

@@ -2,7 +2,12 @@
 Anyways, for every class that is used in the main function, we must include the defitinion which is contained in the corresponding header file: className.hh
 See below for an explanation of what each class does
 */
+//#ifdef G4MULTITHREADED
+//#include "G4MTRunManager.hh"
+//#else
 #include "G4RunManager.hh"
+//#endif
+
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"//Using PhysicsFactory instead...
 #include "G4PhysListFactory.hh"
@@ -51,7 +56,12 @@ int main(int argc, char** argv){
 
 
   //get the run manager pointer
+  //#ifdef G4MULTITHREADED
+  //G4MTRunManager* rm = new G4MTRunManager();
+  //rm->SetNumberOfThreads(10);
+  //#else
   G4RunManager* rm = new G4RunManager();
+  //#endif
 
   //detector construction pointer
   DetectorConstruction* detector = new DetectorConstruction();  

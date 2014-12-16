@@ -52,7 +52,7 @@
 #
 # Specify style (surface, wireframe, auxiliary edges,...)
 /vis/viewer/set/style wireframe
-#/vis/viewer/set/hiddenEdge 1
+/vis/viewer/set/hiddenEdge 0
 /vis/viewer/set/auxiliaryEdge false
 /vis/viewer/set/lineSegmentsPerCircle 100
 #
@@ -117,13 +117,12 @@
 #/vis/scene/add/text 6 7 10 cm 18 4 4 Shape2
 #
 # To get nice view
-#/vis/geometry/set/visibility World 0 false
-#/vis/geometry/set/visibility Envelope 0 false
+/vis/geometry/set/visibility World 0 false
+/vis/geometry/set/visibility Envelope 0 false
 #/vis/viewer/set/style surface
 #/vis/viewer/set/hiddenMarker true
 /vis/viewer/set/viewpointThetaPhi 120 150
-#/vis/viewer/zoom 3
-/vis/viewer/refresh
+/vis/viewer/zoom 4
 #
 # Re-establish auto refreshing and verbosity:
 /vis/viewer/set/autoRefresh true

@@ -113,9 +113,99 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
      32.9) simulated. At least the simulated results exhibit greater light yield
      than the measured results at both energies in T1.
   - TUB 2
-  -> 475 MeV data are both consistent with ~ single PE.
+  -> 475 MeV data are both consistent with ~ <single PE.
   -> 2GeV: 3.5 PE (5.1 RMS) measured, 2.2 PE (3.3 RMS) simulated. Not much to go
      on but it appears that the black teflon may need some reflectance...
 
 - To make the code more portable; I've made a requirement that the location of
   the data files be set using the $DATAFILES environment variable.
+
+2014-12-11
+- Modified PGA so that the beam is still sampled from the same distribution but
+  only accepts events that are within 1 mm of the front hodoscope.
+- Running a scan over the beam height relative to the centre of the tub.
+- Fixed a bug that prevented me changing the particle gun energy (in 
+  PrimaryGeneratorAction::GeneratePrimaries. A side-effect is that there is no
+  longer any spread in the beam energy. I don't think this is consequential.
+
+- As the simulation is quite slow; I'm looking into the multithreading. A naive
+  use of G4MTRunManager gives an error when building the PhysicsList. The error
+  is: 
+  "Size of G4ProcessVector is inconsistent between master and worker threads
+   for the particle <anti_He3>. size of G4ProcessVector for worker thread is
+   19 while masther thread is 9."
+  Removing hadronic processes from the physics list removes this error, but that
+  is not a satisfactory solution. The MT migration page says you should be sure
+  to define G4GenericIon in the particle definition; however doing this does not
+  fix the problem.
+  There are also several changes to my user action classes (PGA, DC, SD, maybe
+  others, see the website:
+  https://twiki.cern.ch/twiki/bin/view/Geant4/QuickMigrationGuideForGeant4V10
+  In particular (not on page above), I'll need to use a thread lock when I pass
+  data from the sensitive detector to the run action at the end of event, as
+  RunAction is shared between threads and sensitive detectors are thread-local.
+  -> I should do this at some point; but for now I'll content myself with just
+     running single threaded to get some quick results.
+
+- Fixed an annoying bug in my DetectorMessenger that restricted the beam height
+  to >0.
+
+- Running with 2 GeV and 475 MeV data for several beam heights (-5 cm to + 5 cm
+  in 1 cm steps).
+  -> Results are actually in pretty good agreement for much of the range;
+     probably because of the different reflective model.
+     - T1: 2GeV measured 204 PE, best sim fit @ ~2 cm (+/- a few cm, identical
+       	   within uncerts. 475 MeV measured 10.2 PE, max simulated 6.4 PE. This 
+	   is much worse agreement than previously; and may be due to the lack
+	   of energy spread (I turned that off). TO DO: TURN ON ENERGY SPREAD
+	   IN 475 MEV DATA AND SEE IF IT MAKES A DIFFERENCE.
+     - T2: 2 GeV measured 3.5 PE; strong variation with beam height for 
+       	   simulation; best fit at 2 cm (not 3, maybe 1; 2.9 PE @2cm). 475 MeV
+	   was consistent with <1 PE, simulation is same (mean = 0.15).
+
+- Going to do higher resolution run overnight for 2 GeV and 475 MeV.
+  -> Changed PGA so that the beam now has to fall exactly within the hodoscope
+     area to make more efficient.
+  -> Running for 1K events per height, from -0.5cm, to 4 cm, 0.5 cm increments.
+
+2014-12-12
+- Got decent agreement with the water; except for the 475 MeV data.
+  - I tried 476 MeV data (~ how much the beam may be off by) and the discrepancy
+    remains. I don't know why the agreement is so poor; perhaps because of the
+    handling of the reflectance in the teflon tub?
+
+- Pressed on to look at WbLS; 1% scintillator:
+  - 475 MeV, T1: Measured 111 PE; simulated 152 PE.
+  - 475 MeV, T2: Measured 15.7 PE (Gaussian-fitted), sim 15.3 PE (also fitted).
+  - 2 GeV, T1: Measured 246 PE; simulated 326.6 PE.
+  - 2 GeV, T2: Measured 27.6 PE (Gaussian-fitted); sim 27.8 PE (also fitted).
+  - 210 MeV, T1: Measured 180 PE; simulated 238 PE.
+  - 210 MeV, T2: Meas 28.2 PE (Gaussian-fitted), sim 29.7 (fitted) or 29.8 PE.
+
+  -> T2 results agree quite well with the measurements (within 5%). The T1
+     results give poor agreement that is very consistent (each 32% off).
+
+- Going to try running o'night with 0.4% scintillator.
+  -> I've changed the WbLS fraction and scaled the scintillation yield.
+  -> Running 10K events; should take 25 hrs.
+
+2014-12-13
+- 0.4% scintillator results:
+  - 2 GeV, T1: measured 220 PE, simulated 267 PE.
+  - 2 GeV, T2: measured 18.9 PE, simulated 23.3 PE.
+  - 475 MeV, T1: measured 42.1, simulated 71.1 PE.
+  - 475 MeV, T2: measured 4.08 PE, simulated 7.13 PE.
+  - The above results are rubbish; just realised that I made the WbLS fraction
+    at 0.04%, rather than 0.4%!!!
+
+- Also scaled the WLS absorption length by WbLSFraction/0.0099, running again.
+
+2014-12-15
+- Running with REAL 0.4% scintillator, scaled abs length...
+  - 2 GeV, T1: measured 221 PE, simulated 142 PE.
+  - 2 GeV, T2: measured 18.9 PE, simulated 21.3 PE.
+  - 475 MeV, T1: measured 42.1, simulated 37.8 PE.
+  - 475 MeV, T2: measured 4.08 PE, simulated 6.52 PE.
+  - 210 MeV, T1: measured 36.6 PE, simulated 50.6 PE.
+  - 210 MeV, T2: measured 5.25 PE, simulated 11.94 PE.
+

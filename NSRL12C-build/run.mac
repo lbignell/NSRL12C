@@ -1,2 +1,13 @@
 /tracking/verbose 0
-/run/beamOn 6000
+/CustomPGACommands/setYDisplacement 0.75 cm
+/CustomCommands/det/setBeamHeight 0.75 cm
+/CustomCommands/det/update
+/gun/energy 2000 MeV
+/run/beamOn 10000
+/control/shell mv Edep.root Edep_2000MeV.root
+/gun/energy 475 MeV
+/run/beamOn 10000
+/control/shell mv Edep.root Edep_475MeV.root
+/gun/energy 210 MeV
+/run/beamOn 10000
+/control/shell mv Edep.root Edep_210MeV.root

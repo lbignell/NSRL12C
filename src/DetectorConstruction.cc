@@ -239,7 +239,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
 
 
   //Make WbLS as used in expt.
-  G4double WbLSfraction = 0.0099;
+  G4double WbLSfraction = 0.004;
   G4double WbLSdensity = (water_nist->GetDensity())*(1-WbLSfraction) + 
     (Scint->GetDensity())*WbLSfraction;
   G4Material* WbLS = new G4Material("WbLS", WbLSdensity, 2);
@@ -533,7 +533,7 @@ if(FilePtr!=0){
   MPTWbLS->AddProperty("FASTCOMPONENT", En6, ScintEm6, size6);
   //Scnt_MPT->AddProperty("SLOWCOMPONENT", Scnt_PP, Scnt_SLOW, NUMENTRIES);
 
-  MPTWbLS->AddConstProperty("SCINTILLATIONYIELD", 100./MeV);
+  MPTWbLS->AddConstProperty("SCINTILLATIONYIELD", ((105./MeV)*(0.004/0.0099)));
   //The resolution yield is indeterminate. It will affect the breadth of the
   //photon number distribution, and can therefore be tuned to the measured value
   //if that makes sense.
@@ -758,7 +758,7 @@ if(FilePtr!=0){
   //std::copy(thedata.at(1).begin(), thedata.at(1).end(), Rindex7);
   for(int i = 0; i<size7; i++){
     En7[i] = thedata.at(0).at(i);
-    Rindex7[i] = thedata.at(1).at(i);
+    Rindex7[i] = thedata.at(1).at(i)*(WbLSfraction/0.0099);
     //G4cout << "RINDEX[" << i << "] = " << Rindex2[size2] << G4endl;
   }
   MPTWbLS->AddProperty("WLSABSLENGTH", En7, Rindex7, size7);
@@ -911,8 +911,8 @@ if(FilePtr!=0){
   G4Tubs* liquid = new G4Tubs("liquid", 0, LiquidDiam/2, LiquidHeight/2,
 			      0, 360*deg);
   G4LogicalVolume* T1_liq_log =
-    new G4LogicalVolume(liquid, water_nist, "T1_liq_log", 0,0,0);//For Water
-  //new G4LogicalVolume(liquid, WbLS, "T1_liq_log", 0,0,0);//For WbLS
+    // new G4LogicalVolume(liquid, water_nist, "T1_liq_log", 0,0,0);//For Water
+  new G4LogicalVolume(liquid, WbLS, "T1_liq_log", 0,0,0);//For WbLS
   G4VPhysicalVolume* T1_liq_phys =
     new G4PVPlacement(0, G4ThreeVector(0, 0, 0), T1_liq_log, "T1_liq_phys",
 		      T1_log, false, 0, false);
@@ -974,8 +974,8 @@ if(FilePtr!=0){
   //Create the liquid in T2 (it will need to be sensitive).
   //It is the same geometry as T1's liquid.
   G4LogicalVolume* T2_liq_log =
-    new G4LogicalVolume(liquid, water_nist, "T2_liq_log", 0,0,0);//For Water
-  //new G4LogicalVolume(liquid, WbLS, "T2_liq_log", 0,0,0);//For WbLS
+    //  new G4LogicalVolume(liquid, water_nist, "T2_liq_log", 0,0,0);//For Water
+  new G4LogicalVolume(liquid, WbLS, "T2_liq_log", 0,0,0);//For WbLS
   G4VPhysicalVolume* T2_liq_phys =
     new G4PVPlacement(0, G4ThreeVector(0, 0, 0), T2_liq_log, "T2_liq_phys",
 		      T2_log, false, 0, false);

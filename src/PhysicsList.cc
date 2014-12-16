@@ -99,6 +99,7 @@
 #include "G4IonBinaryCascadePhysics.hh"
 #include "G4Decay.hh"
 #include "G4HadronPhysicsQGSP_BIC.hh"
+#include "G4HadronPhysicsQGSP_BERT.hh"
 #include "G4EmExtraPhysics.hh"
 #include "G4StoppingPhysics.hh"
 
@@ -111,6 +112,7 @@
 #include "G4EmProcessOptions.hh"
 
 #include "G4RadioactiveDecayPhysics.hh"
+#include "G4GenericIon.hh"
 
 /////////////////////////////////////////////////////////////////////////////
 PhysicsList::PhysicsList() : G4VModularPhysicsList()
@@ -133,14 +135,17 @@ PhysicsList::PhysicsList() : G4VModularPhysicsList()
 
   SetVerboseLevel(1);
 
+
+  ///Commented out below for thread-safety upon multithreading...
+
   // EM physics
   //emPhysicsList = new G4EmStandardPhysics_option3(1);
   //emPhysicsList = new G4EmLivermorePhysics();
-  emPhysicsList = new G4EmPenelopePhysics();
+  //emPhysicsList = new G4EmPenelopePhysics();
   //emName = G4String("emstandard_opt3");
 
   // Deacy physics and all particles
-  decPhysicsList = new G4DecayPhysics();
+  //decPhysicsList = new G4DecayPhysics();
 
   //hadronPhys.push_back( new G4HadronElasticPhysics());
   //hadronPhys.push_back(new G4HadronInelasticQBBC());
@@ -174,7 +179,11 @@ void PhysicsList::AddPackage(const G4String& name){
 /////////////////////////////////////////////////////////////////////////////
 void PhysicsList::ConstructParticle()
 {
+  decPhysicsList = new G4DecayPhysics();
   decPhysicsList->ConstructParticle();
+
+  //Required for multithreading...
+  G4GenericIon::GenericIonDefinition();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -192,6 +201,7 @@ void PhysicsList::ConstructProcess()
 
   //The below are taken from HadrontherapyPhysicsList.cc
   hadronPhys.push_back( new G4HadronPhysicsQGSP_BIC());
+  //hadronPhys.push_back( new G4HadronPhysicsQGSP_BERT());
   hadronPhys.push_back( new G4EmExtraPhysics());
   hadronPhys.push_back( new G4HadronElasticPhysics());
   hadronPhys.push_back( new G4StoppingPhysics());

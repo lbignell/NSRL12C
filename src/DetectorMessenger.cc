@@ -23,7 +23,7 @@ DetectorMessenger::DetectorMessenger(
   BeamHeightCmd = new G4UIcmdWithADoubleAndUnit("/CustomCommands/det/setBeamHeight",this);  
   BeamHeightCmd->SetGuidance("Set the vertical displacement of the beam.");
   BeamHeightCmd->SetParameterName("Size",false);
-  BeamHeightCmd->SetRange("Size>0.");
+  //BeamHeightCmd->SetRange("Size>0.");
   BeamHeightCmd->SetUnitCategory("Length");
   BeamHeightCmd->AvailableForStates(G4State_PreInit,G4State_Idle,G4State_GeomClosed,G4State_EventProc);  
 

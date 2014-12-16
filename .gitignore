@@ -1,3 +1,17 @@
 
 *.root
 \#*
+*.svg
+*.pdf
+*.ps
+*.gif
+*.png
+*.wrl
+*cmake*
+*.jpeg
+NSRL12C-build/CMakeFiles
+*.out
+*.txt
+NSRL12C-build/NSRL12C
+NSRL12C-build/Makefile
+

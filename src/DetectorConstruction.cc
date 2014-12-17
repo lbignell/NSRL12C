@@ -38,6 +38,7 @@
 #include "G4SolidStore.hh"
 
 #include "G4LogicalBorderSurface.hh"
+#include "G4RegionStore.hh"
 
 using namespace std;
 
@@ -47,11 +48,17 @@ DetectorConstruction::DetectorConstruction(){
   PMTGap = 1*mm;
   DetMess = new DetectorMessenger(this);
   //QEdata.clear();
+  isWater = true;
+  WbLSfraction = 0.0099;
 }
 
 DetectorConstruction::~DetectorConstruction(){ 
 
 }
+
+void DetectorConstruction::SetWbLSfraction(double value){WbLSfraction = value;}
+
+void DetectorConstruction::SetWater(bool setting){isWater = setting;}
 
 void DetectorConstruction::SetBeamHeight(G4double value){
   BeamHeight = value;
@@ -90,11 +97,13 @@ void DetectorConstruction::UpdateGeometry(){
   G4PhysicalVolumeStore::GetInstance()->Clean();
   G4LogicalVolumeStore::GetInstance()->Clean();
   G4SolidStore::GetInstance()->Clean();
- 
+  G4LogicalSkinSurface::CleanSurfaceTable();
+  G4LogicalBorderSurface::CleanSurfaceTable();
+
   G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
   G4RunManager::GetRunManager()->GeometryHasBeenModified();
-  //G4RunManager::GetRunManager->PhysicsHasBeenModified();
-  //G4RegionStore::GetInstance()->UpdateMaterialList(experimentalHall_phys);
+  G4RunManager::GetRunManager()->PhysicsHasBeenModified();
+  G4RegionStore::GetInstance()->UpdateMaterialList(physical_world);
 
 }
 
@@ -239,7 +248,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
 
 
   //Make WbLS as used in expt.
-  G4double WbLSfraction = 0.004;
+  //G4double WbLSfraction = 0.004;
   G4double WbLSdensity = (water_nist->GetDensity())*(1-WbLSfraction) + 
     (Scint->GetDensity())*WbLSfraction;
   G4Material* WbLS = new G4Material("WbLS", WbLSdensity, 2);
@@ -801,9 +810,8 @@ if(FilePtr!=0){
 
   //physical volume: G4PVPlacement class, represents a logical volume that is
   //placed somewhere in the mother volume.
-  G4VPhysicalVolume* physical_world =
-    new G4PVPlacement(0, G4ThreeVector(), logical_world, "world_phys",
-		      0, false, 0, false);
+  physical_world = new G4PVPlacement(0, G4ThreeVector(), logical_world,
+				     "world_phys", 0, false, 0, false);
   //The final argument is a flag to check the geometry for overlaps.
 
 
@@ -911,8 +919,14 @@ if(FilePtr!=0){
   G4Tubs* liquid = new G4Tubs("liquid", 0, LiquidDiam/2, LiquidHeight/2,
 			      0, 360*deg);
   G4LogicalVolume* T1_liq_log =
-    // new G4LogicalVolume(liquid, water_nist, "T1_liq_log", 0,0,0);//For Water
-  new G4LogicalVolume(liquid, WbLS, "T1_liq_log", 0,0,0);//For WbLS
+      new G4LogicalVolume(liquid, water_nist, "T1_liq_log", 0,0,0);//For Water
+  
+  if(!isWater){
+    //T1_liq_log =
+    //new G4LogicalVolume(liquid, WbLS, "T1_liq_log", 0,0,0);//For WbLS
+    T1_liq_log->SetMaterial(WbLS);
+  }
+
   G4VPhysicalVolume* T1_liq_phys =
     new G4PVPlacement(0, G4ThreeVector(0, 0, 0), T1_liq_log, "T1_liq_phys",
 		      T1_log, false, 0, false);
@@ -974,8 +988,12 @@ if(FilePtr!=0){
   //Create the liquid in T2 (it will need to be sensitive).
   //It is the same geometry as T1's liquid.
   G4LogicalVolume* T2_liq_log =
-    //  new G4LogicalVolume(liquid, water_nist, "T2_liq_log", 0,0,0);//For Water
-  new G4LogicalVolume(liquid, WbLS, "T2_liq_log", 0,0,0);//For WbLS
+    new G4LogicalVolume(liquid, water_nist, "T2_liq_log", 0,0,0);//For Water
+  if(!isWater){
+    T2_liq_log->SetMaterial(WbLS);
+    //T2_liq_log =
+    //new G4LogicalVolume(liquid, WbLS, "T2_liq_log", 0,0,0);//For WbLS
+  }
   G4VPhysicalVolume* T2_liq_phys =
     new G4PVPlacement(0, G4ThreeVector(0, 0, 0), T2_liq_log, "T2_liq_phys",
 		      T2_log, false, 0, false);

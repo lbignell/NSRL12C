@@ -6,8 +6,8 @@
 //#include "G4UIcmdWithAString.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWithoutParameter.hh"
-//#include "G4UIcmdWithADouble.hh"
-
+#include "G4UIcmdWithADouble.hh"
+#include "G4UIcmdWithABool.hh"
 
 DetectorMessenger::DetectorMessenger(
                                            DetectorConstruction* Det)
@@ -25,19 +25,29 @@ DetectorMessenger::DetectorMessenger(
   BeamHeightCmd->SetParameterName("Size",false);
   //BeamHeightCmd->SetRange("Size>0.");
   BeamHeightCmd->SetUnitCategory("Length");
-  BeamHeightCmd->AvailableForStates(G4State_PreInit,G4State_Idle,G4State_GeomClosed,G4State_EventProc);  
+  BeamHeightCmd->AvailableForStates(G4State_PreInit,G4State_Idle,
+				    G4State_GeomClosed,G4State_EventProc);  
 
   PMTGapCmd = new G4UIcmdWithADoubleAndUnit("/CustomCommands/det/setPMTGap",this);  
   PMTGapCmd->SetGuidance("Set gap between PMT and UVT Acrylic");
   PMTGapCmd->SetParameterName("Size",false);
   PMTGapCmd->SetRange("Size>=0.");
   PMTGapCmd->SetUnitCategory("Length");
-  PMTGapCmd->AvailableForStates(G4State_PreInit,G4State_Idle,G4State_GeomClosed,G4State_EventProc);  
+  PMTGapCmd->AvailableForStates(G4State_PreInit,G4State_Idle,
+				G4State_GeomClosed,G4State_EventProc);  
+
+  isWaterCmd = new G4UIcmdWithABool("/CustomCommands/det/isWater", this);
+  isWaterCmd->SetGuidance("Set detector medium as water or WbLS");
+  isWaterCmd->SetParameterName("isWater", false);
+  isWaterCmd->AvailableForStates(G4State_PreInit,G4State_Idle,
+				 G4State_GeomClosed,G4State_EventProc);  
 
 
-  //UGCompCCmd = new G4UIcmdWithADouble("/CustomCommands/det/setUGCompC", this);
-  //UGCompCCmd->SetGuidance("Set percentage carbon of UG Scintillant, value must be between 0 and 1");
-  //UGCompCCmd->AvailableForStates(G4State_PreInit,G4State_Idle,G4State_GeomClosed,G4State_EventProc);
+  WbLSfractionCmd = new G4UIcmdWithADouble("/CustomCommands/det/setWbLSfraction"
+					   , this);
+  WbLSfractionCmd->SetGuidance("Set fraction of WbLS, must be between 0 and 1");
+  WbLSfractionCmd->AvailableForStates(G4State_PreInit,G4State_Idle,
+				      G4State_GeomClosed,G4State_EventProc);
 
 
   //ScintillantSetCmd = new G4UIcmdWithAString("/CustomCommands/det/setScintillant",this);  
@@ -76,4 +86,9 @@ void DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
   if( command == PMTGapCmd)
     { Detector->SetPMTGap(PMTGapCmd->GetNewDoubleValue(newValue));}
 
+  if( command == isWaterCmd)
+    { Detector->SetWater(isWaterCmd->GetNewBoolValue(newValue));}
+
+  if( command == WbLSfractionCmd)
+    { Detector->SetWbLSfraction(WbLSfractionCmd->GetNewDoubleValue(newValue));}
 }

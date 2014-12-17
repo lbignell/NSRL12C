@@ -11,6 +11,7 @@ class G4UIcmdWithAnInteger;
 class G4UIcmdWithADoubleAndUnit;
 class G4UIcmdWithoutParameter;
 class G4UIcmdWithADouble;
+class G4UIcmdWithABool;
 
 //Inherits from G4UImessenger
 class DetectorMessenger: public G4UImessenger
@@ -27,6 +28,7 @@ class DetectorMessenger: public G4UImessenger
   G4UIdirectory*             Dir;
   G4UIdirectory*             detDir;
   G4UIcmdWithADoubleAndUnit* BeamHeightCmd;
+  G4UIcmdWithABool* isWaterCmd;
   G4UIcmdWithADoubleAndUnit* PMTGapCmd;
   //G4UIcmdWithADoubleAndUnit* IGDensityCmd;
   //G4UIcmdWithADoubleAndUnit* GlassDensityCmd;
@@ -37,7 +39,7 @@ class DetectorMessenger: public G4UImessenger
   //G4UIcmdWithADoubleAndUnit* ScintillantVolumeCmd;
   //G4UIcmdWithAString*        ScintillantSetCmd;
   G4UIcmdWithoutParameter*   UpdateCmd;
-  //G4UIcmdWithADouble*        UGCompCCmd;
+  G4UIcmdWithADouble*        WbLSfractionCmd;
   //G4UIcmdWithADouble*        UGCompHCmd;
   //G4UIcmdWithADouble*        UGCompNCmd;
   //G4UIcmdWithADouble*        UGCompOCmd;

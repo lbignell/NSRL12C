@@ -209,3 +209,23 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
   - 210 MeV, T1: measured 36.6 PE, simulated 50.6 PE.
   - 210 MeV, T2: measured 5.25 PE, simulated 11.94 PE.
 
+2014-12-16
+- To Do:
+  - Make scintillator fraction settable using DetectorMessenger.
+    -> Done: Shares same limitations as setting water/WbLS fraction (see below).
+  - Make liquid material water/WbLS, user-settable with DetectorMessenger.
+    -> Done: set with /CustomCommands/det/isWater true (or false). Default is
+       	     water. Need to run /CustomCommands/det/update. Actually, NO, it
+	     does NOT work! It appears to Seg Fault because the physics tables,
+	     etc. aren't being rebuilt... It works OK if it is used at the start
+	     of a run; before tables, etc. are built.
+	     On reflection; I think being restricted to setting the material at
+	     the start of a session isn't so bad that I need to spend more time
+	     on fixing this...
+  - Paralellise code, get it to work with hadronic interactions turned on.
+
+2014-12-17
+- The problems with seg-faulting upon changing the materials have been worked
+  around; I've just written a bash script to change the parameters in the
+  macro that calls Geant4, and making a new session for each parameter change.
+  -> Works...

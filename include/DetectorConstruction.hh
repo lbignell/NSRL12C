@@ -28,7 +28,12 @@ public:
   G4double BeamHeight;
   G4double PMTGap;
   DetectorMessenger* DetMess;
+  bool isWater;
+  G4VPhysicalVolume* physical_world;
+  double WbLSfraction;
 
+  void SetWbLSfraction(double);
+  void SetWater(bool);
   void SetBeamHeight(G4double);
   G4double GetBeamHeight();
   void UpdateGeometry();

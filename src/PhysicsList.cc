@@ -76,7 +76,7 @@
 //                        and local physic for ion-ion enelastic processes)
 
 #include "PhysicsList.hh"
-#include "PhysicsListMessenger.hh"
+//#include "PhysicsListMessenger.hh"
 //#include "StepMax.hh"
 #include "G4PhysListFactory.hh"
 #include "G4VPhysicsConstructor.hh"
@@ -98,6 +98,9 @@
 #include "G4HadronInelasticQBBC.hh"
 #include "G4IonBinaryCascadePhysics.hh"
 #include "G4Decay.hh"
+#include "G4HadronPhysicsFTF_BIC.hh"
+#include "G4HadronPhysicsQGS_BIC.hh"
+#include "G4HadronPhysicsFTFP_BERT.hh"
 #include "G4HadronPhysicsQGSP_BIC.hh"
 #include "G4HadronPhysicsQGSP_BERT.hh"
 #include "G4EmExtraPhysics.hh"
@@ -118,20 +121,20 @@
 PhysicsList::PhysicsList() : G4VModularPhysicsList()
 {
   //G4LossTableManager::Instance();
-  defaultCutValue = 1.*mm;
-  cutForGamma     = defaultCutValue;
-  cutForElectron  = defaultCutValue;
-  cutForPositron  = defaultCutValue;
+  //defaultCutValue = 1.*mm;
+  //cutForGamma     = defaultCutValue;
+  //cutForElectron  = defaultCutValue;
+  //cutForPositron  = defaultCutValue;
 
-  helIsRegisted  = false;
-  bicIsRegisted  = false;
-  biciIsRegisted = false;
-  locIonIonInelasticIsRegistered = false;
-  radioactiveDecayIsRegisted = false;
+  //helIsRegisted  = false;
+  //bicIsRegisted  = false;
+  //biciIsRegisted = false;
+  //locIonIonInelasticIsRegistered = false;
+  //radioactiveDecayIsRegisted = false;
 
   //stepMaxProcess  = 0;
 
-  pMessenger = new PhysicsListMessenger(this);
+  //pMessenger = new PhysicsListMessenger(this);
 
   SetVerboseLevel(1);
 
@@ -155,14 +158,14 @@ PhysicsList::PhysicsList() : G4VModularPhysicsList()
 /////////////////////////////////////////////////////////////////////////////
 PhysicsList::~PhysicsList()
 {
-  delete pMessenger;
-  delete emPhysicsList;
-  delete decPhysicsList;
-  for(size_t i=0; i<hadronPhys.size(); i++) {delete hadronPhys[i];}
+  //delete pMessenger;
+  //delete emPhysicsList;
+  //delete decPhysicsList;
+  //for(size_t i=0; i<hadronPhys.size(); i++) {delete hadronPhys[i];}
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void PhysicsList::AddPackage(const G4String& name){
+//void PhysicsList::AddPackage(const G4String& name){
 //G4PhysListFactory factory;
 //G4VModularPhysicsList* phys =factory.GetReferencePhysList(name);
 //G4int i=0;
@@ -174,13 +177,16 @@ void PhysicsList::AddPackage(const G4String& name){
 //	  elem= phys->GetPhysics(++i) ;
 //	  tmp = const_cast<G4VPhysicsConstructor*> (elem);
 //	}
-}
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 void PhysicsList::ConstructParticle()
 {
-  decPhysicsList = new G4DecayPhysics();
-  decPhysicsList->ConstructParticle();
+  //decPhysicsList = new G4DecayPhysics();
+  //decPhysicsList->ConstructParticle();
+
+  G4VPhysicsConstructor* decay1 = new G4DecayPhysics();
+  decay1->ConstructParticle();
 
   //Required for multithreading...
   G4GenericIon::GenericIonDefinition();
@@ -194,18 +200,35 @@ void PhysicsList::ConstructProcess()
   AddTransportation();
 
   //emPhysicsList = new G4EmLivermorePhysics();
-  emPhysicsList = new G4EmPenelopePhysics();
+  G4EmConfigurator em_config1;
+  G4VPhysicsConstructor* em1 = new G4EmPenelopePhysics();
+  em1->ConstructProcess();
+  em_config1.AddModels();
 
   // Deacy physics and all particles
-  decPhysicsList = new G4DecayPhysics();
+  G4VPhysicsConstructor* decay1 = new G4DecayPhysics();
+  decay1->ConstructProcess();
 
   //The below are taken from HadrontherapyPhysicsList.cc
-  hadronPhys.push_back( new G4HadronPhysicsQGSP_BIC());
+  //hadronPhys.push_back( new G4HadronPhysicsFTF_BIC());
+  //hadronPhys.push_back( new G4HadronPhysicsQGSP_BIC());
+  G4VPhysicsConstructor* had1 = new G4HadronPhysicsQGSP_BERT();
+  G4VPhysicsConstructor* had2 = new G4EmExtraPhysics();
+  G4VPhysicsConstructor* had3 = new G4HadronElasticPhysics();
+  G4VPhysicsConstructor* had4 = new G4StoppingPhysics();
+  G4VPhysicsConstructor* had5 = new G4IonBinaryCascadePhysics();
+
+  had1->ConstructProcess();
+  had2->ConstructProcess();
+  had3->ConstructProcess();
+  had4->ConstructProcess();
+  had5->ConstructProcess();
+  //hadronPhys.clear();
   //hadronPhys.push_back( new G4HadronPhysicsQGSP_BERT());
-  hadronPhys.push_back( new G4EmExtraPhysics());
-  hadronPhys.push_back( new G4HadronElasticPhysics());
-  hadronPhys.push_back( new G4StoppingPhysics());
-  hadronPhys.push_back(new G4IonBinaryCascadePhysics());
+  //hadronPhys.push_back( new G4EmExtraPhysics());
+  //hadronPhys.push_back( new G4HadronElasticPhysics());
+  //hadronPhys.push_back( new G4StoppingPhysics());
+  //hadronPhys.push_back(new G4IonBinaryCascadePhysics());
   //hadronPhys.push_back( new G4NeutronTrackingCut());//Not using this.
 
   //hadronPhys.push_back( new G4HadronHElasticPhysics());
@@ -216,17 +239,18 @@ void PhysicsList::ConstructProcess()
 
   // electromagnetic physics list
   //
-  emPhysicsList->ConstructProcess();
-  em_config.AddModels();
+  //emPhysicsList->ConstructProcess();
+  //em_config.AddModels();
 
   // decay physics list
   //
-  decPhysicsList->ConstructProcess();
+  //decPhysicsList->ConstructProcess();
 
   // hadronic physics lists
-  for(size_t i=0; i<hadronPhys.size(); i++) {
-    hadronPhys[i]->ConstructProcess();
-  }
+  //for(size_t i=0; i<hadronPhys.size(); i++) {
+  //hadronPhys[i]->ConstructProcess();
+  //}
+  //hadronPhys.clear();
 
   ConstructOp();
 
@@ -236,8 +260,8 @@ void PhysicsList::ConstructProcess()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void PhysicsList::AddPhysicsList(const G4String& name)
-{
+//void PhysicsList::AddPhysicsList(const G4String& name)
+//{
 
 //if (verboseLevel>1) {
 //  G4cout << "PhysicsList::AddPhysicsList: <" << name << ">" << G4endl;
@@ -333,12 +357,12 @@ void PhysicsList::AddPhysicsList(const G4String& name)
 //	pmanager ->AddDiscreteProcess(stepMaxProcess);
 //    }
 //}
-}
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 void PhysicsList::SetCuts()
 {
-
+  
   if (verboseLevel >0){
     G4cout << "PhysicsList::SetCuts:";
     G4cout << "CutLength : " << G4BestUnit(defaultCutValue,"Length") << G4endl;
@@ -355,25 +379,25 @@ void PhysicsList::SetCuts()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void PhysicsList::SetCutForGamma(G4double cut)
-{
-  cutForGamma = cut;
-  SetParticleCuts(cutForGamma, G4Gamma::Gamma());
-}
+//void PhysicsList::SetCutForGamma(G4double cut)
+//{
+  //  cutForGamma = cut;
+  //SetParticleCuts(cutForGamma, G4Gamma::Gamma());
+//}
 
 /////////////////////////////////////////////////////////////////////////////
-void PhysicsList::SetCutForElectron(G4double cut)
-{
-  cutForElectron = cut;
-  SetParticleCuts(cutForElectron, G4Electron::Electron());
-}
+//void PhysicsList::SetCutForElectron(G4double cut)
+//{
+  //cutForElectron = cut;
+  //SetParticleCuts(cutForElectron, G4Electron::Electron());
+//}
 
 /////////////////////////////////////////////////////////////////////////////
-void PhysicsList::SetCutForPositron(G4double cut)
-{
-  cutForPositron = cut;
-  SetParticleCuts(cutForPositron, G4Positron::Positron());
-}
+//void PhysicsList::SetCutForPositron(G4double cut)
+//{
+  //cutForPositron = cut;
+  //SetParticleCuts(cutForPositron, G4Positron::Positron());
+//}
 
 
 #include "G4Cerenkov.hh"

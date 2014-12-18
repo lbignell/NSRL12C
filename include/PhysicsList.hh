@@ -47,37 +47,37 @@ public:
   void ConstructParticle();
 
   void SetCuts();
-  void SetCutForGamma(G4double);
-  void SetCutForElectron(G4double);
-  void SetCutForPositron(G4double);
+  //void SetCutForGamma(G4double);
+  //void SetCutForElectron(G4double);
+  //void SetCutForPositron(G4double);
 
-  void AddPhysicsList(const G4String& name);
+  //void AddPhysicsList(const G4String& name);
   void ConstructProcess();
 
   //void AddStepMax();
   //StepMax* GetStepMaxProcess() {return stepMaxProcess;};
-  void AddPackage(const G4String& name);
+  //void AddPackage(const G4String& name);
 
   void ConstructOp();
 
 private:
 
-  G4EmConfigurator em_config;
+  //G4EmConfigurator em_config;
 
-  G4double cutForGamma;
-  G4double cutForElectron;
-  G4double cutForPositron;
+  //G4double cutForGamma;
+  //G4double cutForElectron;
+  //G4double cutForPositron;
 
-  G4bool helIsRegisted;
-  G4bool bicIsRegisted;
-  G4bool biciIsRegisted;
-  G4bool locIonIonInelasticIsRegistered;
-  G4bool radioactiveDecayIsRegisted;
+  //G4bool helIsRegisted;
+  //G4bool bicIsRegisted;
+  //G4bool biciIsRegisted;
+  //G4bool locIonIonInelasticIsRegistered;
+  //G4bool radioactiveDecayIsRegisted;
 
-  G4String                             emName;
-  G4VPhysicsConstructor*               emPhysicsList;
-  G4VPhysicsConstructor*               decPhysicsList;
-  std::vector<G4VPhysicsConstructor*>  hadronPhys;
+  //G4String                             emName;
+  //G4VPhysicsConstructor*               emPhysicsList;
+  //G4VPhysicsConstructor*               decPhysicsList;
+  //std::vector<G4VPhysicsConstructor*>  hadronPhys;
 
   //StepMax* stepMaxProcess;
 

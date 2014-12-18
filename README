@@ -229,3 +229,15 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
   around; I've just written a bash script to change the parameters in the
   macro that calls Geant4, and making a new session for each parameter change.
   -> Works...
+
+2014-12-18
+- Figured out why the multithreading was stuffing up on hadronic physics; the
+  PhysicsList appears to  be a shared-thread class, except for
+  ConstructProcess() and ConstructParticle() methods, which are local.
+  I was using a vector to store the hadronic processes but wasn't clearing it
+  between instanciations. Clearing it prior to (and following) filling it fixes
+  the crash on this process, moving the crash to PrimaryGeneratorAction (for
+  which I can just follow the instructions on the migration wiki).
+  -> Actually, I've realised there may be some race condition between threads
+     trying to access/clear the process vector at the same time; I'm just using
+     local variables for everything now...

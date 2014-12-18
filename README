@@ -251,3 +251,11 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 
 - Running multithreaded on my Ubuntu desktop definitely shows both cores working
   on the simulation. I can run 1000x events without any hiccups.
+
+- Testing how the code running time on RACF vs # of cores.
+  -> Discovered bug: when I access the ExEmData.root file; I need to make the
+     code threadsafe, to avoid multiple threads reading the file at the same
+     time (I get an occasional seg fault from this).
+
+- Code breaks when I do /CustomCommands/det/update.
+  I'll look into this tomorrow...

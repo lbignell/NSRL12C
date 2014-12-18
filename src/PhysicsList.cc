@@ -117,6 +117,13 @@
 #include "G4RadioactiveDecayPhysics.hh"
 #include "G4GenericIon.hh"
 
+#include "G4AutoLock.hh"
+
+namespace {
+  G4Mutex aMutex = G4MUTEX_INITIALIZER;
+}
+
+
 /////////////////////////////////////////////////////////////////////////////
 PhysicsList::PhysicsList() : G4VModularPhysicsList()
 {
@@ -441,7 +448,9 @@ void PhysicsList::ConstructOp()
   fScintillationProcess->SetTrackSecondariesFirst(true);
 
   // Use Birks Correction in the Scintillation process
-
+  
+  //The code below needs to be locked for multithreading.
+  G4AutoLock l(&aMutex);
   //load the Ex/Em data into memory:
   //Get the path to the data files.
   char* DataPath = getenv("DATAFILES");
@@ -449,6 +458,8 @@ void PhysicsList::ConstructOp()
   strcpy(name, DataPath);
   strcat(name, "/ExEmMatrix.root");
   fWLSProcess->SetExEmData(name);
+
+  l.unlock();
 
   G4EmSaturation* emSaturation = G4LossTableManager::Instance()->EmSaturation();
   fScintillationProcess->AddSaturation(emSaturation);

@@ -241,3 +241,13 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
   -> Actually, I've realised there may be some race condition between threads
      trying to access/clear the process vector at the same time; I'm just using
      local variables for everything now...
+
+- OK, I figured it out after banging my head against the keyboard for a bit:
+  -> Need a mutex lock when I call RunAction::TallyEvtData, to avoid overwriting
+     the branch variables prior to filling the tree.
+  -> I also need to make the root file, tree, and all branch variables static;
+     so that 1. the file is not overwritten, 2. only 1 tree is written to file,
+     and 3. the addresses of the branches stay constant across threads.
+
+- Running multithreaded on my Ubuntu desktop definitely shows both cores working
+  on the simulation. I can run 1000x events without any hiccups.

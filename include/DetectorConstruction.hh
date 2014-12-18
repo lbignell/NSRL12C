@@ -48,6 +48,8 @@ public:
   //pointer to a vector of vector of doubles (containing the data).
   void GetOptInfo(FILE*, G4double);
 
+  void ConstructSDandField();
+
 private:
   vector< vector < double > > thedata;
 

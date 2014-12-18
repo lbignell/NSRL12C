@@ -2,5 +2,5 @@
 /CustomCommands/det/isWater true
 /CustomCommands/det/setWbLSfraction 0.0099
 /CustomCommands/det/update
-/run/beamOn 1
+/run/beamOn 100
 

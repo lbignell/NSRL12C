@@ -839,14 +839,18 @@ if(FilePtr!=0){
   G4LogicalVolume* H1_log =
     new G4LogicalVolume(hodo, Polystyrene_nist, "H1_log", 0,0,0);
 
+  /////////////////////////////////////////////////////////////////////////////
+  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
+  /////////////////////////////////////////////////////////////////////////////
   //G4RunManager to see which sensitive detectors there are
-  G4SDManager* SDman = G4SDManager::GetSDMpointer();
+  //G4SDManager* SDman = G4SDManager::GetSDMpointer();
 
   //create SensitiveDetector object
-  SDHodo* SDH1 = new SDHodo("H1_log");
+  //SDHodo* SDH1 = new SDHodo("H1_log");
   //pass new sensitive detector to manager
-  SDman->AddNewDetector(SDH1);
-  H1_log->SetSensitiveDetector(SDH1);
+  //SDman->AddNewDetector(SDH1);
+  //H1_log->SetSensitiveDetector(SDH1);
+  /////////////////////////////////////////////////////////////////////////////
 
   G4VPhysicalVolume* H1_phys =
     new G4PVPlacement(0, G4ThreeVector(0, BeamHeight, -GapH1T1), H1_log,
@@ -855,11 +859,16 @@ if(FilePtr!=0){
   G4LogicalVolume* H2_log =
     new G4LogicalVolume(hodo, Polystyrene_nist, "H2_log", 0,0,0);
   
+  /////////////////////////////////////////////////////////////////////////////
+  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
+  /////////////////////////////////////////////////////////////////////////////
   //create SensitiveDetector object
-  SDHodo* SDH2 = new SDHodo("H2_log");
+  //SDHodo* SDH2 = new SDHodo("H2_log");
   //pass new sensitive detector to manager
-  SDman->AddNewDetector(SDH2);
-  H2_log->SetSensitiveDetector(SDH2);
+  //SDman->AddNewDetector(SDH2);
+  //H2_log->SetSensitiveDetector(SDH2);
+  /////////////////////////////////////////////////////////////////////////////
+
 
   G4VPhysicalVolume* H2_phys = 
     new G4PVPlacement(0, G4ThreeVector(0, BeamHeight, GapT1H2), H2_log,
@@ -867,12 +876,16 @@ if(FilePtr!=0){
 
   G4LogicalVolume* H3_log =
     new G4LogicalVolume(hodo, Polystyrene_nist, "H3_log", 0,0,0);
-  
+
+  /////////////////////////////////////////////////////////////////////////////
+  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
+  /////////////////////////////////////////////////////////////////////////////
   //create SensitiveDetector object
-  SDHodo* SDH3 = new SDHodo("H3_log");
+  //SDHodo* SDH3 = new SDHodo("H3_log");
   //pass new sensitive detector to manager
-  SDman->AddNewDetector(SDH3);
-  H3_log->SetSensitiveDetector(SDH3);
+  //SDman->AddNewDetector(SDH3);
+  //H3_log->SetSensitiveDetector(SDH3);
+  /////////////////////////////////////////////////////////////////////////////
 
   G4VPhysicalVolume* H3_phys = 
     new G4PVPlacement(0, G4ThreeVector(0, BeamHeight,
@@ -931,10 +944,14 @@ if(FilePtr!=0){
     new G4PVPlacement(0, G4ThreeVector(0, 0, 0), T1_liq_log, "T1_liq_phys",
 		      T1_log, false, 0, false);
 
+  /////////////////////////////////////////////////////////////////////////////
+  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
+  /////////////////////////////////////////////////////////////////////////////
   //Create SD for T1 liquid
-  SensitiveDetector* SDT1 = new SensitiveDetector("T1_log");
-  SDman->AddNewDetector(SDT1);
-  T1_liq_log->SetSensitiveDetector(SDT1);
+  //SensitiveDetector* SDT1 = new SensitiveDetector("T1_log");
+  //SDman->AddNewDetector(SDT1);
+  //T1_liq_log->SetSensitiveDetector(SDT1);
+  /////////////////////////////////////////////////////////////////////////////
 
   //Create the UVT acrylic window.
   G4Tubs* T1_win = new G4Tubs("T1_win", 0, UVTdiam/2, T1UVTheight/2, 0,360*deg);
@@ -998,11 +1015,14 @@ if(FilePtr!=0){
     new G4PVPlacement(0, G4ThreeVector(0, 0, 0), T2_liq_log, "T2_liq_phys",
 		      T2_log, false, 0, false);
 
+  /////////////////////////////////////////////////////////////////////////////
+  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
+  /////////////////////////////////////////////////////////////////////////////
   //Create SD for T2 liquid
-  SensitiveDetector* SDT2 = new SensitiveDetector("T2_log");
-  SDman->AddNewDetector(SDT2);
-  T2_liq_log->SetSensitiveDetector(SDT2);
-
+  //SensitiveDetector* SDT2 = new SensitiveDetector("T2_log");
+  //SDman->AddNewDetector(SDT2);
+  //T2_liq_log->SetSensitiveDetector(SDT2);
+  /////////////////////////////////////////////////////////////////////////////
   //Create PMTs. 
   //According to Hamamatsu, diam = 52 mm.
   //Thickness is indeterminate, so I'll make it 5 mm.
@@ -1031,15 +1051,18 @@ if(FilePtr!=0){
   VA_PMT_T2->SetForceSolid(true);
   PMT_T2_log->SetVisAttributes(VA_PMT_T2);
 
+  /////////////////////////////////////////////////////////////////////////////
+  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
+  /////////////////////////////////////////////////////////////////////////////
   //Make the PMTs sensitive
-  PMTwin* SDPMTT1 = new PMTwin("PMT_T1_log");
-  SDman->AddNewDetector(SDPMTT1);
-  PMT_T1_log->SetSensitiveDetector(SDPMTT1);
-
-  PMTwin* SDPMTT2 = new PMTwin("PMT_T2_log");
-  SDman->AddNewDetector(SDPMTT2);
-  PMT_T2_log->SetSensitiveDetector(SDPMTT2);
-
+  //PMTwin* SDPMTT1 = new PMTwin("PMT_T1_log");
+  //SDman->AddNewDetector(SDPMTT1);
+  //PMT_T1_log->SetSensitiveDetector(SDPMTT1);
+  //
+  //PMTwin* SDPMTT2 = new PMTwin("PMT_T2_log");
+  //SDman->AddNewDetector(SDPMTT2);
+  //PMT_T2_log->SetSensitiveDetector(SDPMTT2);
+  /////////////////////////////////////////////////////////////////////////////
 
   G4VPhysicalVolume* PMT_T1_phys =
     new G4PVPlacement(RotMat, G4ThreeVector(0, PMTT1Disp, 0), PMT_T1_log,
@@ -1180,4 +1203,32 @@ void DetectorConstruction::GetOptInfo(FILE* pfile, G4double unit){
   //finished file, return the vector
   thedata.push_back(wl);
   thedata.push_back(prop);
+}
+
+void DetectorConstruction::ConstructSDandField(){
+  //this method is thread-local and is used to define Sensitive Detectors.
+
+  //I don't have to, but it's easier for me to give the sensitive detectors the
+  //same name as their logical volume.
+
+  //Hodoscopes.
+  SDHodo* SDH1 = new SDHodo("H1_log");
+  SetSensitiveDetector("H1_log", SDH1);
+  SDHodo* SDH2 = new SDHodo("H2_log");
+  SetSensitiveDetector("H2_log", SDH2);
+  SDHodo* SDH3 = new SDHodo("H3_log");
+  SetSensitiveDetector("H3_log", SDH3);
+
+  //Liquid.
+  SensitiveDetector* SDT1 = new SensitiveDetector("T1_log");
+  SetSensitiveDetector("T1_log", SDT1);
+  SensitiveDetector* SDT2 = new SensitiveDetector("T2_log");
+  SetSensitiveDetector("T2_log", SDT2);
+ 
+  //PMTs.
+  PMTwin* SDPMTT1 = new PMTwin("PMT_T1_log");
+  SetSensitiveDetector("PMT_T1_log", SDPMTT1);
+  PMTwin* SDPMTT2 = new PMTwin("PMT_T2_log");
+  SetSensitiveDetector("PMT_T2_log", SDPMTT2);
+
 }

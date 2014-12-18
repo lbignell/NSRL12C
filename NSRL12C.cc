@@ -25,6 +25,7 @@ See below for an explanation of what each class does
 
 //User actions
 #include "RunAction.hh"
+#include "ActionInitialization.hh"
 
 using namespace std;
 
@@ -82,17 +83,27 @@ int main(int argc, char** argv){
   //physlist->SetVerboseLevel(1);
   //rm->SetUserInitialization(physlist);
 
+  rm->SetUserInitialization(new ActionInitialization(detector));
+
+
+
   //INITIALISE!!
   rm->Initialize();
-    
+   
+
+  /////////////////////////////////////////////////////////////////////////////
+  //The below initialization method is OBSOLETE (not multi-threaded). Use
+  //ActionInitialization instead!!!
+  ///////////////////////////////////////////////////////////////////////////// 
   //get pointer to pga
-  G4VUserPrimaryGeneratorAction* pga = new PrimaryGeneratorAction();
+  //G4VUserPrimaryGeneratorAction* pga = new PrimaryGeneratorAction();
   //now give the run manager access to the primary generator action object
-  rm->SetUserAction(pga);    
+  //rm->SetUserAction(pga);    
 
-  G4UserRunAction* myRA = new RunAction(detector);
+  //G4UserRunAction* myRA = new RunAction(detector);
 
-  rm->SetUserAction(myRA);
+  //rm->SetUserAction(myRA);
+  ///////////////////////////////////////////////////////////////////////////// 
 
 
   // Get the pointer to the User Interface manager

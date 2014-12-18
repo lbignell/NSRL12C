@@ -8,6 +8,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/NSRL12C.dir/src/PrimaryGeneratorAction.cc.o"
   "CMakeFiles/NSRL12C.dir/src/LocalINCLIonIonInelasticPhysic.cc.o"
   "CMakeFiles/NSRL12C.dir/src/SensitiveDetector.cc.o"
+  "CMakeFiles/NSRL12C.dir/src/ActionInitialization.cc.o"
   "CMakeFiles/NSRL12C.dir/src/MyOpWLS.cc.o"
   "CMakeFiles/NSRL12C.dir/src/PhysicsList.cc.o"
   "CMakeFiles/NSRL12C.dir/src/MyCerenkov.cc.o"

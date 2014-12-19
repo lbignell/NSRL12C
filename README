@@ -282,3 +282,15 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
        materials involved). There may be a solution in individually modifying
        the physical/logical volume pointers; but at the moment it is working and
        will do me...
+
+- To Do:
+  - Measure absorption lengths of 0.4% LS and pure LS (or maybe use DB LS?).
+  - Modify DetectorConstruction and DetectorMessenger to make a switch for
+    changing between the measured absorption data sets, instead of just scaling.
+  - A reminder about the fundamental limitation of my model:
+    I'm bundling WbLS absorption and scattering in together as a single WLS
+    cross-section! This means that the portion of photons that would be
+    scattered are instead wavelength shifted (with some QY). This apparently
+    hasn't had a big effect on the results to date, but it may be one reason why
+    the white tub, for instance, doesn't agree very well. (Though I can't really
+    claim that while I'm getting poor ageement for the water).

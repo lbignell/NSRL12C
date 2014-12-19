@@ -54,6 +54,8 @@ DetectorConstruction::DetectorConstruction(){
 
 DetectorConstruction::~DetectorConstruction(){ 
 
+  //delete SDH1, SDH2, SDH3, SDT1, SDT2, SDPMTT1, SDPMTT2;
+
 }
 
 void DetectorConstruction::SetWbLSfraction(double value){WbLSfraction = value;}
@@ -89,21 +91,40 @@ void DetectorConstruction::UpdateGeometry(){
   //G4RunManager::GetRunManager()->DefineWorldVolume(Construct(), true);
   //G4RunManager::GetRunManager()->GeometryHasBeenModified();
 
+  //SDH1= NULL;
+  //SDH2= NULL;
+  //SDH3= NULL;
+  //SDT1= NULL;
+  //SDT2= NULL; 
+  //SDPMTT1= NULL; 
+  //SDPMTT2 = NULL;
+
+  //De-activate the previous versions of SD.
+  G4SDManager* SDman = G4SDManager::GetSDMpointer();
+  SDman->Activate("H1_log", false);
+  SDman->Activate("H2_log", false);
+  SDman->Activate("H3_log", false);
+  SDman->Activate("T1_log", false);
+  SDman->Activate("T2_log", false);
+  SDman->Activate("PMT_T1_log", false);
+  SDman->Activate("PMT_T2_log", false);
 
   //Code taken from:
   //http://hypernews.slac.stanford.edu/HyperNews/geant4/get/eventtrackmanage/970/1/2.html?inline=-1
   //Delete existing geom.
-  G4GeometryManager::GetInstance()->OpenGeometry();
-  G4PhysicalVolumeStore::GetInstance()->Clean();
-  G4LogicalVolumeStore::GetInstance()->Clean();
-  G4SolidStore::GetInstance()->Clean();
-  G4LogicalSkinSurface::CleanSurfaceTable();
-  G4LogicalBorderSurface::CleanSurfaceTable();
+  //G4GeometryManager::GetInstance()->OpenGeometry();
+  //G4PhysicalVolumeStore::GetInstance()->Clean();
+  //G4LogicalVolumeStore::GetInstance()->Clean();
+  //G4SolidStore::GetInstance()->Clean();
+  //G4LogicalSkinSurface::CleanSurfaceTable();
+  //G4LogicalBorderSurface::CleanSurfaceTable();
 
-  G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
-  G4RunManager::GetRunManager()->GeometryHasBeenModified();
-  G4RunManager::GetRunManager()->PhysicsHasBeenModified();
-  G4RegionStore::GetInstance()->UpdateMaterialList(physical_world);
+  //G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
+  //G4RunManager::GetRunManager()->GeometryHasBeenModified();
+  //G4RunManager::GetRunManager()->PhysicsHasBeenModified();
+  //G4RegionStore::GetInstance()->UpdateMaterialList(physical_world);
+
+  G4RunManager::GetRunManager()->ReinitializeGeometry();
 
 }
 

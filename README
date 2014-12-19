@@ -259,3 +259,26 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 
 - Code breaks when I do /CustomCommands/det/update.
   I'll look into this tomorrow...
+
+2014-12-19
+- Fixing the error when the geometry is updated...
+  -> The problem is that when the geometry is updated, the Sensitive Detector
+     manager already has the current SDs registered. I then reinitialize the
+     geometry and try to add some more SDs with the same name, causing a G4 to
+     throw an error or a seg fault; depending on how the geometry is
+     reinitialized.
+  -> My workaround:
+     - Get the SDmanager pointer and de-activate all of the current SDs.
+     - Reinitialize the geometry.
+  -> Important points/limitations:
+     - This approach only works if DetectorConstruction::UpdateGeometry() is
+       called from the pre-init state; so I've removed the run manager's
+       initialize command from main().
+     - Because of the above point; all of my macros must do their geometry
+       changes, then call /run/initialize, prior to any running.
+     - I still can't run then make a change without seg-faulting.
+     - Based on my googling around about this issue; updating the geometry is 
+       not one of Geant4's strong suits (especially if there is a change to
+       materials involved). There may be a solution in individually modifying
+       the physical/logical volume pointers; but at the moment it is working and
+       will do me...

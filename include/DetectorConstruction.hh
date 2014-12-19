@@ -11,6 +11,9 @@ using namespace std;
 //class declaration, we don't need to tell the compiler how big it is, yet
 class G4VPhysicalVolume;
 class DetectorMessenger;
+class SDHodo;
+class SensitiveDetector;
+class PMTwin;
 
 //this is the user defined class that inherits behaviour from the virtual base class of the geant4 toolkit
 class DetectorConstruction : public G4VUserDetectorConstruction{
@@ -44,11 +47,20 @@ public:
   vector< vector< double > > QYdata;
   vector< vector< double > >& GetQYdata();
 
+
   //This method will read out the file specified by G4string and return the
   //pointer to a vector of vector of doubles (containing the data).
   void GetOptInfo(FILE*, G4double);
 
   void ConstructSDandField();
+  
+  //SDHodo* SDH1;
+  //SDHodo* SDH2;
+  //SDHodo* SDH3;
+  //SensitiveDetector* SDT1;
+  //SensitiveDetector* SDT2;
+  //PMTwin* SDPMTT1;
+  //PMTwin* SDPMTT2;
 
 private:
   vector< vector < double > > thedata;

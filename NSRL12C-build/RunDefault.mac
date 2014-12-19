@@ -1,7 +1,8 @@
-/tracking/verbose 0
 /CustomCommands/det/isWater true
 /CustomCommands/det/setWbLSfraction 0.0099
 /CustomCommands/det/update
+/run/initialize
+/tracking/verbose 0
 /gun/energy 2000 MeV
 /run/beamOn 10000
 

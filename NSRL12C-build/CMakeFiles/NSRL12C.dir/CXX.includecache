@@ -8447,6 +8447,8 @@ RunAction.hh
 /lbne/u/lbignell/lbignell/github/NSRL12C/RunAction.hh
 ActionInitialization.hh
 /lbne/u/lbignell/lbignell/github/NSRL12C/ActionInitialization.hh
+G4Threading.hh
+/lbne/u/lbignell/lbignell/github/NSRL12C/G4Threading.hh
 
 /lbne/u/lbignell/lbignell/github/NSRL12C/src/ActionInitialization.cc
 ActionInitialization.hh

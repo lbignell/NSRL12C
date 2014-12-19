@@ -27,6 +27,8 @@ See below for an explanation of what each class does
 #include "RunAction.hh"
 #include "ActionInitialization.hh"
 
+#include "G4Threading.hh"
+
 using namespace std;
 
 /*the main function, every C++ program has one*/
@@ -59,7 +61,11 @@ int main(int argc, char** argv){
   //get the run manager pointer
 #ifdef G4MULTITHREADED
   G4MTRunManager* rm = new G4MTRunManager();
-  //rm->SetNumberOfThreads(10);
+  G4int nCores = G4Threading::G4GetNumberOfCores();
+  if(nCores==16){
+    rm->SetNumberOfThreads(10);
+  }
+  else{rm->SetNumberOfThreads(2);}
 #else
   G4RunManager* rm = new G4RunManager();
 #endif
@@ -88,7 +94,7 @@ int main(int argc, char** argv){
 
 
   //INITIALISE!!
-  rm->Initialize();
+  //rm->Initialize();
    
 
   /////////////////////////////////////////////////////////////////////////////

@@ -20,3 +20,4 @@ NSRL12C-build/Makefile
 *.log*
 *.err
 CMakeFiles
+*.job

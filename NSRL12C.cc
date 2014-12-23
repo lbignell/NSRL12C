@@ -62,8 +62,8 @@ int main(int argc, char** argv){
 #ifdef G4MULTITHREADED
   G4MTRunManager* rm = new G4MTRunManager();
   G4int nCores = G4Threading::G4GetNumberOfCores();
-  if(nCores==16){
-    rm->SetNumberOfThreads(10);
+  if(nCores>4){
+    rm->SetNumberOfThreads((nCores - 4));
   }
   else{rm->SetNumberOfThreads(2);}
 #else

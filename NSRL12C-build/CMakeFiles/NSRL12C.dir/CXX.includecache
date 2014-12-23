@@ -8833,6 +8833,10 @@ TTree.h
 /lbne/u/lbignell/lbignell/github/NSRL12C/src/TTree.h
 TROOT.h
 /lbne/u/lbignell/lbignell/github/NSRL12C/src/TROOT.h
+G4Threading.hh
+/lbne/u/lbignell/lbignell/github/NSRL12C/src/G4Threading.hh
+G4AutoLock.hh
+/lbne/u/lbignell/lbignell/github/NSRL12C/src/G4AutoLock.hh
 
 /lbne/u/lbignell/lbignell/github/NSRL12C/src/SDHodo.cc
 SDHodo.hh

@@ -12,6 +12,14 @@
 #include "TTree.h"
 #include "TROOT.h"
 
+//Threadsafe-making
+#include "G4Threading.hh"
+#include "G4AutoLock.hh"
+
+namespace {
+  G4Mutex aMutex = G4MUTEX_INITIALIZER;
+}
+
 //Arguments:Name of file,type of rewrite option(UPDATE means append),comments
 TFile*  RunAction::RootOP = NULL;
   //new TFile("Edep.root","RECREATE","NSRL12C Sim Output");
@@ -70,34 +78,34 @@ void RunAction::BeginOfRunAction(const G4Run* aRun){
     
     EdepTree = new TTree("Results", "Tree of results from NSRL12C simulation.");
 
-  EdepTree->Branch("KE_T1", &KE_T1);
-  EdepTree->Branch("KE_T2", &KE_T2);
-  EdepTree->Branch("Edep_H1", &Edep_H1);
-  EdepTree->Branch("Edep_H2", &Edep_H2);
-  EdepTree->Branch("Edep_H3", &Edep_H3);
-  EdepTree->Branch("Edep_T1", &Edep_T1);
-  EdepTree->Branch("Edep_T2", &Edep_T2);
-  EdepTree->Branch("VertX", &VertX);
-  EdepTree->Branch("VertY", &VertY);
-  EdepTree->Branch("HazPrimary_H1", &HazPrimary_H1);
-  EdepTree->Branch("HazPrimary_H2", &HazPrimary_H2);
-  EdepTree->Branch("HazPrimary_H3", &HazPrimary_H3);
-  EdepTree->Branch("HazPrimary_T1", &HazPrimary_T1);
-  EdepTree->Branch("HazPrimary_T2", &HazPrimary_T2);
-  EdepTree->Branch("NumOP_T1", &NumOP_T1);
-  EdepTree->Branch("NumOP_T2", &NumOP_T2);
-  EdepTree->Branch("OPEn_T1", &OPEn_T1);
-  EdepTree->Branch("OPEn_T2", &OPEn_T2);
-  EdepTree->Branch("OPProc_T1", &OPProc_T1);
-  EdepTree->Branch("OPProc_T2", &OPProc_T2);
-  EdepTree->Branch("OPEn_PMTT1", &OPEn_PMTT1);
-  EdepTree->Branch("OPEn_PMTT2", &OPEn_PMTT2);
-  EdepTree->Branch("OPEnMeas_PMTT1", &OPEnMeas_PMTT1);
-  EdepTree->Branch("OPEnMeas_PMTT2", &OPEnMeas_PMTT2);
-  EdepTree->Branch("NumPhotons_PMTT1", &NumOP_PMTT1);
-  EdepTree->Branch("NumPhotons_PMTT2", &NumOP_PMTT2);
-  EdepTree->Branch("MeasNumPhotons_PMTT1", &MeasNumOP_PMTT1);
-  EdepTree->Branch("MeasNumPhotons_PMTT2", &MeasNumOP_PMTT2);
+    EdepTree->Branch("KE_T1", &KE_T1);
+    EdepTree->Branch("KE_T2", &KE_T2);
+    EdepTree->Branch("Edep_H1", &Edep_H1);
+    EdepTree->Branch("Edep_H2", &Edep_H2);
+    EdepTree->Branch("Edep_H3", &Edep_H3);
+    EdepTree->Branch("Edep_T1", &Edep_T1);
+    EdepTree->Branch("Edep_T2", &Edep_T2);
+    EdepTree->Branch("VertX", &VertX);
+    EdepTree->Branch("VertY", &VertY);
+    EdepTree->Branch("HazPrimary_H1", &HazPrimary_H1);
+    EdepTree->Branch("HazPrimary_H2", &HazPrimary_H2);
+    EdepTree->Branch("HazPrimary_H3", &HazPrimary_H3);
+    EdepTree->Branch("HazPrimary_T1", &HazPrimary_T1);
+    EdepTree->Branch("HazPrimary_T2", &HazPrimary_T2);
+    EdepTree->Branch("NumOP_T1", &NumOP_T1);
+    EdepTree->Branch("NumOP_T2", &NumOP_T2);
+    EdepTree->Branch("OPEn_T1", &OPEn_T1);
+    EdepTree->Branch("OPEn_T2", &OPEn_T2);
+    EdepTree->Branch("OPProc_T1", &OPProc_T1);
+    EdepTree->Branch("OPProc_T2", &OPProc_T2);
+    EdepTree->Branch("OPEn_PMTT1", &OPEn_PMTT1);
+    EdepTree->Branch("OPEn_PMTT2", &OPEn_PMTT2);
+    EdepTree->Branch("OPEnMeas_PMTT1", &OPEnMeas_PMTT1);
+    EdepTree->Branch("OPEnMeas_PMTT2", &OPEnMeas_PMTT2);
+    EdepTree->Branch("NumPhotons_PMTT1", &NumOP_PMTT1);
+    EdepTree->Branch("NumPhotons_PMTT2", &NumOP_PMTT2);
+    EdepTree->Branch("MeasNumPhotons_PMTT1", &MeasNumOP_PMTT1);
+    EdepTree->Branch("MeasNumPhotons_PMTT2", &MeasNumOP_PMTT2);
   }
 }
 
@@ -147,7 +155,10 @@ TallyEvtData(double theKE_T1, double theKE_T2,
 void RunAction::EndOfRunAction(const G4Run* aRun){
   //get the number of primary particles being simulated for this run
   G4double NumberOfEvents = aRun->GetNumberOfEventToBeProcessed();
- 
+
+  //Put a lock here as multiple threads might/will try to write at once...
+  
+  G4AutoLock l(&aMutex);
   RootOP->Write();
   //RootOP->Close();
   

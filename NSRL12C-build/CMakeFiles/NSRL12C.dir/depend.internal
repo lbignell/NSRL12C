@@ -2954,6 +2954,7 @@ CMakeFiles/NSRL12C.dir/src/RunAction.cc.o
  /lbne/u/lbignell/lbignell/geant4.10.0-build/include/Geant4/G4AffineTransform.icc
  /lbne/u/lbignell/lbignell/geant4.10.0-build/include/Geant4/G4Allocator.hh
  /lbne/u/lbignell/lbignell/geant4.10.0-build/include/Geant4/G4AllocatorPool.hh
+ /lbne/u/lbignell/lbignell/geant4.10.0-build/include/Geant4/G4AutoLock.hh
  /lbne/u/lbignell/lbignell/geant4.10.0-build/include/Geant4/G4CollectionNameVector.hh
  /lbne/u/lbignell/lbignell/geant4.10.0-build/include/Geant4/G4DataVector.hh
  /lbne/u/lbignell/lbignell/geant4.10.0-build/include/Geant4/G4DataVector.icc

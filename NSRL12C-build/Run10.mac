@@ -1,6 +1,7 @@
 #/tracking/verbose 0
-/CustomCommands/det/isWater false
-/CustomCommands/det/update
+#/CustomCommands/det/isWater false
+#/CustomCommands/det/setWbLSfraction 0.004
+#/CustomCommands/det/update
 /run/initialize
 /run/beamOn 10
 

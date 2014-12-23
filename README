@@ -285,8 +285,12 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 
 - To Do:
   - Measure absorption lengths of 0.4% LS and pure LS (or maybe use DB LS?).
+    ->DONE.
   - Modify DetectorConstruction and DetectorMessenger to make a switch for
     changing between the measured absorption data sets, instead of just scaling.
+    ->This actually didn't require a DetectorMessenger modification; I just 
+      check whether the WbLS fraction used is 100%, 1%, or 0.4%, and run it with
+      the data if I have it, otherwise I scale from 1% WbLS.
   - A reminder about the fundamental limitation of my model:
     I'm bundling WbLS absorption and scattering in together as a single WLS
     cross-section! This means that the portion of photons that would be
@@ -294,3 +298,31 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
     hasn't had a big effect on the results to date, but it may be one reason why
     the white tub, for instance, doesn't agree very well. (Though I can't really
     claim that while I'm getting poor ageement for the water).
+
+2014-12-23
+- Added a lock on the ROOT file readout, because I'm getting seg faults at
+  around that point in my program, hopefully it will stop them...
+
+- Added another change to DetectorConstruction: if the WbLS fraction == 1 (ie.
+  pure LS), I declare the WbLS material as having only one component (LS) rather
+  than 2.
+
+- Running pure LS takes a VERY long time; I'm considering turning off the T1
+  simulation of optical photons in favour of being not slow!
+  - To give some idea of how slow; running 10 events in paralell across 10 cores
+    takes about 10 minutes! (The first event seemed to finish after ~5 mins, the
+    last one finished after ~10 mins). This means that to run 1000 events; it
+    would take ~ 5 days, even using 10 cores!
+    -> That was only for 475 MeV protons!!
+
+- Had a look at using the cluster to access more cores.
+  - The cluster uses condor (same as ANSTO's cluster IIRC, at least it seems
+    familiar).
+    -> I have problems getting the test script to execute; the node reports not
+       being able to find /data5/lbne/lbignell/github/NSRL12C/NSRL12C-build
+       Possibly the NSRL12C is not NFS? The default location of the output
+       is to /experiment/u/user...
+  - I may come back to this if I need to but for now I'll give it a rest; using
+    12 of the test node's 16 cores should suffice for all but the pure LS -- I
+    may be able to get away with turning off the PTFE reflectance in T1 for that
+    simulation...

@@ -17,3 +17,7 @@ NSRL12C-build/Makefile
 *.d
 *.so
 *~
+*.err
+*.log*
+*.job
+

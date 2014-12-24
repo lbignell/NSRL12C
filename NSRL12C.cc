@@ -2,11 +2,11 @@
 Anyways, for every class that is used in the main function, we must include the defitinion which is contained in the corresponding header file: className.hh
 See below for an explanation of what each class does
 */
-#ifdef G4MULTITHREADED
-#include "G4MTRunManager.hh"
-#else
+//#ifdef G4MULTITHREADED
+//#include "G4MTRunManager.hh"
+//#else
 #include "G4RunManager.hh"
-#endif
+//#endif
 
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"//Using PhysicsFactory instead...
@@ -25,9 +25,6 @@ See below for an explanation of what each class does
 
 //User actions
 #include "RunAction.hh"
-#include "ActionInitialization.hh"
-
-#include "G4Threading.hh"
 
 using namespace std;
 
@@ -59,16 +56,12 @@ int main(int argc, char** argv){
 
 
   //get the run manager pointer
-#ifdef G4MULTITHREADED
-  G4MTRunManager* rm = new G4MTRunManager();
-  G4int nCores = G4Threading::G4GetNumberOfCores();
-  if(nCores>4){
-    rm->SetNumberOfThreads((nCores - 4));
-  }
-  else{rm->SetNumberOfThreads(2);}
-#else
+  //#ifdef G4MULTITHREADED
+  //G4MTRunManager* rm = new G4MTRunManager();
+  //rm->SetNumberOfThreads(10);
+  //#else
   G4RunManager* rm = new G4RunManager();
-#endif
+  //#endif
 
   //detector construction pointer
   DetectorConstruction* detector = new DetectorConstruction();  
@@ -89,27 +82,17 @@ int main(int argc, char** argv){
   //physlist->SetVerboseLevel(1);
   //rm->SetUserInitialization(physlist);
 
-  rm->SetUserInitialization(new ActionInitialization(detector));
-
-
-
   //INITIALISE!!
-  //rm->Initialize();
-   
-
-  /////////////////////////////////////////////////////////////////////////////
-  //The below initialization method is OBSOLETE (not multi-threaded). Use
-  //ActionInitialization instead!!!
-  ///////////////////////////////////////////////////////////////////////////// 
+  rm->Initialize();
+    
   //get pointer to pga
-  //G4VUserPrimaryGeneratorAction* pga = new PrimaryGeneratorAction();
+  G4VUserPrimaryGeneratorAction* pga = new PrimaryGeneratorAction();
   //now give the run manager access to the primary generator action object
-  //rm->SetUserAction(pga);    
+  rm->SetUserAction(pga);    
 
-  //G4UserRunAction* myRA = new RunAction(detector);
+  G4UserRunAction* myRA = new RunAction(detector);
 
-  //rm->SetUserAction(myRA);
-  ///////////////////////////////////////////////////////////////////////////// 
+  rm->SetUserAction(myRA);
 
 
   // Get the pointer to the User Interface manager

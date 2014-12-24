@@ -54,8 +54,6 @@ DetectorConstruction::DetectorConstruction(){
 
 DetectorConstruction::~DetectorConstruction(){ 
 
-  //delete SDH1, SDH2, SDH3, SDT1, SDT2, SDPMTT1, SDPMTT2;
-
 }
 
 void DetectorConstruction::SetWbLSfraction(double value){WbLSfraction = value;}
@@ -86,47 +84,26 @@ vector< vector< double > >& DetectorConstruction::GetQYdata(){
   return QYdata;
 }
 
-
-
 void DetectorConstruction::UpdateGeometry(){
   //My original code.
   //G4RunManager::GetRunManager()->DefineWorldVolume(Construct(), true);
   //G4RunManager::GetRunManager()->GeometryHasBeenModified();
 
-  //SDH1= NULL;
-  //SDH2= NULL;
-  //SDH3= NULL;
-  //SDT1= NULL;
-  //SDT2= NULL; 
-  //SDPMTT1= NULL; 
-  //SDPMTT2 = NULL;
-
-  //De-activate the previous versions of SD.
-  G4SDManager* SDman = G4SDManager::GetSDMpointer();
-  SDman->Activate("H1_log", false);
-  SDman->Activate("H2_log", false);
-  SDman->Activate("H3_log", false);
-  SDman->Activate("T1_log", false);
-  SDman->Activate("T2_log", false);
-  SDman->Activate("PMT_T1_log", false);
-  SDman->Activate("PMT_T2_log", false);
 
   //Code taken from:
   //http://hypernews.slac.stanford.edu/HyperNews/geant4/get/eventtrackmanage/970/1/2.html?inline=-1
   //Delete existing geom.
-  //G4GeometryManager::GetInstance()->OpenGeometry();
-  //G4PhysicalVolumeStore::GetInstance()->Clean();
-  //G4LogicalVolumeStore::GetInstance()->Clean();
-  //G4SolidStore::GetInstance()->Clean();
-  //G4LogicalSkinSurface::CleanSurfaceTable();
-  //G4LogicalBorderSurface::CleanSurfaceTable();
+  G4GeometryManager::GetInstance()->OpenGeometry();
+  G4PhysicalVolumeStore::GetInstance()->Clean();
+  G4LogicalVolumeStore::GetInstance()->Clean();
+  G4SolidStore::GetInstance()->Clean();
+  G4LogicalSkinSurface::CleanSurfaceTable();
+  G4LogicalBorderSurface::CleanSurfaceTable();
 
-  //G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
-  //G4RunManager::GetRunManager()->GeometryHasBeenModified();
-  //G4RunManager::GetRunManager()->PhysicsHasBeenModified();
-  //G4RegionStore::GetInstance()->UpdateMaterialList(physical_world);
-
-  G4RunManager::GetRunManager()->ReinitializeGeometry();
+  G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
+  G4RunManager::GetRunManager()->GeometryHasBeenModified();
+  G4RunManager::GetRunManager()->PhysicsHasBeenModified();
+  G4RegionStore::GetInstance()->UpdateMaterialList(physical_world);
 
 }
 
@@ -272,23 +249,12 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
 
   //Make WbLS as used in expt.
   //G4double WbLSfraction = 0.004;
-  G4double WbLSdensity;
-  G4Material* WbLS;
-
-  if(WbLSfraction!=1){
-    WbLSdensity = (water_nist->GetDensity())*(1-WbLSfraction) + 
-      (Scint->GetDensity())*WbLSfraction;
-    WbLS = new G4Material("WbLS", WbLSdensity, 2);
-    //kStateLiquid, 293*kelvin, 1*atmosphere);
-    WbLS->AddMaterial(water_nist, (1-WbLSfraction));
-    WbLS->AddMaterial(Scint, WbLSfraction);
-  }
-  else{
-    WbLSdensity = Scint->GetDensity();
-    WbLS = new G4Material("WbLS", WbLSdensity, 1);
-    //kStateLiquid, 293*kelvin, 1*atmosphere);
-    WbLS->AddMaterial(Scint, WbLSfraction);
-  }
+  G4double WbLSdensity = (water_nist->GetDensity())*(1-WbLSfraction) + 
+    (Scint->GetDensity())*WbLSfraction;
+  G4Material* WbLS = new G4Material("WbLS", WbLSdensity, 2);
+  //kStateLiquid, 293*kelvin, 1*atmosphere);
+  WbLS->AddMaterial(water_nist, (1-WbLSfraction));
+  WbLS->AddMaterial(Scint, WbLSfraction);
 
   //Aluminium Alloy used in the walls Alloy #6063
   G4Material* AlAlloy=new G4Material("Al Alloy", 2680.*kg/m3, 9, kStateSolid);
@@ -576,8 +542,7 @@ if(FilePtr!=0){
   MPTWbLS->AddProperty("FASTCOMPONENT", En6, ScintEm6, size6);
   //Scnt_MPT->AddProperty("SLOWCOMPONENT", Scnt_PP, Scnt_SLOW, NUMENTRIES);
 
-  MPTWbLS->AddConstProperty("SCINTILLATIONYIELD",
-			    ((105./MeV)*(WbLSfraction/0.0099)));
+  MPTWbLS->AddConstProperty("SCINTILLATIONYIELD", ((105./MeV)*(0.004/0.0099)));
   //The resolution yield is indeterminate. It will affect the breadth of the
   //photon number distribution, and can therefore be tuned to the measured value
   //if that makes sense.
@@ -773,32 +738,13 @@ if(FilePtr!=0){
   //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_140908.csv", "r");
   //New measurements in 1 cm cell, corrected for fluorescence.
   //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_Corrected_140908.csv", "r");
-    //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_AllDilutions_140910.csv", "r");
   char name9[512];
-  bool ConcIsUnknown = false;
-  if(WbLSfraction==0.0099){
-    strcpy(name9, DataPath);
-    strcat(name9, "/WbLSAbs_NewMeas_AllDilutions_140910.csv");
-    FilePtr = fopen(name9, "r");
-  }
-  else if(WbLSfraction==0.004){
-    strcpy(name9, DataPath);
-    strcat(name9, "/WbLS_Abs_0p4pc_Measured141223.csv");
-    FilePtr = fopen(name9, "r");
-  }
-  else if(WbLSfraction==1){
-    strcpy(name9, DataPath);
-    strcat(name9, "/DBScintAbs.csv");
-    FilePtr = fopen(name9, "r");
-  }
-  else{
-    cout << "INVALID CHOICE OF WBLS CONCENTRATION, ATTEMPTING TO SCALE USING "
-	 << "1% WBLS DATA..." << endl;
-    strcpy(name9, DataPath);
-    strcat(name9, "/WbLSAbs_NewMeas_AllDilutions_140910.csv");
-    FilePtr = fopen(name9, "r");
-    ConcIsUnknown = true;
-  }
+  strcpy(name9, DataPath);
+  strcat(name9, "/WbLSAbs_NewMeas_AllDilutions_140910.csv");
+  FilePtr = fopen(name9, "r");
+  //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_AllDilutions_140910.csv", "r");
+
+
 
   if(FilePtr!=0){
     GetOptInfo(FilePtr, 1*mm);
@@ -821,13 +767,7 @@ if(FilePtr!=0){
   //std::copy(thedata.at(1).begin(), thedata.at(1).end(), Rindex7);
   for(int i = 0; i<size7; i++){
     En7[i] = thedata.at(0).at(i);
-    //Following line is for scaling the abs length from the 1% WbLS.
-    if(ConcIsUnknown){
-      Rindex7[i] = thedata.at(1).at(i)*(WbLSfraction/0.0099);
-    }
-    else{
-      Rindex7[i] = thedata.at(1).at(i);
-    }
+    Rindex7[i] = thedata.at(1).at(i)*(WbLSfraction/0.0099);
     //G4cout << "RINDEX[" << i << "] = " << Rindex2[size2] << G4endl;
   }
   MPTWbLS->AddProperty("WLSABSLENGTH", En7, Rindex7, size7);
@@ -899,18 +839,14 @@ if(FilePtr!=0){
   G4LogicalVolume* H1_log =
     new G4LogicalVolume(hodo, Polystyrene_nist, "H1_log", 0,0,0);
 
-  /////////////////////////////////////////////////////////////////////////////
-  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
-  /////////////////////////////////////////////////////////////////////////////
   //G4RunManager to see which sensitive detectors there are
-  //G4SDManager* SDman = G4SDManager::GetSDMpointer();
+  G4SDManager* SDman = G4SDManager::GetSDMpointer();
 
   //create SensitiveDetector object
-  //SDHodo* SDH1 = new SDHodo("H1_log");
+  SDHodo* SDH1 = new SDHodo("H1_log");
   //pass new sensitive detector to manager
-  //SDman->AddNewDetector(SDH1);
-  //H1_log->SetSensitiveDetector(SDH1);
-  /////////////////////////////////////////////////////////////////////////////
+  SDman->AddNewDetector(SDH1);
+  H1_log->SetSensitiveDetector(SDH1);
 
   G4VPhysicalVolume* H1_phys =
     new G4PVPlacement(0, G4ThreeVector(0, BeamHeight, -GapH1T1), H1_log,
@@ -919,16 +855,11 @@ if(FilePtr!=0){
   G4LogicalVolume* H2_log =
     new G4LogicalVolume(hodo, Polystyrene_nist, "H2_log", 0,0,0);
   
-  /////////////////////////////////////////////////////////////////////////////
-  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
-  /////////////////////////////////////////////////////////////////////////////
   //create SensitiveDetector object
-  //SDHodo* SDH2 = new SDHodo("H2_log");
+  SDHodo* SDH2 = new SDHodo("H2_log");
   //pass new sensitive detector to manager
-  //SDman->AddNewDetector(SDH2);
-  //H2_log->SetSensitiveDetector(SDH2);
-  /////////////////////////////////////////////////////////////////////////////
-
+  SDman->AddNewDetector(SDH2);
+  H2_log->SetSensitiveDetector(SDH2);
 
   G4VPhysicalVolume* H2_phys = 
     new G4PVPlacement(0, G4ThreeVector(0, BeamHeight, GapT1H2), H2_log,
@@ -936,16 +867,12 @@ if(FilePtr!=0){
 
   G4LogicalVolume* H3_log =
     new G4LogicalVolume(hodo, Polystyrene_nist, "H3_log", 0,0,0);
-
-  /////////////////////////////////////////////////////////////////////////////
-  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
-  /////////////////////////////////////////////////////////////////////////////
+  
   //create SensitiveDetector object
-  //SDHodo* SDH3 = new SDHodo("H3_log");
+  SDHodo* SDH3 = new SDHodo("H3_log");
   //pass new sensitive detector to manager
-  //SDman->AddNewDetector(SDH3);
-  //H3_log->SetSensitiveDetector(SDH3);
-  /////////////////////////////////////////////////////////////////////////////
+  SDman->AddNewDetector(SDH3);
+  H3_log->SetSensitiveDetector(SDH3);
 
   G4VPhysicalVolume* H3_phys = 
     new G4PVPlacement(0, G4ThreeVector(0, BeamHeight,
@@ -1004,14 +931,10 @@ if(FilePtr!=0){
     new G4PVPlacement(0, G4ThreeVector(0, 0, 0), T1_liq_log, "T1_liq_phys",
 		      T1_log, false, 0, false);
 
-  /////////////////////////////////////////////////////////////////////////////
-  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
-  /////////////////////////////////////////////////////////////////////////////
   //Create SD for T1 liquid
-  //SensitiveDetector* SDT1 = new SensitiveDetector("T1_log");
-  //SDman->AddNewDetector(SDT1);
-  //T1_liq_log->SetSensitiveDetector(SDT1);
-  /////////////////////////////////////////////////////////////////////////////
+  SensitiveDetector* SDT1 = new SensitiveDetector("T1_log");
+  SDman->AddNewDetector(SDT1);
+  T1_liq_log->SetSensitiveDetector(SDT1);
 
   //Create the UVT acrylic window.
   G4Tubs* T1_win = new G4Tubs("T1_win", 0, UVTdiam/2, T1UVTheight/2, 0,360*deg);
@@ -1075,14 +998,11 @@ if(FilePtr!=0){
     new G4PVPlacement(0, G4ThreeVector(0, 0, 0), T2_liq_log, "T2_liq_phys",
 		      T2_log, false, 0, false);
 
-  /////////////////////////////////////////////////////////////////////////////
-  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
-  /////////////////////////////////////////////////////////////////////////////
   //Create SD for T2 liquid
-  //SensitiveDetector* SDT2 = new SensitiveDetector("T2_log");
-  //SDman->AddNewDetector(SDT2);
-  //T2_liq_log->SetSensitiveDetector(SDT2);
-  /////////////////////////////////////////////////////////////////////////////
+  SensitiveDetector* SDT2 = new SensitiveDetector("T2_log");
+  SDman->AddNewDetector(SDT2);
+  T2_liq_log->SetSensitiveDetector(SDT2);
+
   //Create PMTs. 
   //According to Hamamatsu, diam = 52 mm.
   //Thickness is indeterminate, so I'll make it 5 mm.
@@ -1111,18 +1031,15 @@ if(FilePtr!=0){
   VA_PMT_T2->SetForceSolid(true);
   PMT_T2_log->SetVisAttributes(VA_PMT_T2);
 
-  /////////////////////////////////////////////////////////////////////////////
-  //OBSOLETE and doesn't work for multithreaded code! Use ConstructSDandField!!
-  /////////////////////////////////////////////////////////////////////////////
   //Make the PMTs sensitive
-  //PMTwin* SDPMTT1 = new PMTwin("PMT_T1_log");
-  //SDman->AddNewDetector(SDPMTT1);
-  //PMT_T1_log->SetSensitiveDetector(SDPMTT1);
-  //
-  //PMTwin* SDPMTT2 = new PMTwin("PMT_T2_log");
-  //SDman->AddNewDetector(SDPMTT2);
-  //PMT_T2_log->SetSensitiveDetector(SDPMTT2);
-  /////////////////////////////////////////////////////////////////////////////
+  PMTwin* SDPMTT1 = new PMTwin("PMT_T1_log");
+  SDman->AddNewDetector(SDPMTT1);
+  PMT_T1_log->SetSensitiveDetector(SDPMTT1);
+
+  PMTwin* SDPMTT2 = new PMTwin("PMT_T2_log");
+  SDman->AddNewDetector(SDPMTT2);
+  PMT_T2_log->SetSensitiveDetector(SDPMTT2);
+
 
   G4VPhysicalVolume* PMT_T1_phys =
     new G4PVPlacement(RotMat, G4ThreeVector(0, PMTT1Disp, 0), PMT_T1_log,
@@ -1263,32 +1180,4 @@ void DetectorConstruction::GetOptInfo(FILE* pfile, G4double unit){
   //finished file, return the vector
   thedata.push_back(wl);
   thedata.push_back(prop);
-}
-
-void DetectorConstruction::ConstructSDandField(){
-  //this method is thread-local and is used to define Sensitive Detectors.
-
-  //I don't have to, but it's easier for me to give the sensitive detectors the
-  //same name as their logical volume.
-
-  //Hodoscopes.
-  SDHodo* SDH1 = new SDHodo("H1_log");
-  SetSensitiveDetector("H1_log", SDH1);
-  SDHodo* SDH2 = new SDHodo("H2_log");
-  SetSensitiveDetector("H2_log", SDH2);
-  SDHodo* SDH3 = new SDHodo("H3_log");
-  SetSensitiveDetector("H3_log", SDH3);
-
-  //Liquid.
-  SensitiveDetector* SDT1 = new SensitiveDetector("T1_log");
-  SetSensitiveDetector("T1_log", SDT1);
-  SensitiveDetector* SDT2 = new SensitiveDetector("T2_log");
-  SetSensitiveDetector("T2_log", SDT2);
- 
-  //PMTs.
-  PMTwin* SDPMTT1 = new PMTwin("PMT_T1_log");
-  SetSensitiveDetector("PMT_T1_log", SDPMTT1);
-  PMTwin* SDPMTT2 = new PMTwin("PMT_T2_log");
-  SetSensitiveDetector("PMT_T2_log", SDPMTT2);
-
 }

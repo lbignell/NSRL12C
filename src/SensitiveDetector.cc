@@ -15,15 +15,6 @@
 #include "SDHodo.hh"
 #include "PMTwin.hh"
 
-//Threadsafe-making
-#include "G4Threading.hh"
-#include "G4AutoLock.hh"
-
-namespace {
-  G4Mutex aMutex = G4MUTEX_INITIALIZER;
-}
-
-//static RunAction* myRunAction;
 
 //Called at the beginning of each new session.
 SensitiveDetector::SensitiveDetector(G4String name)
@@ -222,10 +213,12 @@ G4bool SensitiveDetector::ProcessHits(G4Step* theStep, G4TouchableHistory*){
 
 /*This method is invoked at the end of each event. The argument of this method is the same object as the previous method. Hits collections occasionally created in your sensitive detector can be associated to the G4HCofThisEvent object.*/
 void SensitiveDetector::EndOfEvent(G4HCofThisEvent*){
-
   //ensure tree is filled only once per event, only call from T1...
   if(LVname=="T1_log"){
+    //get run action pointer
+    RunAction* myRunAction = (RunAction*)(G4RunManager::GetRunManager()->GetUserRunAction());
     
+    if(myRunAction){
       //Get the H1/H2/H3 Edep and whether primary was incident.
       G4SDManager* SDman = G4SDManager::GetSDMpointer();
       
@@ -264,29 +257,19 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent*){
       //   << "T2 at PMTwin = " << PhotonsT2 << endl
       //   << "T2 measured  = " << MeasPhotonsT2 << endl
       //   << "###########################" << endl;
-
-      G4AutoLock l(&aMutex);
       
-      //get run action pointer
-      RunAction* myRunAction =
-	(RunAction*)(G4RunManager::GetRunManager()->GetUserRunAction());
-
-      if(myRunAction){      
-	//See RunAction.hh for a list of arguments
-	//cout << "Calling TallyEvtData..." << endl;
-	myRunAction->
-	  TallyEvtData(KinEnIn, pT2->GetKE(), EnH1, EnH2, EnH3,
+      //See RunAction.hh for a list of arguments
+      myRunAction->
+	TallyEvtData(KinEnIn, pT2->GetKE(), EnH1, EnH2, EnH3,
 		     EdepThisEventUnquenched, pT2->GetEdep(), VertexX, VertexY,
 		     HPH1, HPH2, HPH3, hazPrimary, pT2->HadPrimary(),
 		     TotOptPhotons, pT2->GetNumOP(), InitEnVec, pT2->GetOPEn(),
 		     ProcVec, pT2->GetOPProc(), PMTEnT1, PMTEnT2,
 		     MeasPMTEnT1, MeasPMTEnT2, PhotonsT1, PhotonsT2,
-		     MeasPhotonsT1, MeasPhotonsT2);     
-	//cout << "#############################" << endl;
-      }
-  }
-  //l.unlock();
+		     MeasPhotonsT1, MeasPhotonsT2);
       
+    }
+  }
 }
   
 

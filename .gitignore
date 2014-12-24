@@ -10,14 +10,10 @@
 *cmake*
 *.jpeg
 NSRL12C-build/CMakeFiles
-*.out*
+*.out
 *.txt
 NSRL12C-build/NSRL12C
 NSRL12C-build/Makefile
 *.d
 *.so
 *~
-*.log*
-*.err
-CMakeFiles
-*.job

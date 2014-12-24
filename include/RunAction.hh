@@ -34,38 +34,38 @@ public:
 private:
 //an ofstream to access the output file
   ofstream outfile;
-  static TFile* RootOP;
+  TFile* RootOP;
   
-  static TTree* EdepTree;
+  TTree* EdepTree;
 
-  static double KE_T1;
-  static double KE_T2;
-  static double Edep_H1;
-  static double Edep_H2;
-  static double Edep_H3;
-  static double Edep_T1;
-  static double Edep_T2;
-  static double VertX;
-  static double VertY;
-  static bool HazPrimary_H1;
-  static bool HazPrimary_H2;
-  static bool HazPrimary_H3;
-  static bool HazPrimary_T1;
-  static bool HazPrimary_T2;
-  static unsigned long long int NumOP_T1;
-  static unsigned long long int NumOP_T2;
-  static vector< vector< double > > OPEn_T1;
-  static vector< vector< double > > OPEn_T2;
-  static vector< string > OPProc_T1;
-  static vector< string > OPProc_T2;
-  static vector< vector< double > > OPEn_PMTT1;
-  static vector< vector< double > > OPEn_PMTT2;
-  static vector< vector< double > > OPEnMeas_PMTT1;
-  static vector< vector< double > > OPEnMeas_PMTT2;
-  static unsigned long long int NumOP_PMTT1;
-  static unsigned long long int NumOP_PMTT2;
-  static unsigned long long int MeasNumOP_PMTT1;
-  static unsigned long long int MeasNumOP_PMTT2;
+  double KE_T1;
+  double KE_T2;
+  double Edep_H1;
+  double Edep_H2;
+  double Edep_H3;
+  double Edep_T1;
+  double Edep_T2;
+  double VertX;
+  double VertY;
+  bool HazPrimary_H1;
+  bool HazPrimary_H2;
+  bool HazPrimary_H3;
+  bool HazPrimary_T1;
+  bool HazPrimary_T2;
+  unsigned long long int NumOP_T1;
+  unsigned long long int NumOP_T2;
+  vector< vector< double > > OPEn_T1;
+  vector< vector< double > > OPEn_T2;
+  vector< string > OPProc_T1;
+  vector< string > OPProc_T2;
+  vector< vector< double > > OPEn_PMTT1;
+  vector< vector< double > > OPEn_PMTT2;
+  vector< vector< double > > OPEnMeas_PMTT1;
+  vector< vector< double > > OPEnMeas_PMTT2;
+  unsigned long long int NumOP_PMTT1;
+  unsigned long long int NumOP_PMTT2;
+  unsigned long long int MeasNumOP_PMTT1;
+  unsigned long long int MeasNumOP_PMTT2;
 
 //local pointer for detector construction class
     DetectorConstruction* myDC;

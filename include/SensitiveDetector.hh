@@ -10,7 +10,6 @@ using namespace std;
 class G4Step;
 class G4HCofThisEvent;
 class G4TouchableHistory;
-class RunAction;
 
 class SensitiveDetector : public G4VSensitiveDetector
 {
@@ -43,8 +42,6 @@ private:
   G4double VertexX;
   G4double VertexY;
 
-  //RunAction* myRunAction;
-  
   //Indexed by track ID.
   //1st bin is Vertex X position, 2nd is Vertex Y, 3rd vertex Z, 4th Energy.
   //G4double SecondaryArray[1000][4];

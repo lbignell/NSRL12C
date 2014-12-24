@@ -12,50 +12,6 @@
 #include "TTree.h"
 #include "TROOT.h"
 
-//Threadsafe-making
-#include "G4Threading.hh"
-#include "G4AutoLock.hh"
-
-namespace {
-  G4Mutex aMutex = G4MUTEX_INITIALIZER;
-}
-
-//Arguments:Name of file,type of rewrite option(UPDATE means append),comments
-TFile*  RunAction::RootOP = NULL;
-  //new TFile("Edep.root","RECREATE","NSRL12C Sim Output");
-
-TTree* RunAction::EdepTree = NULL;
-//new TTree("Results", "Tree of results from NSRL12C simulation.");
-
-double RunAction::KE_T1 = 0;
-double RunAction::KE_T2 = 0;
-double RunAction::Edep_H1 = 0;
-double RunAction::Edep_H2 = 0;
-double RunAction::Edep_H3 = 0;
-double RunAction::Edep_T1 = 0;
-double RunAction::Edep_T2 = 0;
-double RunAction::VertX = 0;
-double RunAction::VertY = 0;
-bool RunAction::HazPrimary_H1 = false;
-bool RunAction::HazPrimary_H2 = false;
-bool RunAction::HazPrimary_H3 = false;
-bool RunAction::HazPrimary_T1 = false;
-bool RunAction::HazPrimary_T2 = false;
-unsigned long long int RunAction::NumOP_T1 = 0;
-unsigned long long int RunAction::NumOP_T2 = 0;
-vector< vector< double > > RunAction::OPEn_T1;
-vector< vector< double > > RunAction::OPEn_T2;
-vector< string > RunAction::OPProc_T1;
-vector< string > RunAction::OPProc_T2;
-vector< vector< double > > RunAction::OPEn_PMTT1;
-vector< vector< double > > RunAction::OPEn_PMTT2;
-vector< vector< double > > RunAction::OPEnMeas_PMTT1;
-vector< vector< double > > RunAction::OPEnMeas_PMTT2;
-unsigned long long int RunAction::NumOP_PMTT1 = 0;
-unsigned long long int RunAction::NumOP_PMTT2 = 0;
-unsigned long long int RunAction::MeasNumOP_PMTT1 = 0;
-unsigned long long int RunAction::MeasNumOP_PMTT2 = 0;
-
 RunAction::RunAction(DetectorConstruction* DC){
   //
   
@@ -71,42 +27,40 @@ RunAction::~RunAction(){
 
 void RunAction::BeginOfRunAction(const G4Run* aRun){
 
-  if(EdepTree){}
-  else{
   //Arguments:Name of file,type of rewrite option(UPDATE means append),comments
-    RootOP = new TFile("Edep.root","RECREATE","NSRL12C Sim Output");
-    
-    EdepTree = new TTree("Results", "Tree of results from NSRL12C simulation.");
+  RootOP = new TFile("Edep.root","RECREATE","NSRL12C Sim Output");
+  
+  EdepTree = new TTree("Results", "Tree of results from NSRL12C simulation.");
 
-    EdepTree->Branch("KE_T1", &KE_T1);
-    EdepTree->Branch("KE_T2", &KE_T2);
-    EdepTree->Branch("Edep_H1", &Edep_H1);
-    EdepTree->Branch("Edep_H2", &Edep_H2);
-    EdepTree->Branch("Edep_H3", &Edep_H3);
-    EdepTree->Branch("Edep_T1", &Edep_T1);
-    EdepTree->Branch("Edep_T2", &Edep_T2);
-    EdepTree->Branch("VertX", &VertX);
-    EdepTree->Branch("VertY", &VertY);
-    EdepTree->Branch("HazPrimary_H1", &HazPrimary_H1);
-    EdepTree->Branch("HazPrimary_H2", &HazPrimary_H2);
-    EdepTree->Branch("HazPrimary_H3", &HazPrimary_H3);
-    EdepTree->Branch("HazPrimary_T1", &HazPrimary_T1);
-    EdepTree->Branch("HazPrimary_T2", &HazPrimary_T2);
-    EdepTree->Branch("NumOP_T1", &NumOP_T1);
-    EdepTree->Branch("NumOP_T2", &NumOP_T2);
-    EdepTree->Branch("OPEn_T1", &OPEn_T1);
-    EdepTree->Branch("OPEn_T2", &OPEn_T2);
-    EdepTree->Branch("OPProc_T1", &OPProc_T1);
-    EdepTree->Branch("OPProc_T2", &OPProc_T2);
-    EdepTree->Branch("OPEn_PMTT1", &OPEn_PMTT1);
-    EdepTree->Branch("OPEn_PMTT2", &OPEn_PMTT2);
-    EdepTree->Branch("OPEnMeas_PMTT1", &OPEnMeas_PMTT1);
-    EdepTree->Branch("OPEnMeas_PMTT2", &OPEnMeas_PMTT2);
-    EdepTree->Branch("NumPhotons_PMTT1", &NumOP_PMTT1);
-    EdepTree->Branch("NumPhotons_PMTT2", &NumOP_PMTT2);
-    EdepTree->Branch("MeasNumPhotons_PMTT1", &MeasNumOP_PMTT1);
-    EdepTree->Branch("MeasNumPhotons_PMTT2", &MeasNumOP_PMTT2);
-  }
+  EdepTree->Branch("KE_T1", &KE_T1);
+  EdepTree->Branch("KE_T2", &KE_T2);
+  EdepTree->Branch("Edep_H1", &Edep_H1);
+  EdepTree->Branch("Edep_H2", &Edep_H2);
+  EdepTree->Branch("Edep_H3", &Edep_H3);
+  EdepTree->Branch("Edep_T1", &Edep_T1);
+  EdepTree->Branch("Edep_T2", &Edep_T2);
+  EdepTree->Branch("VertX", &VertX);
+  EdepTree->Branch("VertY", &VertY);
+  EdepTree->Branch("HazPrimary_H1", &HazPrimary_H1);
+  EdepTree->Branch("HazPrimary_H2", &HazPrimary_H2);
+  EdepTree->Branch("HazPrimary_H3", &HazPrimary_H3);
+  EdepTree->Branch("HazPrimary_T1", &HazPrimary_T1);
+  EdepTree->Branch("HazPrimary_T2", &HazPrimary_T2);
+  EdepTree->Branch("NumOP_T1", &NumOP_T1);
+  EdepTree->Branch("NumOP_T2", &NumOP_T2);
+  EdepTree->Branch("OPEn_T1", &OPEn_T1);
+  EdepTree->Branch("OPEn_T2", &OPEn_T2);
+  EdepTree->Branch("OPProc_T1", &OPProc_T1);
+  EdepTree->Branch("OPProc_T2", &OPProc_T2);
+  EdepTree->Branch("OPEn_PMTT1", &OPEn_PMTT1);
+  EdepTree->Branch("OPEn_PMTT2", &OPEn_PMTT2);
+  EdepTree->Branch("OPEnMeas_PMTT1", &OPEnMeas_PMTT1);
+  EdepTree->Branch("OPEnMeas_PMTT2", &OPEnMeas_PMTT2);
+  EdepTree->Branch("NumPhotons_PMTT1", &NumOP_PMTT1);
+  EdepTree->Branch("NumPhotons_PMTT2", &NumOP_PMTT2);
+  EdepTree->Branch("MeasNumPhotons_PMTT1", &MeasNumOP_PMTT1);
+  EdepTree->Branch("MeasNumPhotons_PMTT2", &MeasNumOP_PMTT2);
+
 }
 
 
@@ -131,7 +85,6 @@ TallyEvtData(double theKE_T1, double theKE_T2,
 	     unsigned long long int theMeasNumOP_PMTT1,
 	     unsigned long long int theMeasNumOP_PMTT2){
   //Set the branch values and fill the tree.
-  //cout << "Inside TallyEvtData!" << endl;
   KE_T1 = theKE_T1;  KE_T2 = theKE_T2;
   Edep_H1 = theEdep_H1;  Edep_H2 = theEdep_H2;  Edep_H3 = theEdep_H3;
   Edep_T1 = theEdep_T1;  Edep_T2 = theEdep_T2;
@@ -146,21 +99,17 @@ TallyEvtData(double theKE_T1, double theKE_T2,
   OPEnMeas_PMTT1 = theOPEnMeas_PMTT1;  OPEnMeas_PMTT2 = theOPEnMeas_PMTT2;
   NumOP_PMTT1 = theNumOP_PMTT1;  NumOP_PMTT1 = theNumOP_PMTT1;
   MeasNumOP_PMTT1 = theMeasNumOP_PMTT1;  MeasNumOP_PMTT2 = theMeasNumOP_PMTT2;
-  //cout << "About to fill tree; NumOP_T1 = " << NumOP_T1 << endl;
+  
   EdepTree->Fill();
-  //cout << "Tree filled! Returning..." << endl;
 }
 
 //task to be carried out at the end of the run
 void RunAction::EndOfRunAction(const G4Run* aRun){
   //get the number of primary particles being simulated for this run
   G4double NumberOfEvents = aRun->GetNumberOfEventToBeProcessed();
-
-  //Put a lock here as multiple threads might/will try to write at once...
-  
-  G4AutoLock l(&aMutex);
+ 
   RootOP->Write();
-  //RootOP->Close();
+  RootOP->Close();
   
 
 }

@@ -326,3 +326,14 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
     12 of the test node's 16 cores should suffice for all but the pure LS -- I
     may be able to get away with turning off the PTFE reflectance in T1 for that
     simulation...
+
+2014-12-24
+- Testing the output from the multithreaded code reveals that it does NOT work
+  as expected. There are way too many photons.
+  -> My guess is that this is because of the way the data are written to the
+     root file; or in the way the data are collected from the other SDs (in 
+     which case I may be able to fix it by making my root file output extern).
+
+- Whatever the cause of the cock up, I don't think it's worth the time to chase 
+  down the source of the problem. I'll just run it without multithreading.
+  (It will be slow but I have all Christmas!).

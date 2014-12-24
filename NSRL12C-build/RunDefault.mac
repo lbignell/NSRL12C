@@ -1,6 +1,8 @@
 /tracking/verbose 0
+/CustomPGACommands/setYDisplacement 0.75 cm
+/CustomCommands/det/setBeamHeight 0.75 cm
 /CustomCommands/det/isWater true
 /CustomCommands/det/setWbLSfraction 0.0099
 /CustomCommands/det/update
-/run/beamOn 1
+/run/beamOn 100
 

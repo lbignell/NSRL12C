@@ -251,10 +251,18 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   //G4double WbLSfraction = 0.004;
   G4double WbLSdensity = (water_nist->GetDensity())*(1-WbLSfraction) + 
     (Scint->GetDensity())*WbLSfraction;
-  G4Material* WbLS = new G4Material("WbLS", WbLSdensity, 2);
-  //kStateLiquid, 293*kelvin, 1*atmosphere);
-  WbLS->AddMaterial(water_nist, (1-WbLSfraction));
-  WbLS->AddMaterial(Scint, WbLSfraction);
+  G4Material* WbLS;
+  if(WbLSfraction==1){
+    WbLS = new G4Material("WbLS", WbLSdensity, 1);
+    //kStateLiquid, 293*kelvin, 1*atmosphere);
+    WbLS->AddMaterial(Scint, WbLSfraction);
+  }
+  else{
+    WbLS = new G4Material("WbLS", WbLSdensity, 2);
+    //kStateLiquid, 293*kelvin, 1*atmosphere);
+    WbLS->AddMaterial(water_nist, (1-WbLSfraction));
+    WbLS->AddMaterial(Scint, WbLSfraction);
+  }
 
   //Aluminium Alloy used in the walls Alloy #6063
   G4Material* AlAlloy=new G4Material("Al Alloy", 2680.*kg/m3, 9, kStateSolid);
@@ -542,7 +550,7 @@ if(FilePtr!=0){
   MPTWbLS->AddProperty("FASTCOMPONENT", En6, ScintEm6, size6);
   //Scnt_MPT->AddProperty("SLOWCOMPONENT", Scnt_PP, Scnt_SLOW, NUMENTRIES);
 
-  MPTWbLS->AddConstProperty("SCINTILLATIONYIELD", ((105./MeV)*(0.004/0.0099)));
+  MPTWbLS->AddConstProperty("SCINTILLATIONYIELD", ((105./MeV)*(WbLSfraction/0.0099)));
   //The resolution yield is indeterminate. It will affect the breadth of the
   //photon number distribution, and can therefore be tuned to the measured value
   //if that makes sense.
@@ -738,12 +746,33 @@ if(FilePtr!=0){
   //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_140908.csv", "r");
   //New measurements in 1 cm cell, corrected for fluorescence.
   //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_Corrected_140908.csv", "r");
+  //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_AllDilutions_140910.csv", "r"); 
+  
   char name9[512];
-  strcpy(name9, DataPath);
-  strcat(name9, "/WbLSAbs_NewMeas_AllDilutions_140910.csv");
-  FilePtr = fopen(name9, "r");
-  //FilePtr = fopen("$DATAFILES/WbLSAbs_NewMeas_AllDilutions_140910.csv", "r");
-
+  bool HazData=true;
+  if(WbLSfraction==0.0099){
+    strcpy(name9, DataPath);
+    strcat(name9, "/WbLSAbs_NewMeas_AllDilutions_140910.csv");
+    FilePtr = fopen(name9, "r");
+  }
+  else if(WbLSfraction==0.004){
+    strcpy(name9, DataPath);
+    strcat(name9, "/WbLS_Abs_0p4pc_Measured141223.csv");
+    FilePtr = fopen(name9, "r");
+  }
+  else if(WbLSfraction==1){
+    strcpy(name9, DataPath);
+    strcat(name9, "/DBScintAbs.csv");
+    FilePtr = fopen(name9, "r");
+  }
+  else{
+    cout << "Warning: No data for WbLSfraction = " << WbLSfraction
+	 << "! Attempting to scale using 1% WbLS data." << endl;
+    strcpy(name9, DataPath);
+    strcat(name9, "/WbLSAbs_NewMeas_AllDilutions_140910.csv");
+    FilePtr = fopen(name9, "r");
+    HazData = false;
+  }
 
 
   if(FilePtr!=0){
@@ -767,7 +796,8 @@ if(FilePtr!=0){
   //std::copy(thedata.at(1).begin(), thedata.at(1).end(), Rindex7);
   for(int i = 0; i<size7; i++){
     En7[i] = thedata.at(0).at(i);
-    Rindex7[i] = thedata.at(1).at(i)*(WbLSfraction/0.0099);
+    if(HazData){Rindex7[i] = thedata.at(1).at(i);}
+    else{Rindex7[i] = thedata.at(1).at(i)*(WbLSfraction/0.0099);}
     //G4cout << "RINDEX[" << i << "] = " << Rindex2[size2] << G4endl;
   }
   MPTWbLS->AddProperty("WLSABSLENGTH", En7, Rindex7, size7);

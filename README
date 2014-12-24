@@ -337,3 +337,5 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 - Whatever the cause of the cock up, I don't think it's worth the time to chase 
   down the source of the problem. I'll just run it without multithreading.
   (It will be slow but I have all Christmas!).
+
+- Reverting back the changes to incorporate 0.4% and 100% WbLS data.

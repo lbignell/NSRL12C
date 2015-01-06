@@ -405,8 +405,12 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 
 2015-1-6
 - Making more modifications to the simulation:
-  - Get the total path length of each detected photon.
-  - Get the origin material of each detected photon.
+  - Get the total path length of each detected photon.->Done.
+  - Get the origin material of each detected photon.->Done.
+
+- Testing to see that above changes work has revealed that fully half of the
+  photons in T2 are generated in the tub! I need to turn off the optical
+  properties of the black teflon!!
 
 - My plan:
   - See if by adjusting the 0.4% WbLS/Pure LS light yields I can come up with a

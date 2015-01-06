@@ -257,12 +257,16 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent*){
       vector< vector< double > > MeasPMTEnT1 = PMTT1->GetMeasEnSpec();
       unsigned long long int PhotonsT1 = PMTT1->GetTotalPhotons();
       unsigned long long int MeasPhotonsT1 = PMTT1->GetMeasPhotons();
+      vector<string> LVatVertexT1 = PMTT1->GetLVatVertex();
+      vector<double> TrackLengthT1 = PMTT1->GetTrackLength();
       
       PMTwin* PMTT2 = (PMTwin*)SDman->FindSensitiveDetector("PMT_T2_log");
       vector< vector< double > > PMTEnT2 = PMTT2->GetEnSpec();
       vector< vector< double > > MeasPMTEnT2 = PMTT2->GetMeasEnSpec();
       unsigned long long int PhotonsT2 = PMTT2->GetTotalPhotons();
       unsigned long long int MeasPhotonsT2 = PMTT2->GetMeasPhotons();
+      vector<string> LVatVertexT2 = PMTT2->GetLVatVertex();
+      vector<double> TrackLengthT2 = PMTT2->GetTrackLength();
 
       //cout << "T1 generated = " << TotOptPhotons << endl
       //   << "T1 at PMTwin = " << PhotonsT1 << endl
@@ -280,7 +284,8 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent*){
 		     TotOptPhotons, pT2->GetNumOP(), InitEnVec, pT2->GetOPEn(),
 		     ProcVec, pT2->GetOPProc(), PMTEnT1, PMTEnT2,
 		     MeasPMTEnT1, MeasPMTEnT2, PhotonsT1, PhotonsT2,
-		     MeasPhotonsT1, MeasPhotonsT2);
+		     MeasPhotonsT1, MeasPhotonsT2, LVatVertexT1, LVatVertexT2,
+		     TrackLengthT1, TrackLengthT2);
       
     }
   }

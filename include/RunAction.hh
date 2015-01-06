@@ -66,6 +66,10 @@ private:
   unsigned long long int NumOP_PMTT2;
   unsigned long long int MeasNumOP_PMTT1;
   unsigned long long int MeasNumOP_PMTT2;
+  vector<string> LVatVertex_PMTT1;
+  vector<string> LVatVertex_PMTT2;
+  vector<double> OPTrackLength_PMTT1;
+  vector<double> OPTrackLength_PMTT2;
 
 //local pointer for detector construction class
     DetectorConstruction* myDC;
@@ -94,7 +98,9 @@ public:
 		    vector< vector< double > >&, vector< vector< double > >&,
 		    vector< vector< double > >&, vector< vector< double > >&,
 		    unsigned long long int, unsigned long long int,
-		    unsigned long long int, unsigned long long int);
+		    unsigned long long int, unsigned long long int,
+		    vector<string>&, vector<string>&,
+		    vector<double>&, vector<double>&);
 
 };
 

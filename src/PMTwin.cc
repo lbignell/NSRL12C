@@ -36,6 +36,8 @@ void PMTwin::Initialize(G4HCofThisEvent* HCE){
   ParentID.clear();
   PMTFireParentID.clear();
   PMTFirePhotEnIn_nm.clear();
+  LVatVertex.clear();
+  TrackLength.clear();
 
   for(int i = 0; i<3; i++){
     PhotEn.push_back(dblvec);
@@ -45,7 +47,6 @@ void PMTwin::Initialize(G4HCofThisEvent* HCE){
   }
 
   TubName = "";
-
 }
 
 vector< vector< double > >& PMTwin::GetEnSpec(){return PhotEn;}
@@ -57,6 +58,8 @@ vector< vector< double > >& PMTwin::GetMeasParentIDs()
 unsigned long long int PMTwin::GetTotalPhotons(){return TotPhotons;}
 unsigned long long int PMTwin::GetMeasPhotons(){return MeasPhotons;}
 G4double PMTwin::GetPhotsOnPhotoCathode(){return PCphotons;}
+vector<string>& PMTwin::GetLVatVertex(){return LVatVertex;}
+vector<double>& PMTwin::GetTrackLength(){return TrackLength;}
 
 
 G4bool PMTwin::ProcessHits(G4Step* theStep, G4TouchableHistory*){
@@ -70,9 +73,15 @@ G4bool PMTwin::ProcessHits(G4Step* theStep, G4TouchableHistory*){
     if(theStep->GetTrack()->GetTrackID()!=TrackID){
       //Increment counter
       TotPhotons++;
+      //Get LV at vertex and track length
+      LVatVertex.push_back(theStep->GetTrack()->GetLogicalVolumeAtVertex()
+			   ->GetName());
+      TrackLength.push_back(theStep->GetTrack()->GetTrackLength());
       //Update TrackID
       TrackID = theStep->GetTrack()->GetTrackID();
     }
+
+
 
     DetectorConstruction* myDC = 
       (DetectorConstruction*)(G4RunManager::GetRunManager()->

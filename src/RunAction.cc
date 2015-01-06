@@ -60,7 +60,10 @@ void RunAction::BeginOfRunAction(const G4Run* aRun){
   EdepTree->Branch("NumPhotons_PMTT2", &NumOP_PMTT2);
   EdepTree->Branch("MeasNumPhotons_PMTT1", &MeasNumOP_PMTT1);
   EdepTree->Branch("MeasNumPhotons_PMTT2", &MeasNumOP_PMTT2);
-
+  EdepTree->Branch("LVatVertex_PMTT1", &LVatVertex_PMTT1);
+  EdepTree->Branch("LVatVertex_PMTT2", &LVatVertex_PMTT2);
+  EdepTree->Branch("OPTrackLength_PMTT1", &OPTrackLength_PMTT1);
+  EdepTree->Branch("OPTrackLength_PMTT2", &OPTrackLength_PMTT2);
 }
 
 
@@ -83,7 +86,11 @@ TallyEvtData(double theKE_T1, double theKE_T2,
 	     unsigned long long int theNumOP_PMTT1,
 	     unsigned long long int theNumOP_PMTT2,
 	     unsigned long long int theMeasNumOP_PMTT1,
-	     unsigned long long int theMeasNumOP_PMTT2){
+	     unsigned long long int theMeasNumOP_PMTT2,
+	     vector<string>& theLVatVertex_PMTT1,
+	     vector<string>& theLVatVertex_PMTT2,
+	     vector<double>& theOPTrackLength_PMTT1,
+	     vector<double>& theOPTrackLength_PMTT2){
   //Set the branch values and fill the tree.
   KE_T1 = theKE_T1;  KE_T2 = theKE_T2;
   Edep_H1 = theEdep_H1;  Edep_H2 = theEdep_H2;  Edep_H3 = theEdep_H3;
@@ -99,7 +106,10 @@ TallyEvtData(double theKE_T1, double theKE_T2,
   OPEnMeas_PMTT1 = theOPEnMeas_PMTT1;  OPEnMeas_PMTT2 = theOPEnMeas_PMTT2;
   NumOP_PMTT1 = theNumOP_PMTT1;  NumOP_PMTT1 = theNumOP_PMTT1;
   MeasNumOP_PMTT1 = theMeasNumOP_PMTT1;  MeasNumOP_PMTT2 = theMeasNumOP_PMTT2;
-  
+  LVatVertex_PMTT1 = theLVatVertex_PMTT1;LVatVertex_PMTT2 = theLVatVertex_PMTT2;
+  OPTrackLength_PMTT1 = theOPTrackLength_PMTT1;
+  OPTrackLength_PMTT2 = theOPTrackLength_PMTT2;
+
   EdepTree->Fill();
 }
 

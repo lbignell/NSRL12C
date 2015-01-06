@@ -32,12 +32,17 @@ public:
   unsigned long long int GetTotalPhotons();
   unsigned long long int GetMeasPhotons();
   G4double GetPhotsOnPhotoCathode();
+  vector<string>& GetLVatVertex();
+  vector<double>& GetTrackLength();
 
   G4bool PMTHazFired(G4double);//Argument is Opt photon wavelength in MeV.
 
 private:
   string LVname;
   G4double runnum;
+
+  vector<string> LVatVertex;
+  vector<double> TrackLength;
 
   G4bool HazPrimary;
 

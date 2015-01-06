@@ -199,6 +199,20 @@ G4bool SensitiveDetector::ProcessHits(G4Step* theStep, G4TouchableHistory*){
       }
 
     }
+    else if(theStep->GetPostStepPoint()->GetPhysicalVolume()->GetName()
+    	    =="T1_phys"){
+    //Implement the reflection probability.
+      G4double ReflProb = 0.925;
+      if(G4UniformRand()<ReflProb){
+	//Allow photon to live (do nothing).
+      }
+      else{
+	//kill the photon.
+	theStep->GetTrack()->SetTrackStatus(fStopAndKill);
+      }
+
+    }
+
     //    else if(theStep->GetPostStepPoint()->GetMaterial()->GetName()
     //	    !="G4_WATER"){
     //cout << "PV at boundary = "

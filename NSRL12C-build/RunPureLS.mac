@@ -4,6 +4,6 @@
 /CustomCommands/det/isWater false
 /CustomCommands/det/setWbLSfraction 1.
 /CustomCommands/det/update
-/gun/energy 210 MeV
+/gun/energy 2000 MeV
 /run/beamOn 100
 

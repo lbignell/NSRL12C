@@ -339,3 +339,76 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
   (It will be slow but I have all Christmas!).
 
 - Reverting back the changes to incorporate 0.4% and 100% WbLS data.
+
+2014-12-30
+- Running 100 evt test; over all % LS and energies; the script ran successfully.
+  However, the results are a bit different from those that I originially got!
+  -> Running RunHeights.mac again; the results broadly agree.
+  -> On closer inspection it appears that the reproduced simulation isn't that
+     bad (I was suspicious because all 3 values were higher, but they don't
+     appear to be statistically significant.
+
+- 0.4% WbLS gives values that are too high (even higher than just using a scaled
+  value).
+  -> 2 GeV: <# PE> = 25.4 (using measured absorbance and scaled light yield,
+       	       	     verus 21.3 with just scaled light yield (measured 18.9)).
+  -> 475 MeV: <# PE> = 8.1 (meas + scaled), 6.5 (scaled + scaled), 4.1 (data).
+  -> 210 MeV: <# PE> = 14.3 (meas+scaled), 11.9 (scaled+scaled), 5.3 (data).
+
+
+2015-1-3
+- Made changes:
+  - Modify T1 reflectance so that it is similar to T2 (diffuse metal reflector
+    with reflection probability implemented in SensitiveDetector).
+    -> Setting with an initial reflectance of 0.7; <# PE> @ 475 MeV water is way
+       too low (~1 PE, data = 10.2 PE).
+    -> Refl = 0.9; <# PE>(475 MeV water) = 2.
+    -> Refl = 0.99; <# PE>(475 MeV water) = 4.1
+    -> Refl = 0.999; <# PE>(475 MeV water) = 5.9
+    -> Refl = 1; <# PE>(475 MeV water) = 6.4
+    -> Clearly, I can't get it to agree using this model...
+
+  - Trying to tune using the 1% data as David suggested (Data = 115 PE):
+    -> Refl = 1; <# PE>(475 MeV, 1% WbLS) = 162 PE.
+    -> Refl = 0.9; <# PE>(475 MeV, 1% WbLS) = 101 PE.
+    -> Refl = 0.95; <# PE>(475 MeV, 1% WbLS) = 124 PE.
+    -> Refl = 0.925; <# PE>(475 MeV, 1% WbLS) = 113 PE.
+       	      	     <# PE>(210 MeV, 1% WbLS) = 167 PE (Data = 180 PE).
+		     <# PE>(2 GeV, 1% WbLS) = 245 PE (Data = 246 PE).
+		     Good enough for me!
+
+- Going to run for 10K evts per run using this setting.
+
+2015-1-5
+- Running pure LS, turned off front tub's optical properties as T1 is inaccurate
+  and slows down the simulation.
+
+- Results:
+  T1:
+  2 GeV, 1% WbLS, T1: <#PE>(Meas) = 246, <#PE>(Sim) = 248.
+  475 MeV, 1% WbLS, T1: <#PE>(Meas) = 117, <#PE>(Sim) = 112 (Fits 1 proton peak)
+  210 MeV, 1% WbLS, T1: <#PE>(Meas) = 179, <#PE>(Sim) = 173.
+  2 GeV, 0.4% WbLS, T1: <#PE>(Meas) = 221, <#PE>(Sim) = 297.
+  475 MeV, 0.4% WbLS, T1: <#PE>(Meas) = 42.0, <#PE>(Sim) = 75.9.
+  210 MeV, 0.4% WbLS, T1: <#PE>(Meas) = 41.8, <#PE>(Sim) = 102.
+  T2:
+  2 GeV, water, T2: <#PE>(Meas) = 3.24, <#PE>(Sim) = 3.8.
+  2 GeV, 1% WbLS, T2: <#PE>(Meas) = 28.2, <#PE>(Sim) = 27.2 (fitted)
+  475 MeV, 1% WbLS, T2: <#PE>(Meas) = 15.7, <#PE>(Sim) = 15.2 (fitted)
+  210 MeV, 1% WbLS, T2: <#PE>(Meas) = 28.35, <#PE>(Sim) = 33.5 (fitted)
+  2 GeV, 0.4% WbLS, T2: <#PE>(Meas) = 17.2, <#PE>(Sim) = 20.0 (fitted)
+  475 MeV, 0.4% WbLS, T2: <#PE>(Meas) = 4.1, <#PE>(Sim) = 7.2 (NOT fitted).
+  210 MeV, 0.4% WbLS, T2: <#PE>(Meas) = 5.3, <#PE>(Sim) = 13.8 (NOT fitted)
+  2 GeV, Pure LS, T2: <#PE>(Meas) = 643, <#PE>(Sim) = 810 (fitted)
+  475 MeV, Pure LS, T2: <#PE>(Meas) = 1004, <#PE>(Sim) = 1163 (fitted)
+  210 MeV, Pure LS, T2: <#PE>(Meas) = 2677, <#PE>(Sim) = 3196 (fitted)
+
+2015-1-6
+- Making more modifications to the simulation:
+  - Get the total path length of each detected photon.
+  - Get the origin material of each detected photon.
+
+- My plan:
+  - See if by adjusting the 0.4% WbLS/Pure LS light yields I can come up with a
+    simulation that can account for these data.
+  - I can also switch the T1 reflectance model back.

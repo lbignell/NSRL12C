@@ -138,15 +138,15 @@
 
   <h1><span>True Random Number Service</span></h1>
   <noscript><p style="background-color:#ffff90;padding: 0em .5em 0em .5em;font-size:.9em"><strong>Warning:</strong> Your browser does not support JavaScript &#8211; RANDOM.ORG may not work as expected</p></noscript>
-  <p style="background-color:#ffff90;padding: 0em .5em 0em .5em">From 4 January 2015, RANDOM.ORG will redirect all non-secure requests (HTTP) to our secure service (HTTPS) <a href='/news/'>Learn more...</a></p>
+  <p style="background-color:#ffff90;padding: 0em .5em 0em .5em">Starting 4 January 2015, RANDOM.ORG is redirecting all non-secure requests (HTTP) to our secure service (HTTPS) <a href='/news/'>Learn more...</a></p>
   <p style="background-color:#ddffdd;padding: 0em .5em 0em .5em">Do you own an iOS or Android device?  <a href="/app/">Check out our app!</a></p>
 
   <h2>Random Integer Generator</h2>
 
 <p>Here are your random numbers:</p>
-<pre class="data">14042454	19891249	12101222	30045603	60728915	89067741	54430528	3462204	96724443	41483019	69810456	81672613	15288695	854867	25448913	26965556	10903134	54407936	45463921	20949862	99008777	85714410	62888123	7668953	42797210	36170766	30400922	85186399	94021868	27380894	23928084	81320281	27544822	781914	92471007	39561400	54001991	32880475	35793835	703831	61839232	55896249	18888696	99975223	12429610	70800388	95929819	47698800	97439215	18886464	5541417	18917902	18180092	18186310	31007240	86060857	11849197	82772785	3839057	15296065	86151528	91410187	58531057	62658004	93267324	38449686	80712559	27943359	53417184	47487177	92758654	1052149	3727712	98894404	95228169	48508339	57790302	50438918	71639072	68818166	73988427	43430965	71447350	70159114	7511867	64553388	23786573	44590488	97255698	82446994	18298849	78747470	60685631	81867691	73185168	72187844	64616813	64071637	27007119	65963313
+<pre class="data">1126440	41711969	77150202	52338571	11327570	27519521	90498761	35089766	13034311	3026693	52990971	10901786	64942016	94782210	33076279	75495747	50903141	51172569	15011628	4392945	16814606	16683597	75011485	15834432	87302292	74075536	9523218	91697723	52787917	38093586	44541979	31578703	60459603	86620997	49806188	18131780	98192322	52532102	54785286	49436396	4408251	73881173	43570038	72138700	25895453	63623813	10340306	45728467	49808446	10700356	50487997	94015769	62482763	94547971	52193455	61345246	61262103	75835201	84024828	73844755	90012119	18880431	63798416	43887415	98915732	39342180	44826202	73593983	65151501	83619887	75620369	51362305	72586316	94853515	96263673	55834222	49654961	2841990	88234368	11947641	44728623	52534007	14769273	42430849	49053852	30030867	79558013	76558200	38089472	64155300	67619618	63863153	55901146	91427231	96190647	9103754	34433371	83804010	77655264	41703958
 </pre>
-<p>Timestamp: 2014-12-24 18:01:41 UTC</p>
+<p>Timestamp: 2015-01-05 18:27:59 UTC</p>
 
     <p></p>
     <form method="get" action="">
@@ -166,7 +166,7 @@
   <div class="ruler"></div>
 
 <div style="float:right;text-align:right">
-  <div style="font-size: 0.8em;">&copy; 1998-2014 <a href="http://www.random.org/company/">RANDOM.ORG</a> <br /><a href="http://validator.w3.org/check?uri=referer">Valid XHTML 1.0 Transitional</a>&nbsp;|&nbsp;<a href="http://jigsaw.w3.org/css-validator/check/referer">Valid CSS</a><br /><a href="/terms/">Terms and Conditions</a></div> 
+  <div style="font-size: 0.8em;">&copy; 1998-2015 <a href="https://www.random.org/company/">RANDOM.ORG</a> <br /><a href="http://validator.w3.org/check?uri=referer">Valid XHTML 1.0 Transitional</a>&nbsp;|&nbsp;<a href="http://jigsaw.w3.org/css-validator/check/referer">Valid CSS</a><br /><a href="/terms/">Terms and Conditions</a></div> 
 </div>
 
 <div>
@@ -175,7 +175,7 @@
 <br />
 <iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.random.org%2F&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;margin-top:2px" allowTransparency="true"></iframe>
 <br />
-<div class="g-plusone" data-size="medium" data-href="http://www.random.org/"></div>
+<div class="g-plusone" data-size="medium" data-href="https://www.random.org/"></div>
 </div> 
 
 <script type="text/javascript">

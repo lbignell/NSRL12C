@@ -44,7 +44,7 @@ using namespace std;
 
 //constructor / destructor do nothing
 DetectorConstruction::DetectorConstruction(){
-  BeamHeight = 0.*mm;
+  BeamHeight = 0.75*mm;
   PMTGap = 1*mm;
   DetMess = new DetectorMessenger(this);
   //QEdata.clear();
@@ -263,6 +263,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
     WbLS->AddMaterial(water_nist, (1-WbLSfraction));
     WbLS->AddMaterial(Scint, WbLSfraction);
   }
+  //  G4Material* PureLS_NoOpt = new G4Material("PureLS_NoOpt", 
 
   //Aluminium Alloy used in the walls Alloy #6063
   G4Material* AlAlloy=new G4Material("Al Alloy", 2680.*kg/m3, 9, kStateSolid);
@@ -954,7 +955,8 @@ if(FilePtr!=0){
   if(!isWater){
     //T1_liq_log =
     //new G4LogicalVolume(liquid, WbLS, "T1_liq_log", 0,0,0);//For WbLS
-    T1_liq_log->SetMaterial(WbLS);
+    if(WbLSfraction!=1){T1_liq_log->SetMaterial(WbLS);}
+    else{T1_liq_log->SetMaterial(Scint);}
   }
 
   G4VPhysicalVolume* T1_liq_phys =
@@ -1088,17 +1090,17 @@ if(FilePtr!=0){
   //groundfrontpainted,//Only lambertian reflection + abs. 
   //			 dielectric_dielectric);
   //Unified model  
-  OptSurf_T1->SetModel(unified);
-  OptSurf_T1->SetType(dielectric_dielectric);
-  OptSurf_T1->SetFinish(ground);
+  //OptSurf_T1->SetModel(unified);
+  //OptSurf_T1->SetType(dielectric_dielectric);
+  //OptSurf_T1->SetFinish(ground);
   //Using a LUT
   //OptSurf_T1->SetType(dielectric_LUT);
   //OptSurf_T1->SetModel(LUT);
   //OptSurf_T1->SetFinish(polishedteflonair);
   //Glisur model
-  //OptSurf_T1->SetModel(glisur);
-  //OptSurf_T1->SetType(dielectric_metal);
-  //OptSurf_T1->SetFinish(ground);
+  OptSurf_T1->SetModel(glisur);
+  OptSurf_T1->SetType(dielectric_metal);
+  OptSurf_T1->SetFinish(ground);
   G4LogicalBorderSurface* WaterToT1 =
     new G4LogicalBorderSurface("WaterToT1", T1_liq_phys, T1_phys,
   			       OptSurf_T1);

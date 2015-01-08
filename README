@@ -411,8 +411,36 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 - Testing to see that above changes work has revealed that fully half of the
   photons in T2 are generated in the tub! I need to turn off the optical
   properties of the black teflon!!
+  -> Done. Re-running a beam height scan reveals that the most appropriate
+     height occurs at ~1.5 cm relative to the centre of the tub.
+  -> I need to re-run my jobs to see what effect the beam height change has had
+     on T2.
+  T2, 1.5 cm Beam Height, fixed black teflon:
+  2 GeV, water, T2: <#PE>(Meas) = 3.24, <#PE>(Sim) = 3.31. (excl 0 PE from avg).
+  2 GeV, 1% WbLS, T2: <#PE>(Meas) = 28.2, <#PE>(Sim) = 24.4 (fitted)
+  475 MeV, 1% WbLS, T2: <#PE>(Meas) = 15.7, <#PE>(Sim) = 13.7 (fitted)
+  210 MeV, 1% WbLS, T2: <#PE>(Meas) = 28.35, <#PE>(Sim) = 32.7 (fitted)
+  2 GeV, 0.4% WbLS, T2: <#PE>(Meas) = 17.2, <#PE>(Sim) = 18.3 (fitted)
+  475 MeV, 0.4% WbLS, T2: <#PE>(Meas) = 4.1, <#PE>(Sim) = 5.6 (sim fitted).
+  210 MeV, 0.4% WbLS, T2: <#PE>(Meas) = 5.3, <#PE>(Sim) = 12.9 (sim fitted)
+  2 GeV, Pure LS, T2: <#PE>(Meas) = 643, <#PE>(Sim) =  776 (fitted)
+  475 MeV, Pure LS, T2: <#PE>(Meas) = 1004, <#PE>(Sim) = 1186 (fitted)
+  210 MeV, Pure LS, T2: <#PE>(Meas) = 2677, <#PE>(Sim) = 2970 (fitted)
+
+- KS/Chi2 test testing: I cannot scale the measured data and I must normalise
+  the simulated data to the measurements. It appears to work.
+
+2015-1-8
+- Testing with light yield 110 Ph/MeV @ 475 MeV, 1% scint -> <#PE>~17.
+  -> This now higher than the measured 15.7 value.
+  107 Ph/MeV -> 16.3 PE
+  105 Ph/MeV -> 16.9 PE
+-> Further investigation has revealed that I fucked up the original run; I used
+   a beam height of 0.75 cm, instead of 1.5!
+   -> Running again, again!
 
 - My plan:
   - See if by adjusting the 0.4% WbLS/Pure LS light yields I can come up with a
-    simulation that can account for these data.
+    simulation that can account for these data. (I need to create a new switch
+    in my program to do this).
   - I can also switch the T1 reflectance model back.

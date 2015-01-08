@@ -131,6 +131,11 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   Z = 6;
   G4Element* elC = new G4Element("Carbon", "C", Z, A);
 
+  //Define Fluorine
+  A = 18.9984 * g/mole;
+  Z = 9;
+  G4Element* elF = new G4Element("Fluorine", "F", Z, A);
+
   //define Silicon
   A = 28.086 * g/mole;
   Z = 14;
@@ -239,6 +244,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   G4Material* PFTE_white_nist = nist->FindOrBuildMaterial("G4_TEFLON");
   G4Material* PFTE_black_nist = nist->FindOrBuildMaterial("G4_TEFLON");
 
+  G4Material* PFTE_black = new G4Material("Teflon", 2.2*g/cm3, 2);
+  PFTE_black->AddElement(elC, 2);
+  PFTE_black->AddElement(elF, 6);
 
   G4Material* Scint = new G4Material("LABscintillator", 0.86*g/cm3, 2);
   //Scint->AddElement(C_nist, (18/(18+30)));
@@ -551,6 +559,7 @@ if(FilePtr!=0){
   MPTWbLS->AddProperty("FASTCOMPONENT", En6, ScintEm6, size6);
   //Scnt_MPT->AddProperty("SLOWCOMPONENT", Scnt_PP, Scnt_SLOW, NUMENTRIES);
 
+  //original value: 105 ph/MeV @ 1% WbLS.
   MPTWbLS->AddConstProperty("SCINTILLATIONYIELD", ((105./MeV)*(WbLSfraction/0.0099)));
   //The resolution yield is indeterminate. It will affect the breadth of the
   //photon number distribution, and can therefore be tuned to the measured value
@@ -1012,7 +1021,7 @@ if(FilePtr!=0){
     new G4SubtractionSolid("T2Tub", Tub, T2_win, 0,
 			   G4ThreeVector(0, 0, T2UVTdisp));
   G4LogicalVolume* T2_log = 
-    new G4LogicalVolume(T2Tub, PFTE_black_nist, "T2_log", 0,0,0);
+    new G4LogicalVolume(T2Tub, PFTE_black, "T2_log", 0,0,0);
   G4VPhysicalVolume* T2_phys =
     new G4PVPlacement(0, G4ThreeVector(0,0,0), T2_log,
 		      "T2_phys", AlT2_log, false, 0, false);

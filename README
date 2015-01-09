@@ -473,10 +473,55 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 
 - Running again, this time with the Birk's quenching set to 0 (off), at 1.2 cm.
 
+- Simultaneously working locally on my Ubuntu desktop to investigate the effect
+  of changing the light yield of the 0.4% and 100% LS data.
+  -> 475 MeV, 0.4% WbLS: The measured data appear weird. They are peaked at
+     ~ 1.3 PE, and tail off so that the mean is ~ 4 PE. There is no clear
+     gaussian-like peak for fitting. This distribution shape cannot be
+     reproduced by the simulation; no matter what light yield is used. One would
+     think were it simply Poisson statistics (albeit broadened) then there would
+     be a light yield that at least approximates the measured shape; but all
+     simulations with a light yield that is close show a clear gaussian-like
+     peak.
+     Possible causes:
+     -> The Single PE calibration is wrong? Looking at data out of coincidence
+     	with the expected pulse arrival time gives a single PE of ~137
+	(currently 128). This shifts the peak back to ~1.1 PE but the shape
+	still seems a bit off.
+     -> Perhaps there was (for whatever reason) a larger proportion of 2 proton
+     	events in this run. This could distort the spectrum. I'll can look for
+	such an excess population in the (uncut) T1 data.
+	-> The 2 GeV and 475 MeV data appear to have similar proportions of
+	   2 proton events (both ~3.5% based on the peak heights).
+	-> Also, trying to impose an upper level QDC cut on the hodoscopes (to
+	   eliminate 2 proton events) doesn't clean up the spectrum.
 
+  -> 2 GeV, 0.4% WbLS:
+     - A light yield of 20 ph/MeV (half of what you'd expect from scaling) is
+       gives too many PE (fitted mean of 18.7 vs measured 17.2).
+     - A light yield of 15 ph/MeV is close to the mark (fitted 17.5 vs 17.2).
+
+  -> 210 MeV, 0.4% WbLS:
+     - A light yield of 15 ph/MeV gives a result that is suspiciously close to
+       that expected from the measurements (5.3 +/- 0.7 simulated vs meas 5.3).
+
+  - So for 475 MeV it appears that ~ 15 ph/MeV is the best estimate.
+    Interestingly, this is what you'd expect from scaling the 210 MeV <#PE>
+    (suggests no quenching)!
+
+  - Pure LS, 475 MeV:
+    I'll first try the trick of scaling the 210 MeV results; which predicts a
+    light yield change from 10500 to 9459 ph/MeV. I'll round to 9460: a quick 
+    run suggests I'm still a fair way off; 1196 vs measured 1004.
+    For the record; the Daya Bay code (as sent by Elizabeth) uses a light yield
+    of 11522 ph/MeV!
+    9000 ph/MeV: <#PE>~1091.
+    8900 ph/MeV: <#PE>~1078.
+    8300 ph/MeV: <#PE>~985.
+    8500 ph/MeV: <#PE>~994.
 
 - My plan:
   - See if by adjusting the 0.4% WbLS/Pure LS light yields I can come up with a
     simulation that can account for these data. (I need to create a new switch
-    in my program to do this).
+    in my program to do this).->*Done*
   - I can also switch the T1 reflectance model back.

@@ -2,8 +2,9 @@
 /CustomPGACommands/setYDisplacement 1.2 cm
 /CustomCommands/det/setBeamHeight 1.2 cm
 /CustomCommands/det/isWater false
-/CustomCommands/det/setWbLSfraction 0.0099
+/CustomCommands/det/setWbLSfraction 1.
+/CustomCommands/det/setManualYield 8500.
 /CustomCommands/det/update
 /gun/energy 475 MeV
-/run/beamOn 2000
+/run/beamOn 50
 

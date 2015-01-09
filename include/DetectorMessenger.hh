@@ -30,6 +30,8 @@ class DetectorMessenger: public G4UImessenger
   G4UIcmdWithADoubleAndUnit* BeamHeightCmd;
   G4UIcmdWithABool* isWaterCmd;
   G4UIcmdWithADoubleAndUnit* PMTGapCmd;
+  G4UIcmdWithADouble* ManualYieldCmd;
+  G4UIcmdWithoutParameter* CalculateYieldCmd;
   //G4UIcmdWithADoubleAndUnit* IGDensityCmd;
   //G4UIcmdWithADoubleAndUnit* GlassDensityCmd;
   //G4UIcmdWithADoubleAndUnit* AirDensityCmd;

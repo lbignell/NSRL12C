@@ -31,7 +31,11 @@ public:
   bool isWater;
   G4VPhysicalVolume* physical_world;
   double WbLSfraction;
+  bool isManualYield;
+  double ManualYield;
 
+  void SetManualYield(bool, double);
+  double CalculateLightYield(double);
   void SetWbLSfraction(double);
   void SetWater(bool);
   void SetBeamHeight(G4double);

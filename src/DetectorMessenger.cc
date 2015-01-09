@@ -49,6 +49,20 @@ DetectorMessenger::DetectorMessenger(
   WbLSfractionCmd->AvailableForStates(G4State_PreInit,G4State_Idle,
 				      G4State_GeomClosed,G4State_EventProc);
 
+  ManualYieldCmd = new G4UIcmdWithADouble("/CustomCommands/det/setManualYield",
+					  this);
+  ManualYieldCmd->
+    SetGuidance("Manually set the scintillation light yield (Ph/MeV)");
+  ManualYieldCmd->AvailableForStates(G4State_PreInit,G4State_Idle,
+				     G4State_GeomClosed,G4State_EventProc);
+
+  CalculateYieldCmd =
+    new G4UIcmdWithoutParameter("/CustomCommands/det/CalculateYield", this);
+  CalculateYieldCmd->
+    SetGuidance("Call to calculate the light yield by scaling WbLS fraction");
+  CalculateYieldCmd->AvailableForStates(G4State_PreInit,G4State_Idle,
+					G4State_GeomClosed,G4State_EventProc);
+
 
   //ScintillantSetCmd = new G4UIcmdWithAString("/CustomCommands/det/setScintillant",this);  
   //ScintillantSetCmd->SetGuidance("Set Scintillant");
@@ -91,4 +105,11 @@ void DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 
   if( command == WbLSfractionCmd)
     { Detector->SetWbLSfraction(WbLSfractionCmd->GetNewDoubleValue(newValue));}
+
+  if( command == ManualYieldCmd)
+    { Detector->
+	SetManualYield(true, ManualYieldCmd->GetNewDoubleValue(newValue));}
+
+  if( command == CalculateYieldCmd)
+    { Detector->SetManualYield(false,105.);}
 }

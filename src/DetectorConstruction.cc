@@ -50,10 +50,24 @@ DetectorConstruction::DetectorConstruction(){
   //QEdata.clear();
   isWater = true;
   WbLSfraction = 0.0099;
+  isManualYield = false;
+  ManualYield = 105./MeV;
 }
 
 DetectorConstruction::~DetectorConstruction(){ 
 
+}
+
+void DetectorConstruction::SetManualYield(bool isManual, double theYield){
+  isManualYield = isManual;
+  ManualYield = theYield/MeV;
+}
+
+double DetectorConstruction::CalculateLightYield(double theFraction){
+  //Scale using 1% data if not setting manually.
+  if(!isManualYield){return ((105./MeV)*(theFraction/0.0099));}
+  //Otherwise use the ManualYield variable.
+  else{return ManualYield;}
 }
 
 void DetectorConstruction::SetWbLSfraction(double value){WbLSfraction = value;}
@@ -560,7 +574,8 @@ if(FilePtr!=0){
   //Scnt_MPT->AddProperty("SLOWCOMPONENT", Scnt_PP, Scnt_SLOW, NUMENTRIES);
 
   //original value: 105 ph/MeV @ 1% WbLS.
-  MPTWbLS->AddConstProperty("SCINTILLATIONYIELD", ((105./MeV)*(WbLSfraction/0.0099)));
+  double theLY = CalculateLightYield(WbLSfraction);
+  MPTWbLS->AddConstProperty("SCINTILLATIONYIELD", theLY);
   //The resolution yield is indeterminate. It will affect the breadth of the
   //photon number distribution, and can therefore be tuned to the measured value
   //if that makes sense.

@@ -4,24 +4,24 @@
 cp RunDefault.mac RunSimple.mac
 ################
 #First run
-./NSRL12C RunSimple.mac > log1.txt
-echo Finished first run; move Edep.root if required...
-mv Edep.root Water_2000MeV.root
+#./NSRL12C RunSimple.mac > log1.txt
+#echo Finished first run; move Edep.root if required...
+#mv Edep.root Water_2000MeV.root
 ################
 #Second run
-perl -pi -e 's/2000/475/' RunSimple.mac
-./NSRL12C RunSimple.mac > log2.txt
-echo Finished second run!
-mv Edep.root Water_475MeV.root
+#perl -pi -e 's/2000/475/' RunSimple.mac
+#./NSRL12C RunSimple.mac > log2.txt
+#echo Finished second run!
+#mv Edep.root Water_475MeV.root
 ################
 #Third run
-perl -pi -e 's/475/210/' RunSimple.mac
-./NSRL12C RunSimple.mac > log3.txt
-echo Finished Third run!
-mv Edep.root Water_210MeV.root
+#perl -pi -e 's/475/210/' RunSimple.mac
+#./NSRL12C RunSimple.mac > log3.txt
+#echo Finished Third run!
+#mv Edep.root Water_210MeV.root
 ################
 #Fourth run
-perl -pi -e 's/210/2000/' RunSimple.mac
+#perl -pi -e 's/210/2000/' RunSimple.mac
 #Change from water to WbLS
 perl -pi -e 's/true/false/' RunSimple.mac
 ./NSRL12C RunSimple.mac > log4.txt

@@ -828,7 +828,7 @@ if(FilePtr!=0){
   MPTWbLS->AddConstProperty("WLSTIMECONSTANT", 1.*ns);
 
   WbLS->SetMaterialPropertiesTable(MPTWbLS);
-  WbLS->GetIonisation()->SetBirksConstant(0.1*mm/MeV);
+  WbLS->GetIonisation()->SetBirksConstant(0.0*mm/MeV);
 
 
 /*the volumes: */

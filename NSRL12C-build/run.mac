@@ -1,6 +1,6 @@
 /tracking/verbose 0
-/CustomPGACommands/setYDisplacement 0.75 cm
-/CustomCommands/det/setBeamHeight 0.75 cm
+/CustomPGACommands/setYDisplacement 1.2 cm
+/CustomCommands/det/setBeamHeight 1.2 cm
 /CustomCommands/det/update
 /gun/energy 2000 MeV
 /run/beamOn 10000

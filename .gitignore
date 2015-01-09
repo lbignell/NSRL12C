@@ -20,4 +20,5 @@ NSRL12C-build/Makefile
 *.err
 *.log*
 *.job
-
+NSRL12C-build/figures
+NSRL12C-build/BeamHeightScan_*

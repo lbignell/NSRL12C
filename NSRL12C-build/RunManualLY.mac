@@ -1,0 +1,10 @@
+/tracking/verbose 0
+/CustomPGACommands/setYDisplacement 1.075 cm
+/CustomCommands/det/setBeamHeight 1.075 cm
+/CustomCommands/det/isWater false
+/CustomCommands/det/setWbLSfraction 0.0099
+/CustomCommands/det/setManualYield 105
+/CustomCommands/det/update
+/gun/energy 2000 MeV
+/run/beamOn 10000
+

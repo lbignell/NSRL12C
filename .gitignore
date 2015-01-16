@@ -1,5 +1,6 @@
 
 *.root
+!NSRL12C-build/AllResults_NewSinglePECal.root
 \#*
 *.svg
 *.pdf

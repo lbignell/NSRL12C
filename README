@@ -473,6 +473,8 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 
 - Running again, this time with the Birk's quenching set to 0 (off), at 1.2 cm.
 
+- Added capability to change light yield manually in a script.
+
 - Simultaneously working locally on my Ubuntu desktop to investigate the effect
   of changing the light yield of the 0.4% and 100% LS data.
   -> 475 MeV, 0.4% WbLS: The measured data appear weird. They are peaked at
@@ -520,8 +522,152 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
     8300 ph/MeV: <#PE>~985.
     8500 ph/MeV: <#PE>~994.
 
+2014-1-11
+- Measured values with optimal binning:
+  1% WbLS, 2 GeV: <#PE> = 28.29
+  PureLS, 2 GeV: <#PE> = 667.
+
+  Run with 1.2 cm beam height, 105 ph/MeV (scaled) light yield:
+  1% WbLS, 2 GeV: <#PE> = 27.79, Chi2 pVal = 0.002, Chi2 = 65, KS pVal = 0.004.
+  ...This is very slow; I'll finish the rest of the analysis when I'm at work
+  again...
+  ....I've also realised that the # of simulated events in this run was
+  incorrect: because I started with 2000; when I did my global replace from 2000
+  to 475, in the file; the # events changed with it! 2 GeV events should be ok.
+  PureLS events should all be ok too....
+  Pure LS, ~10500 ph/MeV, 2 GeV: <#PE> = 877 (way off).
+
+- Going to run some more with the near-optimised light yields in 0.4% WbLS and
+  pure LS; 0.4% WbLS LY = 15 ph/MeV, pure LS = 8500 ph/MeV.
+
+2014-1-12
+- Measured values with optimal binning:
+  1% WbLS, 2 GeV: <#PE> = 28.3.
+  1% WbLS, 475 MeV: <#PE> = 16.38.
+  1% WbLS, 210 MeV: <#PE> = 29.6.
+  0.4% WbLS, 2 GeV: <#PE> = 17.5.
+  0.4% WbLS, 475 MeV: <#PE> = 4.27. (Funny shape).
+  0.4% WbLS, 210 MeV: <#PE> = 5.56.
+  Pure LS, 2 GeV: <#PE> = 658 (multiplied by 5x attenuation factor)
+  Pure LS, 475 MeV: <#PE> = 991 (multiplied by 5x attenuation factor)
+  Pure LS, 210 MeV: <#PE> = 2934 (multiplied by 5x attenuation factor)
+  Simulation, 1.2 cm beam height:
+  1% WbLS, 105 ph/MeV, no quench:
+  2 GeV: <#PE> = 27.8, Chi2/NDF = 64.4/36, pVal = 0.002, KS pVal = 0.16
+  475 MeV: <#PE> = 16.69, Chi2/NDF = 94.2/30, pVal = 1E-8, KS pVal = 0.002
+  210 MeV: <#PE> = 42.7, Chi2/NDF = 559/61, pVal = 1E-81, KS pVal = 0.0.
+  0.4% WbLS, 15 ph/MeV, no quench:
+  2 GeV: <#PE> = 17.8, Chi2/NDF = 58.4/32, pVal = 0.003, KS pVal = 0.23
+  475 MeV: <#PE> = 3.43, Chi2/NDF = 189/15, pVal = 4E-32, KS pVal = 2E-12.
+  210 MeV: <#PE> = 6.54, Chi2/NDF = 80/20, pVal = 4E-9, KS pVal = 2E-11.
+  Pure LS, 8500 ph/MeV, no quench:
+  2 GeV: <#PE> = 693, Chi2/NDF = 24.1/21, pVal = 0.29, KS pVal = 0.008.
+  475 MeV: <#PE> = 1002, Chi2/NDF = 11.5/25, pVal = 0.99, KS pVal = 0.98.
+  210 MeV: <#PE> = 2932, Chi2/NDF = 41.4/39, pVal = 0.36, KS pVal = 0.10.
+
+- Why are there so few events in the pure LS runs?
+  -> Applying cuts sequentially suggests that most events are lost when the
+     hodoscope time/charge cuts are applied. So maybe the beam was not well
+     focussed on the hodoscope? Maybe the hodoscope was misaligned from the
+     beam centre?
+     -> No, the relative proportion of hodoscope/veto events looks similar in
+     	pure LS and 1% LS at 475 MeV.
+  -> I've fixed this issue; see my notes in lbignell/NSRLanalysis/12C/README.
+     It turns out that I wasn't reading the trees correctly (I was imposing a
+     requirement that the first peak in the waveform make the cut). It didn't
+     bias the analysis but it did cut out ~ half of the data for the WbLS
+     samples. For the Pure LS samples it cut out ~95% of the data!	
+
+- Results that have been processed using the better cut algorithm are stored in
+  AllResults.root as histograms.
+  -> Using data to take another look at the single PE calibration.
+     -> It may be off; going back and re-analysing the new cut data in more
+     	detail.
+     -> I was fairly close; both a few % higher. The new values are:
+     	T2 (using 475 MeV water) = 133.29 +/- 2.51 (was 128).
+	T1 (using 210 MeV water) = 115.05 +/- 3.33 (was 112).
+
+2014-1-14
+- New analysis of beam height:
+  - I set the analysis range [1.5,19.5] PE to exclude low # PE effects.
+  Data: <#PE> = 3.98
+  0.95 cm: Chi2 = 15.07, NDF = 17, pVal = 0.59, KS pVal = 3E-8
+  1 cm: Chi2 = 15.42, NDF = 17, pVal = 0.57, KS pVal = 2E-5
+  1.05 cm: Chi2 = 15.08, NDF = 17, pVal = 0.59, KS pVal = 1E-4
+  1.075 cm: Chi2 = 7.423, NDF = 17, pVal = 0.74, KS pVal = 0.01
+  1.1 cm: Chi2 = 11.57, NDF = 17, pVal = 0.83, KS pVal = 0.006
+  1.15 cm: Chi2 = 19.66, NDF = 17, pVal = 0.29, KS pVal = 0.16
+  1.2 cm: Chi2 = 31.2, NDF = 17, pVal = 0.02, KS pVal = 0.009
+  1.3 cm: Chi2 = 43.4, NDF = 17, pVal = 4E-4, KS pVal = 1E-4
+  - Changed analysis range to [1.5, 10.5] to only include bins with good stats.
+  Data: <#PE> = 3.628
+  0.95 cm: Chi2 = 8.585, NDF = 8, pVal = 0.37, KS pVal = 0.48
+  1 cm: Chi2 = 9.83, NDF = 8, pVal = 0.28, KS pVal = 2E-5
+  1.05 cm: Chi2 = 7.789, NDF = 8, pVal = 0.454, KS pVal = 0.49
+  1.1 cm: Chi2 = 9.19, NDF = 8, pVal = 0.33, KS pVal = 0.006
+  1.15 cm: Chi2 = 13.6, NDF = 8, pVal = 0.09, KS pVal = 0.16
+  1.2 cm: Chi2 = 29.74, NDF = 8, pVal = 2E-4, KS pVal = 0.009
+  1.3 cm: Chi2 = 40.15, NDF = 8, pVal = 3E-6, KS pVal = 1E-4
+  -> Looking at the Chi2 plot, it doesn't look very parabola-like: perhaps I
+     should take data at different heights? Looking at the spectra themselves,
+     it does appear that 1.1 cm is the best fit. Maybe I should take some extra
+     data at 0.95 cm, 1.05 cm, and 1.15 cm to make a nicer plot? Done (added 
+     data above).
+
+2015-1-16
+- I have issues with the analysis above; it appears that I didn't correctly
+  rebin the data histogram in at least some cases. Reanalysing:
+  - Range = [1.5,19.5]
+  Data: <#PE> = 3.98
+  0.95 cm: Chi2 = 15.07, NDF = 17, pVal = 0.59
+  1 cm: Chi2 = 15.42, NDF = 17, pVal = 0.57
+  1.05 cm: Chi2 = 15.08, NDF = 17, pVal = 0.59
+  1.075 cm: Chi2 = 12.91, NDF = 17, pVal = 0.74
+  1.1 cm: Chi2 = 11.57, NDF = 17, pVal = 0.83
+  1.125 cm: Chi2 = 20.46, NDF = 17, pVal = 0.25
+  1.15 cm: Chi2 = 19.66, NDF = 17, pVal = 0.29
+  1.175 cm: Chi2 = 18.22, NDF = 17, pVal = 0.38
+  1.2 cm: Chi2 = 31.20, NDF = 17, pVal = 0.02
+  1.225 cm: Chi2 = 22.43, NDF = 17, pVal = 0.17
+  1.3 cm: Chi2 = 42.04, NDF = 17, pVal = 4E-4
+  - Range = [1.5,10.5] (avoid low statistics bins)
+  Data: <#PE> = 3.628
+  0.95 cm: Chi2 = 8.585, NDF = 8, pVal = 0.37
+  1 cm: Chi2 = 9.789, NDF = 8, pVal = 0.28
+  1.05 cm: Chi2 = 7.789, NDF = 8, pVal = 0.454
+  1.075 cm: Chi2 = 6.745, NDF = 8, pVal = 0.56
+  1.1 cm: Chi2 = 9.18, NDF = 8, pVal = 0.33
+  1.125 cm: Chi2 = 14.15, NDF = 8, pVal = 0.08
+  1.15 cm: Chi2 = 13.58, NDF = 8, pVal = 0.09
+  1.175 cm: Chi2 = 13.97, NDF = 8, pVal = 0.08
+  1.2 cm: Chi2 = 29.66, NDF = 8, pVal = 2E-4
+  1.225 cm: Chi2 = 18.92, NDF = 8, pVal = 0.02
+  1.3 cm: Chi2 = 40.07, NDF = 8, pVal = 3E-6
+  - Range: [1.5, 6.5] (avoid multiple proton events).
+  Data: <#PE> = 
+  0.95 cm: Chi2 = 8.16, NDF = 4, pVal = 0.09
+  1 cm: Chi2 = 9.62, NDF = 4, pVal = 0.05
+  1.05 cm: Chi2 = 6.55, NDF = 4, pVal = 0.16
+  1.075 cm: Chi2 = 4.02, NDF = 4, pVal = 0.40
+  1.1 cm: Chi2 = 7.44, NDF = 4, pVal = 0.11
+  1.125 cm: Chi2 = 12.47, NDF = 4, pVal = 0.01
+  1.15 cm: Chi2 = 10.36, NDF = 4, pVal = 0.03
+  1.175 cm: Chi2 = 9.92, NDF = 4, pVal = 0.04
+  1.2 cm: Chi2 = 21.6, NDF = 4, pVal = 2E-4
+  1.225 cm: Chi2 = 9.39, NDF = 4, pVal = 0.05
+  1.3 cm: Chi2 = 28.89, NDF = 4, pVal = 8E-6
+  - I don't fully understand why Chi2 is non-parabola-like for much of its
+    range. However, it appears that a beam height of 1.075 cm is about the right
+    value.
+
+- Going to run again over all scintillator concentrations; using ~optimal light
+  yields of 105 ph/MeV for 1% WbLS; 15 ph/MeV for 0.4%, and 8400 ph/MeV for LS.
+
 - My plan:
-  - See if by adjusting the 0.4% WbLS/Pure LS light yields I can come up with a
-    simulation that can account for these data. (I need to create a new switch
-    in my program to do this).->*Done*
+  - Figure out a way to script the simulation/data comparison. I guess since I
+    have fairly fixed histograms for the data I can hard code some bin sizes and
+    limits? I then (ideally) would be able to use this to perform an
+    optimisation on kB and the light yield...
   - I can also switch the T1 reflectance model back.
+  - Once I've settled the optimisation question and the T1 reflectance question,
+    I can write up my paper!

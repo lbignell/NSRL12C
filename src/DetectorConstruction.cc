@@ -52,11 +52,15 @@ DetectorConstruction::DetectorConstruction(){
   WbLSfraction = 0.0099;
   isManualYield = false;
   ManualYield = 105./MeV;
+  BirksConstant = 0.;
 }
 
 DetectorConstruction::~DetectorConstruction(){ 
 
 }
+
+void DetectorConstruction::SetBirksConstant(double theVal)
+{BirksConstant = theVal;}
 
 void DetectorConstruction::SetManualYield(bool isManual, double theYield){
   isManualYield = isManual;
@@ -843,7 +847,7 @@ if(FilePtr!=0){
   MPTWbLS->AddConstProperty("WLSTIMECONSTANT", 1.*ns);
 
   WbLS->SetMaterialPropertiesTable(MPTWbLS);
-  WbLS->GetIonisation()->SetBirksConstant(0.0*mm/MeV);
+  WbLS->GetIonisation()->SetBirksConstant(BirksConstant*mm/MeV);
 
 
 /*the volumes: */

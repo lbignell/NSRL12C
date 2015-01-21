@@ -64,17 +64,19 @@ DetectorMessenger::DetectorMessenger(
 					G4State_GeomClosed,G4State_EventProc);
 
 
-  //ScintillantSetCmd = new G4UIcmdWithAString("/CustomCommands/det/setScintillant",this);  
-  //ScintillantSetCmd->SetGuidance("Set Scintillant");
-  //ScintillantSetCmd->SetGuidance("This Command was cut for causing problems and DOES NOT WORK!");
-  //ScintillantSetCmd->SetParameterName("choice",false);
-  //ScintillantSetCmd->AvailableForStates(G4State_PreInit,G4State_Idle,G4State_GeomClosed,G4State_EventProc);  
-
   UpdateCmd = new G4UIcmdWithoutParameter("/CustomCommands/det/update",this);
   UpdateCmd->SetGuidance("Update calorimeter geometry.");
   UpdateCmd->SetGuidance("This command MUST be applied before \"beamOn\" ");
   UpdateCmd->SetGuidance("if you changed geometrical value(s).");
   UpdateCmd->AvailableForStates(G4State_PreInit,G4State_Idle,G4State_GeomClosed,G4State_EventProc);
+
+  BirksCmd = new G4UIcmdWithADouble("/CustomCommands/det/setBirks",this);  
+  BirksCmd->SetGuidance("Set the Birks constant, in units of mm/MeV");
+  BirksCmd->SetParameterName("Size",false);
+  BirksCmd->SetRange("Size>=0.");
+  BirksCmd->AvailableForStates(G4State_PreInit,G4State_Idle,
+				G4State_GeomClosed,G4State_EventProc);  
+
       
 }
 
@@ -112,4 +114,7 @@ void DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 
   if( command == CalculateYieldCmd)
     { Detector->SetManualYield(false,105.);}
+
+  if( command == BirksCmd)
+    { Detector->SetBirksConstant(BirksCmd->GetNewDoubleValue(newValue));}
 }

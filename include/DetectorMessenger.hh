@@ -32,22 +32,10 @@ class DetectorMessenger: public G4UImessenger
   G4UIcmdWithADoubleAndUnit* PMTGapCmd;
   G4UIcmdWithADouble* ManualYieldCmd;
   G4UIcmdWithoutParameter* CalculateYieldCmd;
-  //G4UIcmdWithADoubleAndUnit* IGDensityCmd;
-  //G4UIcmdWithADoubleAndUnit* GlassDensityCmd;
-  //G4UIcmdWithADoubleAndUnit* AirDensityCmd;
-  //G4UIcmdWithADoubleAndUnit* InnerRadCmd;
-  //G4UIcmdWithADoubleAndUnit* OuterRadCmd;
-  //G4UIcmdWithADoubleAndUnit* BaseThicknessCmd;
-  //G4UIcmdWithADoubleAndUnit* ScintillantVolumeCmd;
-  //G4UIcmdWithAString*        ScintillantSetCmd;
   G4UIcmdWithoutParameter*   UpdateCmd;
   G4UIcmdWithADouble*        WbLSfractionCmd;
-  //G4UIcmdWithADouble*        UGCompHCmd;
-  //G4UIcmdWithADouble*        UGCompNCmd;
-  //G4UIcmdWithADouble*        UGCompOCmd;
-  //G4UIcmdWithADouble*        UGCompNaCmd;
-  //G4UIcmdWithADouble*        UGCompPCmd;
-  //G4UIcmdWithADouble*        UGCompSCmd;
+  G4UIcmdWithADouble* BirksCmd;
+
 };
 
 #endif

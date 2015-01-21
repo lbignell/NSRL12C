@@ -33,7 +33,9 @@ public:
   double WbLSfraction;
   bool isManualYield;
   double ManualYield;
+  double BirksConstant;
 
+  void SetBirksConstant(double);
   void SetManualYield(bool, double);
   double CalculateLightYield(double);
   void SetWbLSfraction(double);

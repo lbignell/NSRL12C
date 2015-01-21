@@ -663,11 +663,82 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 - Going to run again over all scintillator concentrations; using ~optimal light
   yields of 105 ph/MeV for 1% WbLS; 15 ph/MeV for 0.4%, and 8400 ph/MeV for LS.
 
+- Checking out the quenching:
+  I think I'll need to scan Birks constant; doing short runs to get an idea:
+  - 1% WbLS; 210 MeV, over range [5,55]:
+    Data: <#PE> = 27.48
+    kB = 0.125: <#PE> = 33.68
+    kB = 0.2: <#PE> = 31.45
+    kB = 0.3: <#PE> = 28.27
+    kB = 0.5: <#PE> = 23.61
+    - Interpolation would suggest a value of ~0.33.
+    - I'll do a weekend run with kB = 0.1 -> 0.5 @ intervals of 0.025; 17 runs.
+  - 0.4% WbLS; 210 MeV, over range [1,30].
+    Data: <#PE> = 4.836
+    kB = 0: <#PE> = 6.23 (fitted a gaussian to this range).
+    kB = 0.1: <#PE> = 5.470
+    kB = 0.2: <#PE> = 4.856
+    kB = 0.3: <#PE> = 4.623
+    kB = 0.4: <#PE> = 4.156
+    None of the kB values give a great fit to the distribution shape (similar
+    problem to the 475 MeV 0.4% data, though less severe).
+    I think I'll run over w/e with kB = 0.1 -> 0.5 @ intervals of 0.025; 17 runs
+  - Pure LS; 210 MeV, over range [1000, 5000]
+    Data: <#PE> = 2777
+    kB = 0: <#PE> = 2651 (VERY low statistics!)
+    kB = 0.2: <#PE> = 2337 (VERY low statistics!)
+    These take a very long time to complete. I think I'll run over the w/e with
+    kB = 0.1 -> 0.4 @ intervals of 0.05 mm/MeV.
+
+    -> Running on Ubuntu desktop over weekend.
+    Results:
+    1% WbLS; 210 MeV; over range [5.5,55.5]
+    Data: <#PE> = 28.92.
+    kB = 0.1 cm/MeV: <#PE> = 33.67, Chi2 = 880, NDF = 40, pVal = 1E-160
+    kB = 0.15 cm/MeV: <#PE> = 32.25, Chi2 = 587, NDF = 40, pVal = 3E-98
+    kB = 0.2 cm/MeV: <#PE> = 30.24, Chi2 = 316, NDF = 40, pVal = 1E-44
+    kB = 0.25 cm/MeV: <#PE> = 28.54, Chi2 = 118.9, NDF = 40, pVal = 1E-9
+    kB = 0.275 cm/MeV: <#PE> = 28.12, Chi2 = 85.9, NDF = 40, pVal = 3E-5
+    kB = 0.3 cm/MeV: <#PE> = 27.45, Chi2 = 118.9, NDF = 40, pVal = 1E-9
+    kB = 0.325 cm/MeV: <#PE> = 26.88, Chi2 = 94.75, NDF = 40, pVal = 2E-6
+    kB = 0.35 cm/MeV: <#PE> = 26.27, Chi2 = 97.89. NDF = 40, pVal = 9E-7
+    kB = 0.375 cm/MeV: <#PE> = 25.75, Chi2 = 171.22, NDF = 40, pVal = 4E-18
+    kB = 0.4 cm/MeV: <#PE> = 24.85, Chi2 = 229.1, NDF = 40, pVal = 2E-28
+    // This is taking too long: I'm writing a script... done.
+    Script output: Chi2 is parabola-like. Depending on where the limits for the
+    fit are taken, the optimal value is ~0.31(close limits)--0.325(wide limits).
+    I can do longer simulation runs, but first I'll do a run @ 2 GeV/475 MeV
+    with this kB value.
+    -> Applying Gaussian smearing to the simulated results removed some of the
+       bumpiness from the result; the fit now looks OK for an optimal value
+       equal to 0.329 mm/MeV. Chi2 fit coefficients: const = 1978.79 +/- 54,
+       linear = -11562.5 +/- 399.7, quadratic = 17575.2 +/- 655.4.
+
+    0.4% WbLS; 210 MeV...
+    The shape of the distribution isn't a great match for the shapes I get with
+    the simulated distribution (the simulated distributions are too 'peaked').
+    It is possible that this is due to the Gaussian smearing of the real data,
+    which is not implemented in the simulated data. Based on the fit to the
+    single PE; it appears that the sigma for Gaussian smearing is ~0.32. This
+    means that (for 1 PE binning) very little gets spilled over to the next bin.
+    However, when 2 Gaussians are convolved, the resulting Gaussian has a sigma
+    equal to the sqrt of the sum of the sigma squared components. So 2 PE has
+    a width of sqrt(2)*0.32 = 0.45, 3 PE sigma = sqrt(3)*0.32 = 0.55,
+    4 PE sigma = 0.64, 5 PE sigma = 0.72, etc.
+    Adding Gassian smearing definitely broadens the distribution for low numbers
+    of PE (without greatly affecting at least the ~28 PE 1%@210MeV shape).
+    -> Alas, not enough to make a convincing fit. Looking at the Chi2 vs kB, the
+       lower values of kB do best (0.1 gives best fit). I could look at lower kB
+       values...
+    -> Looking at raw waveforms: the algorithm appears to be working OK.
+
+
 - My plan:
   - Figure out a way to script the simulation/data comparison. I guess since I
     have fairly fixed histograms for the data I can hard code some bin sizes and
     limits? I then (ideally) would be able to use this to perform an
     optimisation on kB and the light yield...
-  - I can also switch the T1 reflectance model back.
+  - I can also switch the T1 reflectance model back (nope, I'm giving up on
+    that...).
   - Once I've settled the optimisation question and the T1 reflectance question,
     I can write up my paper!

@@ -291,6 +291,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   }
   //  G4Material* PureLS_NoOpt = new G4Material("PureLS_NoOpt", 
 
+  G4Material* WbLS_NoLight = new G4Material("WbLS_noLight", WbLSdensity, 1);
+  WbLS_NoLight->AddMaterial(WbLS, 1);
+
   //Aluminium Alloy used in the walls Alloy #6063
   G4Material* AlAlloy=new G4Material("Al Alloy", 2680.*kg/m3, 9, kStateSolid);
   //Adding elements in this way seems pointless now but is useful for later
@@ -968,8 +971,11 @@ if(FilePtr!=0){
 
   //Create T1
   G4Tubs* Tub = new G4Tubs("Tub", 0, TubOuterDiam/2, TubHeight/2, 0, 360*deg);
-  G4LogicalVolume* T1_log = new G4LogicalVolume(Tub, PFTE_white_nist, "T1_log",
-						0,0,0);
+  //Old T1 code:
+  //G4LogicalVolume* T1_log = new G4LogicalVolume(Tub, PFTE_white_nist, "T1_log",
+  //						0,0,0);
+  G4LogicalVolume* T1_log = new G4LogicalVolume(Tub, PFTE_black_nist, "T1_log",
+  						0,0,0);
   G4VPhysicalVolume* T1_phys =
     new G4PVPlacement(RotMat, G4ThreeVector(0, 0, 0), T1_log, "T1_phys",
 		      logical_world, false, 0, false);
@@ -983,7 +989,7 @@ if(FilePtr!=0){
   if(!isWater){
     //T1_liq_log =
     //new G4LogicalVolume(liquid, WbLS, "T1_liq_log", 0,0,0);//For WbLS
-    if(WbLSfraction!=1){T1_liq_log->SetMaterial(WbLS);}
+    if(WbLSfraction!=1){T1_liq_log->SetMaterial(WbLS_NoLight);}
     else{T1_liq_log->SetMaterial(Scint);}
   }
 
@@ -1113,8 +1119,8 @@ if(FilePtr!=0){
 
   /////////////////////////////////////////////////////////////////////////////
   //////////Do optical surfaces...////////////
-  G4OpticalSurface* OptSurf_T1 =
-    new G4OpticalSurface("Optical surface, Liquid-White PFTE");//,unified,
+  //G4OpticalSurface* OptSurf_T1 =
+  //new G4OpticalSurface("Optical surface, Liquid-White PFTE");//,unified,
   //groundfrontpainted,//Only lambertian reflection + abs. 
   //			 dielectric_dielectric);
   //Unified model  
@@ -1126,12 +1132,12 @@ if(FilePtr!=0){
   //OptSurf_T1->SetModel(LUT);
   //OptSurf_T1->SetFinish(polishedteflonair);
   //Glisur model
-  OptSurf_T1->SetModel(glisur);
-  OptSurf_T1->SetType(dielectric_metal);
-  OptSurf_T1->SetFinish(ground);
-  G4LogicalBorderSurface* WaterToT1 =
-    new G4LogicalBorderSurface("WaterToT1", T1_liq_phys, T1_phys,
-  			       OptSurf_T1);
+  //OptSurf_T1->SetModel(glisur);
+  //OptSurf_T1->SetType(dielectric_metal);
+  //OptSurf_T1->SetFinish(ground);
+  //G4LogicalBorderSurface* WaterToT1 =
+  //new G4LogicalBorderSurface("WaterToT1", T1_liq_phys, T1_phys,
+  //			       OptSurf_T1);
  
 
   G4OpticalSurface* OptSurf_T1_outer =

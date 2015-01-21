@@ -4,7 +4,8 @@
 /CustomCommands/det/isWater false
 /CustomCommands/det/setWbLSfraction 0.0099
 /CustomCommands/det/setManualYield 105
+/CustomCommands/det/setBirks 0.329
 /CustomCommands/det/update
 /gun/energy 2000 MeV
-/run/beamOn 10000
+/run/beamOn 20000
 

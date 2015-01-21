@@ -202,7 +202,8 @@ G4bool SensitiveDetector::ProcessHits(G4Step* theStep, G4TouchableHistory*){
     else if(theStep->GetPostStepPoint()->GetPhysicalVolume()->GetName()
     	    =="T1_phys"){
     //Implement the reflection probability.
-      G4double ReflProb = 0.925;
+      //G4double ReflProb = 0.925;//Old value, when white tub was implemented.
+      G4double ReflProb = 0.0;
       if(G4UniformRand()<ReflProb){
 	//Allow photon to live (do nothing).
       }

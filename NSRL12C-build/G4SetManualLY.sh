@@ -44,6 +44,7 @@ mv Edep.root WbLS_1pc_210MeV.root
 perl -pi -e 's/210/2000/' RunSimple.mac
 perl -pi -e 's/0.0099/0.004/' RunSimple.mac
 perl -pi -e 's/105/15/' RunSimple.mac
+perl -pi -e 's/0.329/0.15/' RunSimple.mac
 ./NSRL12C RunSimple.mac > log7.txt
 echo Finished Seventh run!
 mv Edep.root WbLS_0p4pc_2000MeV.root
@@ -62,17 +63,17 @@ mv Edep.root WbLS_0p4pc_210MeV.root
 #I can add more runs to do LS simulations once I get the data...
 ################
 #PureLS samples
-perl -pi -e 's/210/2000/' RunSimple.mac
-perl -pi -e 's/0.004/1./' RunSimple.mac
-perl -pi -e 's/15/8400/' RunSimple.mac
-perl -pi -e 's/10000/3000/' RunSimple.mac
-./NSRL12C RunSimple.mac > log10.txt
-mv Edep.root PureLS_2000MeV.root
+#perl -pi -e 's/210/2000/' RunSimple.mac
+#perl -pi -e 's/0.004/1./' RunSimple.mac
+#perl -pi -e 's/15/8400/' RunSimple.mac
+#perl -pi -e 's/20000/3000/' RunSimple.mac
+#./NSRL12C RunSimple.mac > log10.txt
+#mv Edep.root PureLS_2000MeV.root
 #475 MeV protons
-perl -pi -e 's/2000/475/' RunSimple.mac
-./NSRL12C RunSimple.mac > log11.txt
-mv Edep.root PureLS_475MeV.root
+#perl -pi -e 's/2000/475/' RunSimple.mac
+#./NSRL12C RunSimple.mac > log11.txt
+#mv Edep.root PureLS_475MeV.root
 #210 MeV Protons
-perl -pi -e 's/475/210/' RunSimple.mac
-./NSRL12C RunSimple.mac > log12.txt
-mv Edep.root PureLS_210MeV.root
+#perl -pi -e 's/475/210/' RunSimple.mac
+#./NSRL12C RunSimple.mac > log12.txt
+#mv Edep.root PureLS_210MeV.root

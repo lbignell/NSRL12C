@@ -732,13 +732,20 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
        values...
     -> Looking at raw waveforms: the algorithm appears to be working OK.
 
+2015-1-21
+- Results so far:
+  - Excellent agreement for 1% WbLS.
+  - Good agreement for 0.4% WbLS @ 2 GeV. The distribution shapes for 475 MeV
+    and 210 MeV are wierd and don't look Poisson-like. The simulated data do.
+  - Good agreement for pure LS data; but simulations take a long time.
 
 - My plan:
-  - Figure out a way to script the simulation/data comparison. I guess since I
-    have fairly fixed histograms for the data I can hard code some bin sizes and
-    limits? I then (ideally) would be able to use this to perform an
-    optimisation on kB and the light yield...
+  - Why are the 0.4% WbLS results not nice??
+  - Ideally, it would be nice to perform an optimisation on kB and the light
+    yield.
   - I can also switch the T1 reflectance model back (nope, I'm giving up on
     that...).
+    -> Rewrite the code so that optical physics isn't implemented in T1 (that
+       should speed things up!).
   - Once I've settled the optimisation question and the T1 reflectance question,
     I can write up my paper!

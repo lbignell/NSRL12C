@@ -739,6 +739,9 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
     and 210 MeV are wierd and don't look Poisson-like. The simulated data do.
   - Good agreement for pure LS data; but simulations take a long time.
 
+- Added capability to set output file name in a Geant4 macro, so I can do
+  multiple runs simultaneously. The new default filename is Edep_.root.
+
 - My plan:
   - Why are the 0.4% WbLS results not nice??
   - Ideally, it would be nice to perform an optimisation on kB and the light
@@ -746,6 +749,6 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
   - I can also switch the T1 reflectance model back (nope, I'm giving up on
     that...).
     -> Rewrite the code so that optical physics isn't implemented in T1 (that
-       should speed things up!).
+       should speed things up!). Done (untested).
   - Once I've settled the optimisation question and the T1 reflectance question,
     I can write up my paper!

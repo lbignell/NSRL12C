@@ -30,11 +30,13 @@ public:
   ~RunAction();
 
     //
+  void SetFileName(string);
 
 private:
 //an ofstream to access the output file
   ofstream outfile;
   TFile* RootOP;
+  string FileName;
   
   TTree* EdepTree;
 

@@ -18,18 +18,23 @@ RunAction::RunAction(DetectorConstruction* DC){
   //take the DetectorConstruction pointer given when this object is created (in main) and copy to local member
   myDC = DC;
   //
-  
+  FileName = "Edep_.root";  
 }
 
 RunAction::~RunAction(){
 
 }
 
+void RunAction::SetFileName(string fname){
+  cout << "Setting FileName to : " << fname << endl;
+  FileName = fname;
+}
+
 void RunAction::BeginOfRunAction(const G4Run* aRun){
 
-  //Arguments:Name of file,type of rewrite option(UPDATE means append),comments
-  RootOP = new TFile("Edep.root","RECREATE","NSRL12C Sim Output");
-  
+  //Arguments:Name of file,type of rewrite option(UPDATE means append),comments.
+  RootOP = new TFile(FileName.c_str(),"RECREATE","NSRL12C Sim Output");
+    
   EdepTree = new TTree("Results", "Tree of results from NSRL12C simulation.");
 
   EdepTree->Branch("KE_T1", &KE_T1);

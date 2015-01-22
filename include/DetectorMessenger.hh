@@ -12,6 +12,7 @@ class G4UIcmdWithADoubleAndUnit;
 class G4UIcmdWithoutParameter;
 class G4UIcmdWithADouble;
 class G4UIcmdWithABool;
+class G4UIcmdWithAString;
 
 //Inherits from G4UImessenger
 class DetectorMessenger: public G4UImessenger
@@ -35,7 +36,7 @@ class DetectorMessenger: public G4UImessenger
   G4UIcmdWithoutParameter*   UpdateCmd;
   G4UIcmdWithADouble*        WbLSfractionCmd;
   G4UIcmdWithADouble* BirksCmd;
-
+  G4UIcmdWithAString* FnameCmd;
 };
 
 #endif

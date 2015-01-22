@@ -1,16 +1,16 @@
 //Detector Messenger Class controls UI Commands for adjusting detector params
 #include "DetectorMessenger.hh"
-
+#include "RunAction.hh"
 #include "DetectorConstruction.hh"
 #include "G4UIdirectory.hh"
-//#include "G4UIcmdWithAString.hh"
+#include "G4UIcmdWithAString.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWithoutParameter.hh"
 #include "G4UIcmdWithADouble.hh"
 #include "G4UIcmdWithABool.hh"
+#include "G4RunManager.hh"
 
-DetectorMessenger::DetectorMessenger(
-                                           DetectorConstruction* Det)
+DetectorMessenger::DetectorMessenger(DetectorConstruction* Det)
 :Detector(Det)
 { 
   //Set up Directories
@@ -77,12 +77,19 @@ DetectorMessenger::DetectorMessenger(
   BirksCmd->AvailableForStates(G4State_PreInit,G4State_Idle,
 				G4State_GeomClosed,G4State_EventProc);  
 
-      
+  FnameCmd = new G4UIcmdWithAString("/CustomCommands/RA/setFileName", this);
+  FnameCmd->SetGuidance("Set the name of the root output file.");
+  FnameCmd->SetParameterName("FileName", false);
+  FnameCmd->AvailableForStates(G4State_PreInit, G4State_Idle, G4State_GeomClosed
+			       ,G4State_EventProc);
 }
 
 
 DetectorMessenger::~DetectorMessenger()
 {
+  delete isWaterCmd;
+  delete BirksCmd;
+  delete FnameCmd;
   delete UpdateCmd;
   delete BeamHeightCmd;
   delete PMTGapCmd;
@@ -117,4 +124,10 @@ void DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 
   if( command == BirksCmd)
     { Detector->SetBirksConstant(BirksCmd->GetNewDoubleValue(newValue));}
+
+  if( command == FnameCmd){
+    RunAction* myRunAction =
+      (RunAction*)(G4RunManager::GetRunManager()->GetUserRunAction());
+    myRunAction->SetFileName(newValue);
+  }
 }

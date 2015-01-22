@@ -1,9 +1,10 @@
 /tracking/verbose 0
+/CustomCommands/RA/setFileName THEFILENAME.root
 /CustomPGACommands/setYDisplacement 1.075 cm
 /CustomCommands/det/setBeamHeight 1.075 cm
 /CustomCommands/det/isWater false
-/CustomCommands/det/setWbLSfraction 1.
-/CustomCommands/det/setManualYield 8400.
+/CustomCommands/det/setWbLSfraction 0.004
+/CustomCommands/det/setManualYield 15.
 /CustomCommands/det/update
 /gun/energy 475 MeV
 /run/beamOn 100

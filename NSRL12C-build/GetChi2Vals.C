@@ -72,8 +72,10 @@ void SmearGaus(TH1F* hSource, TH1F* &hOut, double sigma){
 
 //Arguments: % WbLS, comma-separated list of kB values. I'll assume it is
 //210 MeV beam energy. Valid values of pcWbLS are "1pc", "0p4pc", and "PureLS".
-//The bins are for rebinning the histogram.
-void GetChi2Vals(string pcWbLS, string kBVals, int nbins, double startbin, TTree* outTree){
+//The bins are for rebinning the histogram. nbins = number of bins, startbin =
+//the low edge of the starting bin, width = bin width, outTree = a tree to store
+//results in (it must be instanciated).
+void GetChi2Vals(string pcWbLS, string kBVals, int nbins, double startbin, int width, TTree* outTree){
 
   if(!((pcWbLS=="1pc")||(pcWbLS=="0p4pc")||(pcWbLS=="PureLS"))){
     cout << "Error: your choice of % WbLS is inappropriate." << endl
@@ -110,7 +112,7 @@ void GetChi2Vals(string pcWbLS, string kBVals, int nbins, double startbin, TTree
   //return NULL;
 
   double binedges[(nbins+1)];
-  for(int i = 0; i<(nbins+1); i++){binedges[i] = i + startbin;}
+  for(int i = 0; i<(nbins+1); i++){binedges[i] = i*width + startbin;}
   cout << "Creating histogram...";
   TH1D* hdata = (TH1D*)rawdata->Rebin(nbins, "hdata", binedges);
   cout << "Done! ";
@@ -157,7 +159,13 @@ void GetChi2Vals(string pcWbLS, string kBVals, int nbins, double startbin, TTree
     theHistRaw = (TH1F*)gDirectory->Get("theHistRaw");
     //Smear the hist with a gaussian.
     TH1F* theHist;
-    SmearGaus(theHistRaw, theHist, 0.32);
+    if(width==1){
+      //SmearGaus only works for 1 PE/bin
+      SmearGaus(theHistRaw, theHist, 0.32);
+    }
+    else{
+      theHist = (TH1F*)theHistRaw->Clone();
+    }
     theMean = theHist->GetMean();
     theHist->SetLineColor(i+2);
     theIntegral = theHist->Integral();

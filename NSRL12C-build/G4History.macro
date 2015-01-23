@@ -1,5 +1,2 @@
 /run/verbose 1
 /vis/open OGL 600x600-0+0
-/CustomCommands/RA/setFileName ~"DUMMY.root
-/CustomCommands/RA/setFileName DUMMY.root
-/run/beamOn 1

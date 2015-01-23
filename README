@@ -742,6 +742,9 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 - Added capability to set output file name in a Geant4 macro, so I can do
   multiple runs simultaneously. The new default filename is Edep_.root.
 
+- 2 GeV, kB = 0.329, LY = 105 ph/MeV
+  -> The fit looks great... but ~ 1 PE too low.
+
 - My plan:
   - Why are the 0.4% WbLS results not nice??
   - Ideally, it would be nice to perform an optimisation on kB and the light

@@ -1,4 +1,5 @@
 /tracking/verbose 0
+/CustomCommands/RA/setFileName WbLS_1pc_210MeV.root
 /CustomPGACommands/setYDisplacement 1.075 cm
 /CustomCommands/det/setBeamHeight 1.075 cm
 /CustomCommands/det/isWater false
@@ -6,6 +7,6 @@
 /CustomCommands/det/setManualYield 105
 /CustomCommands/det/setBirks 0.329
 /CustomCommands/det/update
-/gun/energy 2000 MeV
-/run/beamOn 20000
+/gun/energy 210 MeV
+/run/beamOn 25000
 

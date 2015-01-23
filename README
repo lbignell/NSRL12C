@@ -742,16 +742,28 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 - Added capability to set output file name in a Geant4 macro, so I can do
   multiple runs simultaneously. The new default filename is Edep_.root.
 
+- I've abandoned T1 as it appears to be too hard. I've rewritten the code so
+  that optical physics isn't implemented in T1 (that should speed things up!).
+
 - 2 GeV, kB = 0.329, LY = 105 ph/MeV
   -> The fit looks great... but ~ 1 PE too low.
+
+2015-1-22
+- kB run for pure LS indicates kB<0.1 mm/MeV. I'll run 0.05 and 0.0 mm/MeV and
+  see how that goes.
+  -> 2 GeV simulated distribution is a bit high.
+  -> 475 MeV simulated distribution is a good fit, but a shade low.
+  -> 210 MeV simulated distribution at kB = 0 appears to be a bit high (though
+     better statistics would help).
+  - These results would seem to suggest that:
+    -> The light yield (475 MeV and unexpectedly low kB) is a shade low.
+    -> The Quantum yield is a shade high.
+  - Perhaps I'd be better off using the Daya Bay quantum yield for the Pure LS?
+    -> I'd better get some more convincing results that this needs changing
+       first.
 
 - My plan:
   - Why are the 0.4% WbLS results not nice??
   - Ideally, it would be nice to perform an optimisation on kB and the light
     yield.
-  - I can also switch the T1 reflectance model back (nope, I'm giving up on
-    that...).
-    -> Rewrite the code so that optical physics isn't implemented in T1 (that
-       should speed things up!). Done (untested).
-  - Once I've settled the optimisation question and the T1 reflectance question,
-    I can write up my paper!
+  - Once I've settled the optimisation question, I can write up my paper!

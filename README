@@ -745,8 +745,6 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
 - I've abandoned T1 as it appears to be too hard. I've rewritten the code so
   that optical physics isn't implemented in T1 (that should speed things up!).
 
-- 2 GeV, kB = 0.329, LY = 105 ph/MeV
-  -> The fit looks great... but ~ 1 PE too low.
 
 2015-1-22
 - kB run for pure LS indicates kB<0.1 mm/MeV. I'll run 0.05 and 0.0 mm/MeV and
@@ -762,8 +760,47 @@ Primary Generator: Need to reproduce the beam, and have a user-settable variable
     -> I'd better get some more convincing results that this needs changing
        first.
 
+Runs at nominally best light yield and kB values:
+1% WbLS:
+2 GeV, kB = 0.329 mm/MeV, LY = 105 ph/MeV
+  -> The fit looks great... but ~ 1 PE too low.
+475 MeV, kB = 0.329 mm/MeV, LY = 105 ph/MeV
+  -> Simulation is about too low by a couple of PE (<#PE>(data) = 17.9,
+     <#PE>(sim) = 15.6).
+210 MeV, kB = 0.329 mm/MeV, LY = 105 ph/MeV
+  -> An excellent fit.
+0.4% WbLS:
+2 GeV, kB = 0.15 mm/MeV, LY = 15 ph/MeV
+  -> An excellent fit.
+475 MeV, kB = 0.15 mm/MeV, LY = 15 ph/MeV
+  -> The distribution shape is still a problem.
+210 MeV, kB = 0.15 mm/MeV, LY = 15 ph/MeV
+  -> The distribution shape is also a problem.
+
+2015-01-26
+- kB optimisation for pure LS:
+  - The Chi2 best fit appears to occur at 0.049 mm/MeV. Not outrageously low.
+
+2015-01-28
+- Trying to add additional Gaussian broadening to the data in order to at least
+  get some agreement in the distribution shapes for 0.4% WbLS.
+  -> 475 MeV: No amount of broadening appears to give a satisfactory fit. This
+     may be due to my implementation; I only distribute to the nearest neighbour
+     bin. To do a true Gaussian broadening I'll have to rebin bin-by-bin and
+     do Monte Carlo sampling according to the Gaussian-broadened PDF.
+     ->Currently this is seg faulting when I go to sample a random variable.
+       This is probably root or the way I'm calling the function. I'll solve it
+       tomorrow.
+
+2015-01-29
+- I solved the random number problem but ran into another problem. It may be
+  easier to just modify the working +/- 1 bin broadening function.
+  -> Made preliminary one that broadens over 10 bins. It works.
+  -> Generalised to broaden over N bins (N is an argument).
+
 - My plan:
   - Why are the 0.4% WbLS results not nice??
+    -> I'll try broadening with a wider Gaussian and see at which point it works
   - Ideally, it would be nice to perform an optimisation on kB and the light
     yield.
   - Once I've settled the optimisation question, I can write up my paper!

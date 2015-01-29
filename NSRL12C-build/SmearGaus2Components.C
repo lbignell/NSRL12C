@@ -1,5 +1,9 @@
-//This function will take a 1PE/bin histogram and smear the data with a Gaussian
-//The Gaussian can spread out to the nearest +/-N bins.
+//This function will take a 1PE/bin histogram and smear the data.
+//The smearing can spread out to the nearest +/-N bins.
+//The smearing is achieved with two components; a pulse-height dependent one and
+//a fixed one.
+//The first component is due to the PMT's gain (in)stability and the second is
+//nominally due to the pedestal.
 #include "tinydir.h"
 #include "TFile.h"
 #include "TROOT.h"
@@ -16,8 +20,10 @@
 using namespace std;
 
 //Arguments: Pointer to a TH1D histogram, pointer to a histogram into which to
-//put the resulting histogram, the single PE sigma, +/- number of bins to smear.
-void SmearGausNBins(TH1F* hSource, TH1F* &hOut, double sigma, int N){
+//put the resulting histogram, the intrinsic PMT sigma, the pedestal sigma,
+//+/- number of bins to smear.
+void SmearGaus2Components(TH1F* hSource, TH1F* &hOut,
+			  double sigma, double sigma2,int N){
   
   double width = hSource->GetBinWidth(1);
   if((width>1.001)||(width<0.999)){
@@ -52,33 +58,33 @@ void SmearGausNBins(TH1F* hSource, TH1F* &hOut, double sigma, int N){
     double RunningTotBelow = 0;
     double RunningTotAbove = 0;
 
-    //Protection against nan error.
-    //if(nearestInt>=0){
-    //Loop over the +/- 10 bins on either side of the ith bin
-      for(int j = (N-1); j>-1; j--){
-	//cout << "j = " << j << endl;
-	//cout << "CurrentVal = " << CurrentVal << endl;
-	//cout << "TMath::Erf(Low value)  = "
-	//	   << TMath::Erf(((LowEdge - j*width) - nearestInt)/(sqrt(2)*sqrt(nearestInt)*sigma)) << endl;
+    //Loop over the +/- N bins on either side of the ith bin
+    for(int j = (N-1); j>-1; j--){
+      //cout << "j = " << j << endl;
+      //cout << "CurrentVal = " << CurrentVal << endl;
+      //cout << "TMath::Erf(Low value)  = "
+      //	   << TMath::Erf(((LowEdge - j*width) - nearestInt)/(sqrt(2)*sqrt(nearestInt)*sigma)) << endl;
       //CDF of a Gaussian from [-inf, x] = 0.5*(1+erf((x-mean)/(sigma*sqrt(2))))
       double NumBelow;
       if(nearestInt!=0){
 	NumBelow =
 	  CurrentVal*0.5*(1+TMath::Erf(((LowEdge - j*width) - nearestInt)/
-				       (sqrt(2)*sqrt(nearestInt)*sigma)))
+				       (sqrt(2)*sqrt(nearestInt*sigma*sigma +
+						     sigma2*sigma2))))
 	  - RunningTotBelow;
       }
       else{
 	NumBelow =
 	  CurrentVal*0.5*(1+TMath::Erf(((LowEdge - j*width) - nearestInt)/
-				       (sqrt(2)*sigma)))
+				       (sqrt(2)*sqrt(nearestInt*sigma*sigma +
+						     sigma2*sigma2))))
 	  - RunningTotBelow;
       }
 
       //cout << "NumBelow = " << NumBelow << endl;
 
       RunningTotBelow += NumBelow;
-
+      
       //cout << "RunningTotBelow = " << RunningTotBelow << endl;
       
       double NumAbove;
@@ -94,13 +100,13 @@ void SmearGausNBins(TH1F* hSource, TH1F* &hOut, double sigma, int N){
 					   (sqrt(2)*sigma)))))
 	  - RunningTotAbove;
       }
-
+      
       //cout << "NumAbove = " << NumAbove << endl;
-
+      
       RunningTotAbove += NumAbove;
-
+      
       //cout << "RunningTotAbove = " << RunningTotAbove << endl;      
-
+      
       //Add NumBelow to the bins (i - (j+1)) and (i + (j+1)).
       //If the bin I'm adding to is <0 or >(nbins + 1), add it to 0 or nbins+1.
       if((i-(j+1))>0){
@@ -131,7 +137,6 @@ void SmearGausNBins(TH1F* hSource, TH1F* &hOut, double sigma, int N){
 	hOut->SetBinContent(i, CurrentThis - NumAbove);
       }
     }
-      //}
   }
   return;
 }

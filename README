@@ -797,6 +797,32 @@ Runs at nominally best light yield and kB values:
   easier to just modify the working +/- 1 bin broadening function.
   -> Made preliminary one that broadens over 10 bins. It works.
   -> Generalised to broaden over N bins (N is an argument).
+Results:
+- The 0.4% WbLS results agree well for a sigma = 1.5 PE. 210 MeV data not so
+  much but that could be the kB value. Need to check the effect on larger 
+  amplitude distributions.
+  -> Larger amplitude distribution suck; they get majorly broadened.
+
+- One reason for the poor performance of my Gaussian broadening algorithm is
+  because there are actually 2 components to the broadening (at least). One is
+  intrinsic to the PMT (due to gain fluctuations or whatever) that depends on
+  the # PE. The other is due to the pedestal contribution. The pedestal width
+  isn't easy for me to measure in units of charge (in terms of pulse height
+  sigma is about 3 units).
+  -> Writing another ROOT function that can implement a fixed width and a # PE-
+     dependent width for broadening.
+     
+  -> A value of 1.5 looked to be a decent estimate for the 0.4% WbLS 475 MeV
+     data, so attempting scaling:fixed = 0.1:1.4, 0.2:1.3 ... 1.4:0.1.
+     PureLS, T2, 2 GeV: Even the 1.4:0.1 data don't appear to be that bad of a
+     	     	   	fit... (the distribution is already really broad).
+     0.4% WbLS, T2, 2 GeV: The smeared data are noticably too broad for a
+     	  	      	   scaling width of 0.2 PE.
+     1% WbLS, T2, 210 MeV: 0.2 PE appears to be a suitable constraint.
+
+     However; the only way to achieve a good fit for the problematic (low
+     amplitude) data is to have a scaling factor of ~1.5! This gives a terrible
+     fit at medium amplitudes!
 
 - My plan:
   - Why are the 0.4% WbLS results not nice??

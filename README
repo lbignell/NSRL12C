@@ -824,6 +824,17 @@ Results:
      amplitude) data is to have a scaling factor of ~1.5! This gives a terrible
      fit at medium amplitudes!
 
+- Going to run overnight the PureLS simulations; with kB = 0.049 mm/MeV.
+  -> Done; the 475 MeV (and 210 MeV) data agree quite well, while the 2 GeV data
+     are still ~5% too high.
+  -> I should try using the Daya Bay LS refractive index for this sample. 1%
+     WbLS may be a decent approximation to water, but pure LS should have its
+     own refractive index.
+     -> I can also try using the Daya Bay QY, but I'll do the RIndex first...
+
+- 1% WbLS: I should do my optimisation in this simulation and check the result
+  with 13A. I can start by doing a kB optimisation at 103 ph/MeV and 107 ph/MeV.
+
 - My plan:
   - Why are the 0.4% WbLS results not nice??
     -> I'll try broadening with a wider Gaussian and see at which point it works

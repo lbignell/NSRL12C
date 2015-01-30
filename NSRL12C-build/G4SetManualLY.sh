@@ -4,12 +4,51 @@
 cp RunManualLY.mac RunSimple.mac
 ################
 #First run
-#./NSRL12C RunSimple.mac > log1.txt
-#echo Finished first run; move Edep_.root if required...
-#mv Edep_.root Water_2000MeV.root
+echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+echo 'kB = 0.050'
+echo 'LY = 103'
+echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+./NSRL12C RunSimple.mac >> log.txt
+#echo Finished first run
 ################
-#Second run
-#perl -pi -e 's/2000/475/' RunSimple.mac
+#Loop the others
+kBprev='0.050'
+for i in `seq 0.075 0.025 0.5`
+do
+    kBval=$i
+    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    echo 'kB = '$kBval
+    echo 'LY = 103'
+    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    perl -pi -e ''s/$kBprev/$kBval/'' RunSimple.mac
+    kBprev=$kBval
+    ./NSRL12C RunSimple.mac >> log.txt
+done
+###############
+#Change the LY and kB values back.
+perl -pi -e 's/0.500/0.050/' RunSimple.mac
+perl -pi -e 's/103/107/' RunSimple.mac
+echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+echo 'kB = 0.050'
+echo 'LY = 107'
+echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+./NSRL12C RunSimple.mac >> log.txt
+################
+#Loop the others
+kBprev='0.050'
+for i in `seq 0.075 0.025 0.5`
+do
+    kBval=$i
+    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    echo 'kB = '$kBval
+    echo 'LY = 107'
+    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    perl -pi -e ''s/$kBprev/$kBval/'' RunSimple.mac
+    kBprev=$kBval
+    ./NSRL12C RunSimple.mac >> log.txt
+done
+
+
 #./NSRL12C RunSimple.mac > log2.txt
 #echo Finished second run!
 #mv Edep_.root Water_475MeV.root
@@ -69,13 +108,13 @@ cp RunManualLY.mac RunSimple.mac
 #perl -pi -e 's/0.004/1./' RunSimple.mac
 #perl -pi -e 's/15/8400/' RunSimple.mac
 #perl -pi -e 's/25000/3000/' RunSimple.mac
-./NSRL12C RunSimple.mac > log10.txt
+#./NSRL12C RunSimple.mac > log10.txt
 #mv Edep_.root PureLS_2000MeV.root
 #475 MeV protons
-perl -pi -e 's/2000/475/' RunSimple.mac
-./NSRL12C RunSimple.mac > log11.txt
+#perl -pi -e 's/2000/475/' RunSimple.mac
+#./NSRL12C RunSimple.mac > log11.txt
 #mv Edep_.root PureLS_475MeV.root
 #210 MeV Protons
-perl -pi -e 's/475/210/' RunSimple.mac
-./NSRL12C RunSimple.mac > log12.txt
+#perl -pi -e 's/475/210/' RunSimple.mac
+#./NSRL12C RunSimple.mac > log12.txt
 #mv Edep_.root PureLS_210MeV.root

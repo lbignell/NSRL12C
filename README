@@ -835,6 +835,20 @@ Results:
 - 1% WbLS: I should do my optimisation in this simulation and check the result
   with 13A. I can start by doing a kB optimisation at 103 ph/MeV and 107 ph/MeV.
 
+2015-1-31
+- Going to modify the refractive index of pure LS so that it isn't equal to
+  water (I'll use the Daya Bay value instead).
+  -> Done. Running 3K events @ 8400 ph/MeV, kB = 0.05 mm/MeV.
+
+
+- 1% WbLS; 103 ph/MeV, kB scan:
+  - Optimal kB value = 0.290 mm/MeV
+- 1% WbLS; 107 ph/MeV, kB scan:
+  - Optimal kB value = 0.328 mm/MeV
+  - Note that this is higher than the 105 ph/MeV run. Given a closer look at the
+    105 ph/MeV data, the fit isn't great anyway. Narrowing the fit range gives 
+    a value of 0.309 mm/MeV, which makes more sense.
+
 - My plan:
   - Why are the 0.4% WbLS results not nice??
     -> I'll try broadening with a wider Gaussian and see at which point it works

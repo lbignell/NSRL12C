@@ -1,12 +1,11 @@
 /tracking/verbose 0
-/CustomCommands/RA/setFileName WbLS_1pc_LY103_kB0.050_210MeV.root
+/CustomCommands/RA/setFileName PureLS_LY8400_kB0.05_2000MeV.root
 /CustomPGACommands/setYDisplacement 1.075 cm
 /CustomCommands/det/setBeamHeight 1.075 cm
 /CustomCommands/det/isWater false
-/CustomCommands/det/setWbLSfraction 0.0099
-/CustomCommands/det/setManualYield 103
-/CustomCommands/det/setBirks 0.050
+/CustomCommands/det/setWbLSfraction 1.
+/CustomCommands/det/setManualYield 8400
+/CustomCommands/det/setBirks 0.05
 /CustomCommands/det/update
-/gun/energy 210 MeV
-/run/beamOn 25000
-
+/gun/energy 2000 MeV
+/run/beamOn 3500

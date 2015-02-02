@@ -452,10 +452,18 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   //FilePtr = fopen("$DATAFILES/water_rindex.vec", "r");
   //FilePtr = fopen("$DATAFILES/water_rindex_edit.vec", "r");
   //FilePtr = fopen("$DATAFILES/WaterRindexSeg_FULL.csv", "r");
-  char name4[512];
-  strcpy(name4, DataPath);
-  strcat(name4, "/WaterRindexSeg_PARTIAL2.csv");
-  FilePtr = fopen(name4, "r");
+  if(WbLSfraction!=1.){//Assume WbLS has same Rindex as water.
+    char name4[512];
+    strcpy(name4, DataPath);
+    strcat(name4, "/WaterRindexSeg_PARTIAL2.csv");
+    FilePtr = fopen(name4, "r");
+  }
+  else{//Model pure LS with DB refractive index.
+    char name4[512];
+    strcpy(name4, DataPath);
+    strcat(name4, "/DBScintRindex_MonotonicIncrease.csv");
+    FilePtr = fopen(name4, "r");
+  }
   //FilePtr = fopen("$DATAFILES/WaterRindexSeg_PARTIAL2.csv", "r");
   //FilePtr = fopen("$DATAFILES/WaterRindexSeg_Sub10pc.csv", "r");
 

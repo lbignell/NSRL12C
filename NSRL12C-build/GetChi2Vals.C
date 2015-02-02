@@ -72,10 +72,12 @@ void SmearGaus(TH1F* hSource, TH1F* &hOut, double sigma){
 
 //Arguments: % WbLS, comma-separated list of kB values. I'll assume it is
 //210 MeV beam energy. Valid values of pcWbLS are "1pc", "0p4pc", and "PureLS".
+//Third argument is the light yield in ph/MeV.
 //The bins are for rebinning the histogram. nbins = number of bins, startbin =
 //the low edge of the starting bin, width = bin width, outTree = a tree to store
 //results in (it must be instanciated).
-void GetChi2Vals(string pcWbLS, string kBVals, int nbins, double startbin, int width, TTree* outTree){
+void GetChi2Vals(string pcWbLS, string kBVals, string LY, int nbins,
+		 double startbin, int width, TTree* outTree){
 
   if(!((pcWbLS=="1pc")||(pcWbLS=="0p4pc")||(pcWbLS=="PureLS"))){
     cout << "Error: your choice of % WbLS is inappropriate." << endl
@@ -101,7 +103,7 @@ void GetChi2Vals(string pcWbLS, string kBVals, int nbins, double startbin, int w
 
   cout << "Done!" << endl << "Reading Tree...";
   //Open up the data tree
-  TFile* f = TFile::Open("../AllResults_NewSinglePECal.root");
+  TFile* f = TFile::Open("AllResults_NewSinglePECal.root");
   string hname = "WbLS_" + pcWbLS + "_T2_210";
   TH1D* rawdata = (TH1D*)f->Get(hname.c_str());
   cout << "Done!" << endl << "Drawing data... ";
@@ -150,7 +152,8 @@ void GetChi2Vals(string pcWbLS, string kBVals, int nbins, double startbin, int w
   cout << "Done!" << endl << "Running loop..";
   for(int i = 0; i<strkB.size(); i++){
     //Open up the simulation files.
-    string simfname = "WbLS_" + pcWbLS + "_kB" + strkB.at(i) + "_210MeV.root";
+    string simfname = "WbLS_" + pcWbLS + "_LY" + LY + "_kB" + strkB.at(i)
+      + "_210MeV.root";
     TFile* simfile = TFile::Open(simfname.c_str());
     TTree* simtree = (TTree*)simfile->Get("Results");
     TH1F* theHistRaw;

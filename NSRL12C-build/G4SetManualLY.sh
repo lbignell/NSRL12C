@@ -102,7 +102,7 @@ cp RunManualLY.mac RunSimple.mac
 #perl -pi -e 's/25000/3000/' RunSimple.mac
 ./NSRL12C RunSimple.mac > log10.txt
 #475 MeV protons
-perl -pi -e 's/2000/475/' RunSile.mac
+perl -pi -e 's/2000/475/' RunSimple.mac
 ./NSRL12C RunSimple.mac > log11.txt
 #210 MeV Protons
 perl -pi -e 's/475/210/' RunSimple.mac

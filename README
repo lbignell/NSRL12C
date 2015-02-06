@@ -841,13 +841,50 @@ Results:
   -> Done. Running 3K events @ 8400 ph/MeV, kB = 0.05 mm/MeV.
 
 
+2015-02-02
 - 1% WbLS; 103 ph/MeV, kB scan:
   - Optimal kB value = 0.290 mm/MeV
 - 1% WbLS; 107 ph/MeV, kB scan:
   - Optimal kB value = 0.328 mm/MeV
   - Note that this is higher than the 105 ph/MeV run. Given a closer look at the
     105 ph/MeV data, the fit isn't great anyway. Narrowing the fit range gives 
-    a value of 0.309 mm/MeV, which makes more sense.
+    a value of 0.309 or 3.14 mm/MeV, both of which make more sense.
+
+- Pure LS; 8400 ph/MeV, kB = 0.05, LS Quantum Yield.
+  - 2 GeV results agree much better with the simulation.
+  - The other two didn't run (probably because of the RACF reset), running now.
+  -> The other two both exhibit lower amplitude distributions. The biggest
+     change is also seen in the 210 MeV data.
+     -> All of these results are counterintuitive!
+     -> However; it turns out that I accidentally ran the 1% WbLS simulations
+     	with the light yield and kB of 1% WbLS and the refractive index of pure
+	LS. The result is as expected, increases in the distributions at 475 MeV
+	and 2 GeV, with the 2 GeV the biggest change. So maybe theres some
+	effect going on in the Pure LS that I don't fully understand.
+
+- Running PureLS again with Daya Bay QY.
+
+2015-02-06
+- 1% WbLS, with optimised kB at 103, 105, and 107 ph/MeV:
+  - 210 MeV: All results more or less agree with data. Chi2 vals: 103 ph/MeV =
+    	     102.3, 105 ph/MeV = 130.8, 107 ph/MeV = 91.4. NDF = 48.
+  - 475 MeV: All results too low, though as LY increases, better agreement is
+    	     obtained. Chi2 vals: 103 ph/MeV = 250.8, 105 ph/MeV = 191.8,
+	     107 ph/MeV = 190.6. NDF = 38.
+  - 2 GeV: All results a tad low, though as LY increases, better agreement is
+    	   obtained. Chi2 decreases approximately linearly: 103 ph/MeV = 144.7,
+	   105 ph/MeV = 126.2, 107 ph/MeV = 105.5. NDF = 48.
+
+- It appears that higher light yields give better overall fits. I'll try running
+  several optimisations on the RACF for light yields of 109, 111, 113, 115, 117,
+  and 119 ph/MeV; to estimate their kB values. Then I once I find their optimal
+  kBs, I can do a Chi2 optimisation on the light yield. I can then run these
+  numbers through the 2013 data and check out how good of a fit it gives.
+
+PureLS, DB QY and Rindex:
+- All distributions are too low, which suggests that the light yield must be
+  increased. However; the 2 GeV distribution is much closer than the 475 MeV and
+  210 MeV ones, so maybe I'll run into problems getting them all to work...
 
 - My plan:
   - Why are the 0.4% WbLS results not nice??

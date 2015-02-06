@@ -736,10 +736,18 @@ if(FilePtr!=0){
   //FilePtr = fopen("$DATAFILES/QYDayaBayZeroBelow200nm.csv", "r");
   //FilePtr = fopen("$DATAFILES/QYDayaBayZeroBelow211nm.csv", "r");
   //Double the QY for optimal agreement with expt.
-  char name8[512];
-  strcpy(name8, DataPath);
-  strcat(name8, "/QYDayaBayZeroBelow211nm_Double.csv");
-  FilePtr = fopen(name8, "r");
+  if(WbLSfraction!=1.){
+    char name8[512];
+    strcpy(name8, DataPath);
+    strcat(name8, "/QYDayaBayZeroBelow211nm_Double.csv");
+    FilePtr = fopen(name8, "r");
+  }
+  else{
+    char name8[512];
+    strcpy(name8, DataPath);
+    strcat(name8, "/QYDayaBay.csv");
+    FilePtr = fopen(name8, "r");
+  }
   //FilePtr = fopen("$DATAFILES/QYDayaBayZeroBelow211nm_Double.csv", "r");
   if(FilePtr!=0){
     GetOptInfo(FilePtr, 1);

@@ -5,26 +5,102 @@ cp RunManualLY.mac RunSimple.mac
 ################
 #First run
 #echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-#echo 'kB = 0.050'
-#echo 'LY = 103'
+#echo 'kB = 0.05'
+#echo 'LY = 8800'
 #echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
 #./NSRL12C RunSimple.mac >> log.txt
 #echo Finished first run
 ################
 #Loop the others
-#kBprev='0.050'
-#for i in `seq 0.075 0.025 0.5`
+#kBprev='0.125'
+#for i in `seq 0.150 0.025 0.600`
 #do
 #    kBval=$i
 #    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
 #    echo 'kB = '$kBval
-#    echo 'LY = 103'
+#    echo 'LY = 109'
 #    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
 #    perl -pi -e ''s/$kBprev/$kBval/'' RunSimple.mac
 #    kBprev=$kBval
 #    ./NSRL12C RunSimple.mac >> log.txt
 #done
 ###############
+################
+#Second run
+#perl -pi -e 's/109/111/' RunSimple.mac
+#perl -pi -e 's/0.600/0.125/' RunSimple.mac
+#echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#echo 'kB = 0.125'
+#echo 'LY = 111'
+#echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#./NSRL12C RunSimple.mac >> log.txt
+#echo Finished first run
+################
+#Loop the others
+#kBprev='0.125'
+#for i in `seq 0.150 0.025 0.600`
+#do
+#    kBval=$i
+#    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#    echo 'kB = '$kBval
+#    echo 'LY = 111'
+#    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#    perl -pi -e ''s/$kBprev/$kBval/'' RunSimple.mac
+#    kBprev=$kBval
+#    ./NSRL12C RunSimple.mac >> log.txt
+#done
+###############
+###############
+#Third run
+#perl -pi -e 's/111/113/' RunSimple.mac
+#perl -pi -e 's/0.600/0.125/' RunSimple.mac
+#echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#echo 'kB = 0.125'
+#echo 'LY = 113'
+#echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#./NSRL12C RunSimple.mac >> log.txt
+#echo Finished first run
+################
+#Loop the others
+#kBprev='0.125'
+#for i in `seq 0.150 0.025 0.600`
+#do
+#    kBval=$i
+#    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#    echo 'kB = '$kBval
+#    echo 'LY = 113'
+#    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#    perl -pi -e ''s/$kBprev/$kBval/'' RunSimple.mac
+#    kBprev=$kBval
+#    ./NSRL12C RunSimple.mac >> log.txt
+#done
+###############
+################
+#Fourth run
+#perl -pi -e 's/113/115/' RunSimple.mac
+#perl -pi -e 's/0.600/0.125/' RunSimple.mac
+#echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#echo 'kB = 0.125'
+#echo 'LY = 115'
+#echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#./NSRL12C RunSimple.mac >> log.txt
+#echo Finished first run
+################
+#Loop the others
+#kBprev='0.125'
+#for i in `seq 0.150 0.025 0.600`
+#do
+#    kBval=$i
+#    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#    echo 'kB = '$kBval
+#    echo 'LY = 115'
+#    echo '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+#    perl -pi -e ''s/$kBprev/$kBval/'' RunSimple.mac
+#    kBprev=$kBval
+#    ./NSRL12C RunSimple.mac >> log.txt
+#done
+###############
+
 #Change the LY and kB values back.
 #perl -pi -e 's/0.500/0.050/' RunSimple.mac
 #perl -pi -e 's/103/107/' RunSimple.mac

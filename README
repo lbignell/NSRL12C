@@ -876,19 +876,64 @@ Results:
 	   105 ph/MeV = 126.2, 107 ph/MeV = 105.5. NDF = 48.
 
 - It appears that higher light yields give better overall fits. I'll try running
-  several optimisations on the RACF for light yields of 109, 111, 113, 115, 117,
-  and 119 ph/MeV; to estimate their kB values. Then I once I find their optimal
+  several optimisations on the RACF for light yields of 109, 111, 113, 115, and
+  120 ph/MeV; to estimate their kB values. Then I once I find their optimal
   kBs, I can do a Chi2 optimisation on the light yield. I can then run these
   numbers through the 2013 data and check out how good of a fit it gives.
+  -> My estimate of how much data this will generate: ~ 1 Gb/file; 5 LYs, 20
+     files/LY ==> 100 Gb. The run should finish well before the end of the W/E.
 
 PureLS, DB QY and Rindex:
 - All distributions are too low, which suggests that the light yield must be
   increased. However; the 2 GeV distribution is much closer than the 475 MeV and
   210 MeV ones, so maybe I'll run into problems getting them all to work...
 
+2015-02-09
+- The weekend simulations finding an optimal kB for various LY values ran into
+  problems running simultaneously. Apparently there is some race condition on
+  input file (RunSimple.mac) that gets modified for each call. I didn't think
+  it would be a problem unless two runs finished simultaneously but evidently I
+  was wrong (or very unlucky). In any case I can run again sequentially.
+  -> LY = 109 ph/MeV; optimal kB = 0.343 mm/MeV.
+  -> LY = 111 ph/MeV; optimal kB = 0.375 mm/MeV.
+  -> LY = 113 ph/MeV; optimal kB = 0.395 mm/MeV.
+  -> LY = 115 ph/MeV; optimal kB = 0.414 mm/MeV.
+  -> LY = 120 ph/MeV; optimal kB = 0.446 mm/MeV. The Chi2 value is
+     94.4 (NDF = 49), so the fit is as bout as good as other LYs.
+
+2015-02-17
+- Running the optimal 1% kB values at 210 MeV, 475 MeV, and 2 GeV.
+  -> Should finish Thursday afternoon.
+
+- PureLS; prelim simulation suggests that 9000 ph/MeV is about correct (475 MeV
+  protons).
+
+2015-02-18
+- PureLS: Running 9000 ph/MeV at all energies shows that the 2 GeV results are
+  about correct, the 475 MeV results are also about correct, but the 210 MeV
+  results are too low!
+  All distributions also appear to be a tad lower than the water Rindex sim.
+  I assume this reduction in the light collection arises from the worse
+  refractive index matching with the PMT window...
+  Perhaps I need to account for the 'better' single PE estimate?
+
+- 1% WbLS: Scan over light yield for optimal kB values; the optimal light yield
+     	   appears to be ~115 Ph/MeV (kB~0.395 mm/MeV). The 475 MeV and 2 GeV
+	   data show tentative agreement (higher quality data with more points
+	   would be nice.
+
+- I'll do a study of the LED runs to check the single PE calibration once and 
+  for all.
+
 - My plan:
   - Why are the 0.4% WbLS results not nice??
     -> I'll try broadening with a wider Gaussian and see at which point it works
+    -> After playing with the algorithm; there doesn't appear to be any combo of
+       parameters that give a 'nice' low amplitude distribution. I think that
+       the fundamental problem is the extra noise in the data; this causes the
+       algorithm to re-trigger sometimes, extending the pulse and creating a
+       high amplitude tail on the distribution. Maybe I should just skip the
+       0.4% data?
   - Ideally, it would be nice to perform an optimisation on kB and the light
     yield.
   - Once I've settled the optimisation question, I can write up my paper!

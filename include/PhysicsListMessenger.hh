@@ -38,7 +38,6 @@ class G4UIcmdWithADoubleAndUnit;
 class G4UIcmdWithAString;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 class PhysicsListMessenger: public G4UImessenger
 {
   public:

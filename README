@@ -937,3 +937,119 @@ PureLS, DB QY and Rindex:
   - Ideally, it would be nice to perform an optimisation on kB and the light
     yield.
   - Once I've settled the optimisation question, I can write up my paper!
+
+2015-02-27
+- Results from light yield scan are inconclusive; thedoesn't appear to be 
+  good enough statistics to distinguish between the pulses. The simulated
+  distribution also appears to be broader, which can't be helping the Chi2.
+
+  - Fitting Gaussian:
+  Data: Mean = 916.8, Stdev = 93.6
+  Sim, 8900 ph/MeV, 0.05 mm/MeV: Mean = 944.6, Stdev = 115.2
+  Sim, 9000 ph/MeV, 0.05 mm/MeV: Mean = 943.6, Stdev = 121.3
+  Sim, 9100 ph/MeV, 0.05 mm/MeV: Mean = 940.5, Stdev = 117.9
+  Sim, 9200 ph/MeV, 0.05 mm/MeV: Mean = 941.1, Stdev = 119.1
+
+  -> Actually, there was an error in my macro and these all had the SAME light
+     yield at 9100 ph/MeV!!
+     I'm going to fix this and run again!
+     - Chi2 vs LY Gaussian fit gives mean = 9038.0969 ph/MeV
+
+2015-03-09
+- Running over the kB values, for pure LS.
+-> The chi2 looks awful despite the fact that the files are huge (10 Gb).
+   The best fit value is ~0.046 mm/MeV.
+
+- Taking another look at the T1 data:
+  - It appears that the water data (for perfectly reflecting walls) now
+    overestimate the number of photoelectrons. However, the 0.4% WbLS 2 GeV data
+    overestimate the data even more. I'll come back to this later.
+    Turning off for now... (to turn back on set wall reflectance to non-zero and
+    change T1_liq_log material back to WbLS, not WbLS_NoLight).
+
+- Over the weekend I'll do two runs:
+  - Run at all energies for optimised kB/LY values of 1% and PureLS.
+  - Do a light yield optimisation for 0.4% WbLS assuming kB = 0.329 mm/MeV.
+
+2015-03-24
+- Fit uncertainties:
+  The correct way to calculate the uncertainty of a function is to do:
+  JUJ^T , where J is the jacobian matrix (elements are partial derivative of the
+  coefficients, so in our case it's just a row vector).
+  I've implemented this in GetMinError.C, as well as the fit uncertainty, the
+  uncertainty due to minimum chi2 value + 1 is also calculated.
+  These are combined assuming independence between them (valid?), and this
+  combined uncertainty is returned.
+ 
+- Uncertainty estimate on PureLS kB value: kB = 0.491359 +/- 0.00708 mm/MeV. The
+  uncertainty from the fit is 0.005676 and the uncertainty from the shape is
+  0.004234, so they're comparable... (though they could be improved).
+
+2015-03-25
+- The 0.4 pc WbLS light yield scan (for 0.329 mm/MeV birks) gives a minimum of
+  2.5 - minimising on 2 GeV data!
+  This is low, and indicates that there is very little light generated in 
+  this scintillator. It will be interesting to see how this squares with the
+  475 MeV and 210 MeV data...
+  * Chi2 minimum = 2.49767 +/- 1.19 ph/MeV (from fit = 0.796, chi2 shape = 0.89)
+
+2015-03-27
+- The 0.4pc WbLS at 475 and 210 MeV for a light yield of 2.5 ph/MeV don't look
+  too great. Despite the dodgy data it is clear that the light yield is too low.
+  So I'll run again with the same quenching and a light yield of 10 ph/MeV, as
+  this seems to be the highest light yield that still give acceptable agreement
+  with the 2 GeV data.
+  -> Nope, can't get them to work! The 2 GeV data are still kind of close, but 
+     the 475 MeV and 210 MeV data are too small.
+     I could run again with 15 ph/MeV (~50% more light), but I should consider
+     what I really need to put into the paper...
+
+2015-04-09
+- I'm going to take one final look at the T1 reflectance.
+  My Plan:
+  * Run using 1% WbLS, use a uniform reflectance. Tune this to the measurements.
+  * Check the simulation predictions at 2 GeV and 210 MeV.
+  * Check the simulation predictions for pure LS and (maybe) 0.4% WbLS.
+
+- 475 MeV 1% WbLS results appear consistent with 86.5% reflectance (not 86% and
+  not 87%, so +/- 0.5).
+  - 2 GeV, 1% WbLS: Simulation is ~15% too high.
+  - 210 MeV, 1% WbLS: Simulation is close, maybe a touch high but hard to tell	
+    	     	      due to low statistics.
+  - 475 MeV, PureLS: Simulation is ~30% too low
+
+Summary of T1 reflectance check:
+* Unsurprisingly, I can get a good agreement with 475 MeV if I tune the
+  reflectance.
+* This carries over to pretty good agreement for 210 MeV, 1% WbLS. 
+* 2 GeV, 1% WbLS does not maintain great agreement (simulation is 15% too high).
+  It could be that the different spectrum incident on the wall plays a role.
+* Pure LS results don't appear to preserve the good agreement. In a way this is
+  worrying, as it portends a problem with my quantum yield (unless the result
+  can be explained by the difference in the scintillation emission spectrum).
+
+I think it may be time to write up...
+
+2015-05-12
+- I cannot find the Chi2 optimisations of the 1% WbLS light yield or kB for the 
+  life of me! I need these to calculate the uncertainty associated with the
+  minimum!! Fuck! I need to redo these simulations...
+
+- I may also need to redo the 0.4% scintillator simulation; the one that I have
+  done that used Chi2 does not cut the mustard. Instead, I'll try to align the
+  means of the distributions, assuming a nominal 0.15 cm/MeV quenching.
+  -> Done. 17 ph/MeV does the trick. Now looking at kB more closely (0.15 mm/MeV
+     is too low).
+     ->Done. 0.2 mm/MeV does the trick.
+  * Running with LY = 17 ph/MeV and kB = 0.2 cm/MeV o'night, for all beam en.
+
+2015-05-13
+- Done with the 0.4% re-analysis; the spectra actually look kind of nice.
+- Now for the tricky part; the Chi2 re-analysis for the 1% light yield...
+
+2015-05-14
+- It appears I stuffed up my attempt to do the Chi2 re-analysis as I used the
+  wrong % WbLS (used to calculate the density and refractive index. In any case
+  the light yield range was not optimal. I'm running again, this time over LY
+  range 97 - 113, with correct % WbLS.
+  -> Done. Unsurprisingly, the minimum is 105.2 ph/MeV. Uncert is 0.9.

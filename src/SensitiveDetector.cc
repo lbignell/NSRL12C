@@ -202,8 +202,8 @@ G4bool SensitiveDetector::ProcessHits(G4Step* theStep, G4TouchableHistory*){
     else if(theStep->GetPostStepPoint()->GetPhysicalVolume()->GetName()
     	    =="T1_phys"){
     //Implement the reflection probability.
-      //G4double ReflProb = 0.925;//Old value, when white tub was implemented.
-      G4double ReflProb = 0.0;
+      G4double ReflProb = 0.865;//Old value, when white tub was implemented.
+      //G4double ReflProb = 0.;
       if(G4UniformRand()<ReflProb){
 	//Allow photon to live (do nothing).
       }
@@ -268,7 +268,7 @@ void SensitiveDetector::EndOfEvent(G4HCofThisEvent*){
       unsigned long long int MeasPhotonsT2 = PMTT2->GetMeasPhotons();
       vector<string> LVatVertexT2 = PMTT2->GetLVatVertex();
       vector<double> TrackLengthT2 = PMTT2->GetTrackLength();
-
+      
       //cout << "T1 generated = " << TotOptPhotons << endl
       //   << "T1 at PMTwin = " << PhotonsT1 << endl
       //   << "T1 measured  = " << MeasPhotonsT1 << endl

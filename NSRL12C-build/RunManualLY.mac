@@ -8,4 +8,4 @@
 /CustomCommands/det/setBirks 0.05
 /CustomCommands/det/update
 /gun/energy 2000 MeV
-/run/beamOn 2000
+/run/beamOn 2001

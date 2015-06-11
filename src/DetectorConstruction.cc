@@ -988,10 +988,11 @@ if(FilePtr!=0){
   //Create T1
   G4Tubs* Tub = new G4Tubs("Tub", 0, TubOuterDiam/2, TubHeight/2, 0, 360*deg);
   //Old T1 code:
-  //G4LogicalVolume* T1_log = new G4LogicalVolume(Tub, PFTE_white_nist, "T1_log",
-  //						0,0,0);
-  G4LogicalVolume* T1_log = new G4LogicalVolume(Tub, PFTE_black_nist, "T1_log",
+  G4LogicalVolume* T1_log = new G4LogicalVolume(Tub, PFTE_white_nist, "T1_log",
   						0,0,0);
+  //Alternative when I want to turn off T1 reflectance:
+  //G4LogicalVolume* T1_log = new G4LogicalVolume(Tub, PFTE_black_nist, "T1_log",
+  //  						0,0,0);
   G4VPhysicalVolume* T1_phys =
     new G4PVPlacement(RotMat, G4ThreeVector(0, 0, 0), T1_log, "T1_phys",
 		      logical_world, false, 0, false);
@@ -1003,10 +1004,13 @@ if(FilePtr!=0){
       new G4LogicalVolume(liquid, water_nist, "T1_liq_log", 0,0,0);//For Water
   
   if(!isWater){
+    T1_liq_log->SetMaterial(WbLS);
     //T1_liq_log =
     //new G4LogicalVolume(liquid, WbLS, "T1_liq_log", 0,0,0);//For WbLS
-    if(WbLSfraction!=1){T1_liq_log->SetMaterial(WbLS_NoLight);}
-    else{T1_liq_log->SetMaterial(Scint);}
+    //if(WbLSfraction!=1){
+    //T1_liq_log->SetMaterial(WbLS_NoLight);
+    //}
+    //else{T1_liq_log->SetMaterial(Scint);}
   }
 
   G4VPhysicalVolume* T1_liq_phys =
@@ -1031,7 +1035,6 @@ if(FilePtr!=0){
   VA_T1_win->SetColor(1,0,0);
   VA_T1_win->SetForceSolid(true);
   T1_win_log->SetVisAttributes(VA_T1_win);
-
 
   //Now to make T2 (with the Al housing).
   G4Tubs* AlHousing = new G4Tubs("Al Housing", 0, AlOuterDiam/2, AlHeight/2,	
@@ -1122,7 +1125,6 @@ if(FilePtr!=0){
   SDman->AddNewDetector(SDPMTT2);
   PMT_T2_log->SetSensitiveDetector(SDPMTT2);
 
-
   G4VPhysicalVolume* PMT_T1_phys =
     new G4PVPlacement(RotMat, G4ThreeVector(0, PMTT1Disp, 0), PMT_T1_log,
 		      "PMT_T1_phys", logical_world, false, 0, false);
@@ -1131,14 +1133,12 @@ if(FilePtr!=0){
     new G4PVPlacement(RotMat, G4ThreeVector(0, PMTT2Disp, (GapT1H2 + GapH2T2)),
 		      PMT_T2_log,"PMT_T2_phys", logical_world, false, 0, false);
 
-
-
   /////////////////////////////////////////////////////////////////////////////
   //////////Do optical surfaces...////////////
-  //G4OpticalSurface* OptSurf_T1 =
-  //new G4OpticalSurface("Optical surface, Liquid-White PFTE");//,unified,
+  G4OpticalSurface* OptSurf_T1 =
+    new G4OpticalSurface("Optical surface, Liquid-White PFTE");//,unified,
   //groundfrontpainted,//Only lambertian reflection + abs. 
-  //			 dielectric_dielectric);
+  //dielectric_dielectric);
   //Unified model  
   //OptSurf_T1->SetModel(unified);
   //OptSurf_T1->SetType(dielectric_dielectric);
@@ -1148,13 +1148,12 @@ if(FilePtr!=0){
   //OptSurf_T1->SetModel(LUT);
   //OptSurf_T1->SetFinish(polishedteflonair);
   //Glisur model
-  //OptSurf_T1->SetModel(glisur);
-  //OptSurf_T1->SetType(dielectric_metal);
-  //OptSurf_T1->SetFinish(ground);
-  //G4LogicalBorderSurface* WaterToT1 =
-  //new G4LogicalBorderSurface("WaterToT1", T1_liq_phys, T1_phys,
-  //			       OptSurf_T1);
- 
+  OptSurf_T1->SetModel(glisur);
+  OptSurf_T1->SetType(dielectric_metal);
+  OptSurf_T1->SetFinish(ground);
+  G4LogicalBorderSurface* WaterToT1 =
+    new G4LogicalBorderSurface("WaterToT1", T1_liq_phys, T1_phys,
+  			       OptSurf_T1);
 
   G4OpticalSurface* OptSurf_T1_outer =
     new G4OpticalSurface("Optical surface, White PFTE-Air");
@@ -1175,7 +1174,6 @@ if(FilePtr!=0){
   G4LogicalBorderSurface* WaterToT2 =
     new G4LogicalBorderSurface("WaterToT2", T2_liq_phys, T2_phys,
   			       OptSurf_T2);
-
 
   G4OpticalSurface* OptSurf_WaterAcrylic =
     new G4OpticalSurface("Optical surface, Water-Acrylic");

@@ -57,7 +57,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(){
     {Y = beamsigma*sqrt(-2*log(G4UniformRand()))*cos(2*M_PI*G4UniformRand());}
 
   //Assume beam window is 30 cm from the first vial's centre
-  gun->SetParticlePosition(G4ThreeVector(X,Y + YDisplacement,-99*cm));
+  gun->SetParticlePosition(G4ThreeVector(X,Y + YDisplacement,-570*cm));
 
   gun->SetParticleMomentumDirection(G4ThreeVector(0,0,1));
   //momentum directional cosines
@@ -95,7 +95,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent){
     {Y = beamsigma*sqrt(-2*log(G4UniformRand()))*cos(2*M_PI*G4UniformRand());}
 
   //Assume beam window is 30 cm from the first vial's centre
-  gun->SetParticlePosition(G4ThreeVector(X,Y+YDisplacement,-99*cm));
+  gun->SetParticlePosition(G4ThreeVector(X,Y+YDisplacement,-570*cm));
 
   //hopefully G4UniformRand gives a new random number each call.
 

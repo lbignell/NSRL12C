@@ -103,7 +103,7 @@ void GetChi2Vals(string pcWbLS, string kBVals, string LY, int nbins,
 
   cout << "Done!" << endl << "Reading Tree...";
   //Open up the data tree
-  TFile* f = TFile::Open("AllResults_NewSinglePECal.root");
+  TFile* f = TFile::Open("AllResults_FastReset.root");
   string hname = "WbLS_" + pcWbLS + "_T2_210";
   TH1D* rawdata = (TH1D*)f->Get(hname.c_str());
   cout << "Done!" << endl << "Drawing data... ";

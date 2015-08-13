@@ -255,6 +255,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   G4Material* air_nist = nist->FindOrBuildMaterial("G4_AIR");
   G4Material* HDPE_nist = nist->FindOrBuildMaterial("G4_POLYETHYLENE");
   G4Material* Polystyrene_nist = nist->FindOrBuildMaterial("G4_POLYSTYRENE");
+  G4Material* PVC_nist = nist->FindOrBuildMaterial("G4_POLYVINYL_CHLORIDE");
   G4Material* Acrylic_nist = nist->FindOrBuildMaterial("G4_POLYACRYLONITRILE");
   G4Material* glass_nist = nist->FindOrBuildMaterial("G4_Pyrex_Glass");
   G4Element* C_nist = nist->FindOrBuildElement("C");
@@ -871,9 +872,9 @@ if(FilePtr!=0){
 
 /*the volumes: */
 
-  G4double worldx = 1 * m;
-  G4double worldy = 1 * m;
-  G4double worldz = 1 * m;
+  G4double worldx = 10* m;
+  G4double worldy = 10* m;
+  G4double worldz = 10* m;
 
 //the whole simulation must be contained within a "world" volume
 //defining a volume requires definition of solid, logical, and physical volume
@@ -910,9 +911,32 @@ if(FilePtr!=0){
   double GapH2T2 = ((250 - 242)*2.54)*cm;
   //Gap between T2 centre and H3 centre
   double GapT2H3 = ((261 - 250)*2.54)*cm;
+
+  //Place a vertical 20 mm inner radius PVC cylinder centred 5 cm in front of H1
+  G4Tubs* NSRLmonHousing = new G4Tubs("NSRLTub", 29.49*mm, 30*mm, 10*cm, 
+				      0, 360*deg);
+
+  G4LogicalVolume* NSRLmonHousing_log = 
+    new G4LogicalVolume(NSRLmonHousing, PVC_nist, "NSRLhous_log", 0,0,0);
+  
+  G4VPhysicalVolume* NSRLmonHousing_phys = 
+    new G4PVPlacement(0,G4ThreeVector(0, BeamHeight, -(GapH1T1+5*cm)),
+		      NSRLmonHousing_log,"NSRLhous_phys",
+		      logical_world, false, 0, false);
+
+  //
+  G4Box* NSRLmon = new G4Box("NSRLmon", 10*mm, 10*mm, 2*mm);
+
+  G4LogicalVolume* NSRLmon_log =
+    new G4LogicalVolume(NSRLmon, Polystyrene_nist, "NSRLmon_log", 0,0,0);
+  
+  G4VPhysicalVolume* NSRLmon_phys = 
+    new G4PVPlacement(0,G4ThreeVector(0, BeamHeight, -(GapH1T1+5*cm)),
+		      NSRLmon_log,"NSRLmon_phys",logical_world,false,0,false);
+
   //Dimensions
   //All hodoscopes are 2x2x0.5 cm
-  G4Box* hodo = new G4Box("hodoscope", 10*mm, 10*mm, 0.25*mm);
+  G4Box* hodo = new G4Box("hodoscope", 10*mm, 10*mm, 0.25*cm);
 
   G4LogicalVolume* H1_log =
     new G4LogicalVolume(hodo, Polystyrene_nist, "H1_log", 0,0,0);
@@ -1004,11 +1028,11 @@ if(FilePtr!=0){
       new G4LogicalVolume(liquid, water_nist, "T1_liq_log", 0,0,0);//For Water
   
   if(!isWater){
-    T1_liq_log->SetMaterial(WbLS);
+    //T1_liq_log->SetMaterial(WbLS);
     //T1_liq_log =
     //new G4LogicalVolume(liquid, WbLS, "T1_liq_log", 0,0,0);//For WbLS
     //if(WbLSfraction!=1){
-    //T1_liq_log->SetMaterial(WbLS_NoLight);
+    T1_liq_log->SetMaterial(WbLS_NoLight);
     //}
     //else{T1_liq_log->SetMaterial(Scint);}
   }
@@ -1040,7 +1064,8 @@ if(FilePtr!=0){
   G4Tubs* AlHousing = new G4Tubs("Al Housing", 0, AlOuterDiam/2, AlHeight/2,	
 				 0, 360*deg);
   G4LogicalVolume* AlT2_log = 
-    new G4LogicalVolume(AlHousing, AlAlloy, "AlT2_log", 0,0,0);
+    //  new G4LogicalVolume(AlHousing, AlAlloy, "AlT2_log", 0,0,0);
+    new G4LogicalVolume(AlHousing, air_nist, "AlT2_log", 0,0,0);
   G4VPhysicalVolume* AlT2_phys =
     new G4PVPlacement(RotMat, G4ThreeVector(0,0, (GapT1H2 + GapH2T2)), AlT2_log,
 		      "AlT2_phys", logical_world, false, 0, false);
@@ -1065,7 +1090,8 @@ if(FilePtr!=0){
     new G4SubtractionSolid("T2Tub", Tub, T2_win, 0,
 			   G4ThreeVector(0, 0, T2UVTdisp));
   G4LogicalVolume* T2_log = 
-    new G4LogicalVolume(T2Tub, PFTE_black, "T2_log", 0,0,0);
+    new G4LogicalVolume(T2Tub, AlAlloy, "T2_log", 0,0,0);
+  //    new G4LogicalVolume(T2Tub, PFTE_black, "T2_log", 0,0,0);
   G4VPhysicalVolume* T2_phys =
     new G4PVPlacement(0, G4ThreeVector(0,0,0), T2_log,
 		      "T2_phys", AlT2_log, false, 0, false);
@@ -1076,6 +1102,7 @@ if(FilePtr!=0){
     new G4LogicalVolume(liquid, water_nist, "T2_liq_log", 0,0,0);//For Water
   if(!isWater){
     T2_liq_log->SetMaterial(WbLS);
+    //T2_liq_log->SetMaterial(WbLS_NoLight);
     //T2_liq_log =
     //new G4LogicalVolume(liquid, WbLS, "T2_liq_log", 0,0,0);//For WbLS
   }

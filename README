@@ -1033,7 +1033,7 @@ I think it may be time to write up...
 2015-05-12
 - I cannot find the Chi2 optimisations of the 1% WbLS light yield or kB for the 
   life of me! I need these to calculate the uncertainty associated with the
-  minimum!! Fuck! I need to redo these simulations...
+  minimum!! I need to redo these simulations...
 
 - I may also need to redo the 0.4% scintillator simulation; the one that I have
   done that used Chi2 does not cut the mustard. Instead, I'll try to align the
@@ -1052,4 +1052,106 @@ I think it may be time to write up...
   wrong % WbLS (used to calculate the density and refractive index. In any case
   the light yield range was not optimal. I'm running again, this time over LY
   range 97 - 113, with correct % WbLS.
-  -> Done. Unsurprisingly, the minimum is 105.2 ph/MeV. Uncert is 0.9.
+  -> Done. The minimum is 105.2 ph/MeV. Uncert is 0.9.
+
+2015-05-11
+- It turns out that my geometry was a bit incorrect. I modeled T2's thickness as
+  1 cm instead of 1/4" and included a layer of black teflon that wasn't there.
+  - This leads to underestimating the true energy deposit in T2 by ~10% for
+    water/WbLS, and overestimating it by 15% for LS, at 210 MeV protons.
+  - The 210 protons incident on the LS go straight through (both geoms)!
+  - The 475 MeV and 2 GeV simulations aren't really affected much.
+
+- I'm re-running the simulation for 1% WbLS, at 210 MeV proton energy, to get
+  an idea of the magnitude of the systematic.
+  -> Gives a distribution that is slightly greater than the measured
+     distribution :(
+
+2015-05-14
+- I'm re-running the sim for PureLS, at 210 MeV proton energy.
+  -> It makes surprisingly little difference. I can leave this be.
+
+2015-06-15  
+- Re-doing the kB optimisation for 1% WbLS.
+  -> 5001 events/kB is not sufficient.
+  -> Re-running with 4 times as many events, which should be sufficient.
+     -> 0.225 cm/MeV to 0.45 cm/MeV
+     -> ~2G/file, 10 files --> 20 G (237G spare).
+     -> Should finish in ~52 hrs; Thursday afternoon.
+
+2015-06-17
+- Preliminary simulation results suggest that the change to the geometry results
+  in a 25% *decreased* kB value. This is not expected. The only differences
+  between the current simulation and the previous optimisation are that the
+  measured data analysis used re-optimised parameters (changing this only leads
+  to a ~3% reduction in kB) and that the scintillator density and refractive
+  index were modified to account for the WbLS phase (linear interpolation
+  between pure LS and water).
+  -> Perhaps there's something I'm missing?
+
+2015-06-17
+- Longer simulation runs suggest that the Chi2 has a local minimum at 0.34cm/MeV
+  and a global minimum 0.22 cm/MeV!
+  -> Perhaps I was picking up on this local minimum previously.
+  -> No, a repeated run suggests that that suggestion is bull.
+
+2015-06-19
+- Minimum is at 0.233 cm/MeV. If there is a problem with my simulation, it may
+  show up in the higher energies (plus if there isn't I need to re-take these
+  anyway).
+  -> Running high quality run over the weekend at 210 MeV, 475 MeV, and 2 GeV.
+
+2015-06-22
+- The problem with the kB value is resolved: I was using the incorrect
+  scintillator density! I used 100% LS density, rather than 1% WbLS
+  -> Optimal kB = 0.620 mm/MeV.
+
+2015-07-01
+- The previous kB optimisation AGAIN used the incorrect scintillator density;
+  (this time 9.9% rather than 0.99%) :-\
+  -> Running again, with the CORRECT scintillator density, 0.275<kB<0.650...
+
+2015-07-22
+- The results with the new geometry weren't going great, but then I realised
+  that I hadn't re-optimised the optical parameters (the beam height, in this
+  case). Re-doing the optical parameters...
+  -> The optimal value is at 0.688 cm +/- 0.045 cm (was 1.075 cm).
+
+2015-07-24
+- I'm taking a different approach with the 0.4% WbLS; I can do a Chi2 analysis
+  while including or excluding the 1 PE bin. The optimal values when excluding
+  and including the bin are 20.4 +/- 0.5 and 18.9 +/- 0.5 PE respectively. I
+  suppose I can take the mean value, and use the range of both uncertainties as
+  an estimate of the total uncertainty (in addition to the 10% systematic).
+  Alternatively I could take the sum of squares uncertainty, or just the
+  uncertainty associated with one point... I'm not sure what the best one is.
+
+////////////////////////////////////////////////////////////////////////////////
+- NSRL12C results.
+////////////////////////////////////////////////////////////////////////////////
+- Optimal LY Values (based on Chi2 fit):
+  1pc WbLS: 108.88 +/- 0.81
+  0.4pc WbLS: 19.26 +/- 0.36 (using 1 PE bin), 20.55 +/- 0.44 (without 1 PE bin)
+  	      combined value = 19.9 +/- 1.1 (using entire range).
+  Pure LS: 9156 +/- 42 (kB = 0.1); 9364 +/- 32 (kB = 0.2)
+
+- Optimal kB Values (based on Chi2 fit):
+  1pc WbLS: 0.44 +/- 0.01 mm/MeV
+  0.4pc WbLS: 0.70+/-0.03 mm/MeV (using >1 PE), 0.6208 +/- 0.04 mm/MeV (using >2
+      	    PE), 0.7978 +/- 0.0268 mm/MeV; combined value = 0.70 +/- 1.2 mm/MeV!
+  Pure LS: 0.071 +/- 0.004 mm/MeV
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+- NSRL13A results
+////////////////////////////////////////////////////////////////////////////////
+- Optimal 1pc WbLS Light Yield:
+  Upstream = 110.2 +/- 1.0
+  Downstream = 109.0 +/- 1.0
+////////////////////////////////////////////////////////////////////////////////
+
+2015-08-06
+- Added NSRL beam monitor (2mm) and made hodoscopes the correct thickness (0.5 
+  cm, not mm!).
+- Finished all measurements.
+
